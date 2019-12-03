@@ -1,0 +1,38 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);/* Bootstrap adjustments */
+
+.form-control {
+  border: 1px solid #CCDB75;
+}
+
+.btn {
+  background-color: #CCDB75;
+}
+
+.btn:hover {
+  background-color: #F5A168;
+}
+
+/* Customize */
+
+body {
+  background-color: #F5A168;
+}
+
+.login-box {
+  margin-top: 5vh;
+  width: 30vw;
+  box-shadow: 0 0 15px 0 rgba(47, 74, 113, 0.2);
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+form {
+  width: 100%;
+}
+
+.btn a {
+  text-decoration: none;
+  color: #212529;
+}
+
