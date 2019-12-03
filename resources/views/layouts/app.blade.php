@@ -26,13 +26,13 @@
             <nav class="nav flex-column">
                     <a href="{{ url('/') }}" class="nav-brand mx-auto p-2 mdi mdi-home h2"></a>
                     <a href="" class="nav-link mx-auto mdi mdi-calendar-month h2"></a>
-                    <a href="" class="nav-link mx-auto"><i class="icon-star"></i></a>
-                    <a href="" class="nav-link mx-auto">Link</a>
-                    <a href="" class="nav-link mx-auto">Link</a>
-                    <a class="nav-link mx-auto" href="{{ route('logout') }}"
+                    <a href="" class="nav-link mx-auto mdi mdi-silverware h2"></a>
+                    <a href="" class="nav-link mx-auto mdi mdi-food h2"></a>
+                    <a href="" class="nav-link mx-auto mdi mdi-account-box h2"></a>
+                    <a class="nav-link mx-auto mdi mdi-logout h2" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('') }}
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
