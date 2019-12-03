@@ -6,3 +6,25 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Sidenavigation
+.vertical-nav {
+    min-width: 5rem;
+    width: 5rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.4s;
+  }
+// Main Content area
+.page-content {
+width: calc(100% - 17rem);
+margin-left: 17rem;
+transition: all 0.4s;
+}
+
+// All Icons
+.mdi{
+    color: $darkGrey;
+}
