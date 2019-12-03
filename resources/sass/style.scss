@@ -1,0 +1,42 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+// Variables
+@import 'variables';
+
+/* Bootstrap adjustments */
+
+.form-control {
+    border: 1px solid $green;
+}
+
+.btn {
+    background-color: $green;
+}
+
+.btn:hover {
+    background-color: $orange;
+}
+
+/* Customize */
+body {
+    background-color: $orange;
+}
+
+.login-box {
+    margin-top: 5vh;
+    width: 30vw;
+    box-shadow: 0 0 15px 0 rgba(47, 74, 113, 0.2);
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+form {
+    width: 100%;
+}
+
+.btn a {
+    text-decoration: none;
+    color: #212529;
+}
