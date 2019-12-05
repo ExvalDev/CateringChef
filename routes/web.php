@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('/tables', 'TablesController@show');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tables/create', 'TablesController@create');
+Route::post('/tables', 'TablesController@store');
