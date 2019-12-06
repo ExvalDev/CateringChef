@@ -19,7 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tables', 'TablesController@show');
+Route::resource('/tables', 'TableController');
 
-Route::get('/tables/create', 'TablesController@create');
-Route::post('/tables', 'TablesController@store');
+Route::get('/tables', 'TableController@index');
+Route::get('/tables/create', 'TableController@create');
+Route::post('/tables', 'TableController@store');
+Route::get('/tables/destroy/{id}', 'TableController@destroy');
