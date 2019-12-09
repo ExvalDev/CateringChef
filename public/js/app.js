@@ -49547,6 +49547,23 @@ Vue.component('side-nav', __webpack_require__(/*! ./components/sideNav.vue */ ".
 var app = new Vue({
   el: '#app'
 });
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
 
 /***/ }),
 
@@ -49762,9 +49779,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/style.scss */"./resources/sass/style.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style.scss */"./resources/sass/style.scss");
 
 
 /***/ })
