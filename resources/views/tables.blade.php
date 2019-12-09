@@ -4,8 +4,37 @@
     <div class="col-4 m-0 py-3 pr-2 pl-3 h-100" style="display: flex;
     flex-direction:column;">
         <h1 class="">Zutaten</h1>
+        <button type="button" class="btn float-right" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i> Zutat</button>
         <div class="bg-white" style="flex: 1">
-            <h2>test</h2>
+            <div class="container p-2">
+                <input class="form-control" id="SearchZutat" type="text" placeholder="Search..">
+                <hr class="m-2" style="border:solid #CCDB75 1px;">
+            </div>
+            <ul class="list-group p-2 overflow-auto" id="ListZutat">
+                @foreach ($ingredients as $ingredient)
+                    <li class="list-group-item bg-light rounded my-1 border-0">
+                        {{-- Button for more Information --}}
+                        {{ $ingredient->name }}
+                        <div class="btn-group">
+                            <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                                @csrf
+                                @method('SHOW')
+                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-info-circle"></i></button> 
+                            </form>
+                        </div>
+                        <div class="btn-group float-right">
+                            {{-- Button open add Ingredient Modal --}}
+                            <button type="button" class="btn px-2 py-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
+                            {{-- Button delete Ingredient  --}}
+                            <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
+                            </form>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
     </div>
     <div class="col-4  m-0 py-3 px-2" style="display: flex;

@@ -52,7 +52,7 @@
                     toastr.error("{{ Session::get('message') }}");
                     break;
             }
-            @endif
+        @endif
     </script>
     <div id="app">    
         <div class="vertical-nav bg-white">       
