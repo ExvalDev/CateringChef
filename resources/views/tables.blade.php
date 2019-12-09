@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content') 
 <div class="container-fluid row m-0 p-0 vh-100">
     <div class="col-4 m-0 py-3 pr-2 pl-3 h-100" style="display: flex;
