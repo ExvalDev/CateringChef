@@ -175,5 +175,6 @@ return [
         'time'                  => 'Uhrzeit',
         'available'             => 'verfügbar',
         'size'                  => 'Größe',
+        'unit'                  =>'Einheit',
     ],
 ];

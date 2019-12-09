@@ -61,6 +61,16 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
+                                    <div class="form-check form-check">
+                                        @foreach($allergenes as $allergene)
+                                        <input class="form-check-input" type="checkbox" name="{{ $allergene->name}}" value="{{ $allergene->id }}">
+                                        <label class="form-check-label" for="inlineCheckbox">{{ $allergene->name }}</label><br>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col">
                                     <input type="text" class="form-control @error('supplier') is-invalid @enderror" name="supplier" value="{{ old('supplier') }}" placeholder="Lieferant" autocomplete="supplier" autofocus>
                                     @error('supplier')
                                         <span class="invalid-feedback" role="alert">
