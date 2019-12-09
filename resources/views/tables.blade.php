@@ -15,8 +15,13 @@
             <h3>test</h3>
         </div>
     </div>
-<<<<<<< HEAD
-
+    <div class="col-4  m-0 py-3 px-2" style="display: flex;
+    flex-direction:column;">
+        <h1>Speisen</h1>
+        <div class="bg-white" style="flex: 1">
+            <h3>test</h3>
+        </div>
+    </div>
 
     {{-- MODAL -> Add Ingredient --}}
     <div id="addingredient" class="modal fade" role="dialog">
@@ -82,15 +87,7 @@
                     </div>
                 </form>
             </div>
-=======
-    <div class="col-4 m-0 py-3 pr-3 pl-2" style="display: flex;
-    flex-direction:column;">
-        <h1>Speisen</h1>
-        <div class="bg-white" style="flex: 1">
-            
->>>>>>> ebaf9b0ea7cbcd4b923ebfcce78bb6dfe411641a
         </div>
-    </div>
-    
+    </div>   
 </div>
 @endsection
