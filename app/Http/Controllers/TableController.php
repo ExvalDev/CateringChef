@@ -21,6 +21,7 @@ class TableController extends Controller
     public function index()
     {
         $ingredients = DB::select('select * from ingredients');
-        return view('/tables', ['ingredients' => $ingredients]);
+        $allergenes = DB::select('select * from allergenes');
+        return view('/tables', ['ingredients' => $ingredients, 'allergenes' => $allergenes]);
     }
 }

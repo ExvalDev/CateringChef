@@ -36,10 +36,10 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validatedData = $this->validate($request, [
             'name' => 'required',
             'supplier' => '',
-            'unit' => ''
+            'unit' => 'required'
         ]);
 
         $ingredient = new Ingredient;
@@ -50,7 +50,12 @@ class IngredientController extends Controller
 
         $ingredient->save();
 
-        return redirect('/tables');
+        $notification = array(
+            'message' => 'Zutat wurde hinzugefügt!',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/tables')->with($notification); 
     }
 
     /**
@@ -95,7 +100,14 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
+        $notification = array(
+            'message' => 'Zutat wurde gelöscht!',
+            'alert-type' => 'success'
+        );
+
         DB::table('ingredients')->where('id', $id)->delete();
-        return redirect('/tables');
+        return redirect('/tables')->with($notification);;
+
+        
     }
 }
