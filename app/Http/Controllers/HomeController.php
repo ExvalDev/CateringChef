@@ -26,11 +26,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    public function users()
-    {
-        $users = DB::select('select * from users');
-
-        return view('users', ['users' => $users]);
-    }
 }

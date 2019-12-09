@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Ingredient;
 
 class IngredientController extends Controller
 {
@@ -34,7 +36,21 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'supplier' => '',
+            'unit' => ''
+        ]);
+
+        $ingredient = new Ingredient;
+
+        $ingredient->name = $request->input('name');
+        $ingredient->supplier = $request->input('supplier');
+        $ingredient->unit = $request->input('unit');
+
+        $ingredient->save();
+
+        return redirect('/tables');
     }
 
     /**
@@ -79,6 +95,7 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('ingredients')->where('id', $id)->delete();
+        return redirect('/tables');
     }
 }

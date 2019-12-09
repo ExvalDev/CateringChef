@@ -12,15 +12,30 @@
         </div>
         <ul class="list-group p-2 overflow-auto" id="ListZutat">
             @foreach ($ingredients as $ingredient)
-                <li class="list-group-item bg-light rounded my-1 border-0 d-inline-flex">
-                        {{ $ingredient->name }}<div class="pl-2"><i class="fas fa-info-circle"></i></div>
-                        <button type="button" class="btn float-right" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
-                        <a href="/tables/destroy/{{$ingredient ->id}}" class="float-right"><i class="fas fa-trash-alt"></i></a>
+                <li class="list-group-item bg-light rounded my-1 border-0">
+                    {{-- Button for more Information --}}
+                    {{ $ingredient->name }}
+                    <div class="btn-group">
+                        <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                            @csrf
+                            @method('SHOW')
+                            <button class="btn px-2 py-0 shadow-none"><i class="fas fa-info-circle"></i></button> 
+                        </form>
+                    </div>
+                    <div class="btn-group float-right">
+                        {{-- Button open add Ingredient Modal --}}
+                        <button type="button" class="btn px-2 py-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
+                        {{-- Button delete Ingredient  --}}
+                        <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
+                        </form>
+                    </div>
                 </li>
             @endforeach
         </ul>
     </div>
-    <a href="/tables/create">Zutat hinzufügen</a>
 
 
     {{-- MODAL -> Add Ingredient --}}
@@ -31,7 +46,7 @@
                     <h3><i class="fas fa-plus"></i> Zutat</h3>
                     <a class="close" data-dismiss="modal">×</a>
                 </div>
-                <form action="{{ action('TableController@store') }}" method="POST">
+                <form action="{{ action('IngredientController@store') }}" method="POST">
                     <div class="modal-body">
                             @csrf
                             <div class="form-group">            
