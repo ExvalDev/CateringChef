@@ -1,8 +1,46 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Kreon:400,700|Open+Sans&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+$sidenavWidth: 5rem;
+// Sidenavigation
+.vertical-nav {
+    min-width: $sidenavWidth;
+    width: $sidenavWidth;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.4s;
+  }
+// Main Content area
+.page-content {
+width: calc(100% - $sidenavWidth);
+margin-left: $sidenavWidth;
+transition: all 0.4s;
+}
+
+// All Icons
+.mdi{
+    color: $darkGrey;
+}
+h1, h2, h3, h4{
+  font-family: $font-family-headline; 
+  font-weight: 700;
+  color: $darkGrey;
+}
+h1{
+  font-size: $font-size-h1;
+}
+h2{
+  font-size: $font-size-h2;
+}
+h3{
+  font-size: $font-size-h3;
+}

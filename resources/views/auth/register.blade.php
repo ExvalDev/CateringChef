@@ -10,7 +10,6 @@
         <img src="../img/logo.png" height="218" width="200" alt="Rasende Rüben" hspace="50" vspace="50">
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
             <div class="form-group">
                 <div class="col">
                     <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" placeholder="Vorname" autocomplete="firstname" autofocus>
