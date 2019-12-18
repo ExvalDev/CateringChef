@@ -13,19 +13,19 @@
             <ul class="list-group p-2 overflow-auto" id="ListZutat">
                 @foreach ($ingredients as $ingredient)
                     <li class="list-group-item bg-light rounded my-1 border-0">
-                        {{-- Button for more Information --}}
                         {{ $ingredient->name }}
+                        {{-- Button SHOW Ingredient Modal --}}
                         <div class="btn-group">
                             <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
                                 @csrf
-                                @method('SHOW')
-                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-info-circle"></i></button> 
+                                @method('GET')
+                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
                             </form>
                         </div>
                         <div class="btn-group float-right">
-                            {{-- Button open add Ingredient Modal --}}
+                            {{-- Button EDIT Ingredient MODAL --}}
                             <button type="button" class="btn px-2 py-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
-                            {{-- Button delete Ingredient  --}}
+                            {{-- Button DELETE Ingredient  --}}
                             <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    {{-- MODAL -> Add Ingredient --}}
+    {{-- MODAL -> ADD Ingredient --}}
     <div id="addingredient" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,7 +77,7 @@
                                 <div class="col">
                                     <div class="form-check form-check">
                                         @foreach($allergenes as $allergene)
-                                        <input class="form-check-input" type="checkbox" name="{{ $allergene->name}}" value="{{ $allergene->id }}">
+                                        <input class="form-check-input" type="checkbox" name="allergene[]" value="{{ $allergene->id }}">
                                         <label class="form-check-label" for="inlineCheckbox">{{ $allergene->name }}</label><br>
                                         @endforeach
                                     </div>
@@ -117,6 +117,9 @@
                 </form>
             </div>
         </div>
-    </div>   
+    </div>  
+    
+    {{-- MODAL -> SHOW Ingredient --}}
+    
 </div>
 @endsection

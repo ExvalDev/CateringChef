@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Ingredient;
+use App\Allergene;
 
 class IngredientController extends Controller
 {
@@ -50,6 +51,12 @@ class IngredientController extends Controller
 
         $ingredient->save();
 
+        $allergenes = $request->allergene;
+        foreach ($allergenes as $allergene)
+	    {
+            $ingredient->allergene()->attach($allergene);
+        }
+    
         $notification = array(
             'message' => 'Zutat wurde hinzugefügt!',
             'alert-type' => 'success'
@@ -66,7 +73,8 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-        //
+        $showingredient = Ingredient::find($id);
+        return redirect('/tables');
     }
 
     /**
@@ -77,7 +85,7 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -105,6 +113,7 @@ class IngredientController extends Controller
             'alert-type' => 'success'
         );
 
+        DB::table('allergene_ingredient')->where('ingredient_id', $id)->delete();
         DB::table('ingredients')->where('id', $id)->delete();
         return redirect('/tables')->with($notification);;
 
