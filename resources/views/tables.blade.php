@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@push('styles')
+    <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
+@endpush
 @section('content') 
 <div class="container-fluid row m-0 p-0 vh-100">
     <div class="col-4 m-0 py-3 pr-2 pl-3 h-100" style="display: flex;
@@ -7,10 +10,10 @@
         <button type="button" class="btn float-right" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i> Zutat</button>
         <div class="bg-white" style="flex: 1">
             <div class="container p-2">
-                <input class="form-control" id="SearchZutat" type="text" placeholder="Search..">
+                <input class="form-control" id="SearchIngredient" type="text" placeholder="Search..">
                 <hr class="m-2" style="border:solid #CCDB75 1px;">
             </div>
-            <ul class="list-group p-2 overflow-auto" id="ListZutat">
+            <ul class="list-group p-2 overflow-auto" id="ListIngredient">
                 @foreach ($ingredients as $ingredient)
                     <li class="list-group-item bg-light rounded my-1 border-0">
                         {{ $ingredient->name }}
@@ -65,7 +68,7 @@
                             @csrf
                             <div class="form-group">            
                                 <div class="col">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autocomplete="name" autofocus>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autocomplete="name" autofocus required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -75,18 +78,23 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <div class="form-check form-check">
+                                    <div class="form-check allergene p-0">
                                         @foreach($allergenes as $allergene)
-                                        <input class="form-check-input" type="checkbox" name="allergene[]" value="{{ $allergene->id }}">
-                                        <label class="form-check-label" for="inlineCheckbox">{{ $allergene->name }}</label><br>
+                                            <input class="form-check-input" id="{{ $allergene->name }}" type="checkbox" name="allergene[]" value="{{ $allergene->id }}">
+                                            <label class="form-check-label" for="{{ $allergene->name }}">{{ $allergene->name }}</label>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input type="text" class="form-control @error('supplier') is-invalid @enderror" name="supplier" value="{{ old('supplier') }}" placeholder="Lieferant" autocomplete="supplier" autofocus>
-                                    @error('supplier')
+                                    <input list="suppliers" class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id" value="{{ old('supplier_id') }}" placeholder="Lieferant" autocomplete="supplier_id" autofocus>
+                                    <datalist id="suppliers">
+                                        @foreach($suppliers as $supplier)
+                                            <option value="{{ $supplier->id}}">{{ $supplier->name }}</option>
+                                        @endforeach
+                                    </datalist>
+                                    @error('supplier_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -95,7 +103,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" value="{{ old('unit') }}" placeholder="Einheit" autocomplete="unit" autofocus>                    
+                                    <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" value="{{ old('unit') }}" placeholder="Einheit" autocomplete="unit" autofocus required>                    
                                     @error('unit')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

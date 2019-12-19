@@ -11399,3 +11399,11 @@ h3 {
   font-size: 1.4rem;
 }
 
+.btn {
+  background-color: #CCDB75;
+}
+
+.btn:hover {
+  background-color: #F5A168;
+}
+

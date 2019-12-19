@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
-@push('styles')
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@push('styles_auth')
+    <link href="{{ asset('css/style_auth.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')

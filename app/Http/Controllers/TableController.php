@@ -20,8 +20,9 @@ class TableController extends Controller
      */
     public function index()
     {
-        $ingredients = DB::select('select * from ingredients');
+        $ingredients = DB::select('select * from ingredients order by name asc');
         $allergenes = DB::select('select * from allergenes');
-        return view('/tables', ['ingredients' => $ingredients, 'allergenes' => $allergenes]);
+        $suppliers = DB::select('select * from suppliers');
+        return view('/tables', ['ingredients' => $ingredients, 'allergenes' => $allergenes, 'suppliers' => $suppliers]);
     }
 }
