@@ -44,3 +44,9 @@ h2{
 h3{
   font-size: $font-size-h3;
 }
+.btn{
+  background-color: $green;
+}
+.btn:hover{
+  background-color: $orange;
+}

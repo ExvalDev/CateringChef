@@ -18,7 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @stack('styles')
+    @stack('styles_auth')
 </head>
 <body>
     <div id="auth">

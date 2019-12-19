@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
-@push('styles')
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@push('styles_auth')
+    <link href="{{ asset('css/style_auth.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -38,7 +38,6 @@
             <div class="form-group row justify-content-center">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                     <label class="form-check-label" for="remember">
                         {{ __('Angemeldet bleiben') }}
                     </label>
