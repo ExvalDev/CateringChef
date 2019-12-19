@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Ingredient;
 use App\Supplier;
+use App\Component;
 
 class Ingredient extends Model
 {
