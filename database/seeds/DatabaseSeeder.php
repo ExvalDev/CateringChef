@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //Factories
+        factory(App\User::class, 50)->create();
+        factory(App\Supplier::class, 15)->create();
+
+        //Create Allergene
         $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnuesse", "Soja", "Schalenobst", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen"];
         
         foreach($allergenes as $allergene)
@@ -20,23 +25,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for($i = 1; $i <= 30; $i++)
-        {
-            DB::table('suppliers')->insert([
-                'name' => 'Lieferant '.$i,
-                'postcode' => rand(10000,99999),
-                'place' => 'Place'.$i,
-                'street' => 'Street',
-                'house_number' => rand(1,100),
-            ]);
-        } 
-
-
+        //Create Ingredient
         for($i = 1; $i <= 30; $i++)
         {
             DB::table('ingredients')->insert([
                 'name' => 'Zutat '.$i,
-                'supplier_id' => rand(0, 29),
+                'supplier_id' => rand(1, 15),
                 'unit' => Str::random(10),
             ]);
             
@@ -51,6 +45,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        //Create Dev - User
         DB::table('users')->insert([
             'firstname' => 'admin',
             'surname' => 'admin',
@@ -58,7 +53,5 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
-        
-        factory(App\User::class, 50)->create();
     }
 }

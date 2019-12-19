@@ -91,7 +91,7 @@
                                     <input list="suppliers" class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id" value="{{ old('supplier_id') }}" placeholder="Lieferant" autocomplete="supplier_id" autofocus>
                                     <datalist id="suppliers">
                                         @foreach($suppliers as $supplier)
-                                            <option value="{{ $supplier->id}}">{{ $supplier->name }}</option>
+                                            <option data-value="{{ $supplier->id}}" value="{{ $supplier->name }}">
                                         @endforeach
                                     </datalist>
                                     @error('supplier_id')
