@@ -25,20 +25,43 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        //Create DB Unit
+        $db_units = ['g', 'ml', 'Stück'];
+
+        foreach($db_units as $db_unit)
+        {
+            DB::table('db_units')->insert([
+                'name' => $db_unit,
+            ]);
+        }
+
+        //Create Show Unit
+        $show_units = [['g', 'g' ,1], ['Kg', 'g', 1000], ['ml', 'ml', 1], ['L', 'ml', 1000], ['Stück', 'Stück', 1]];
+
+        foreach($show_units as $show_unit)
+        {
+            DB::table('show_units')->insert([
+                'name' => $show_unit[0],
+                'db_unit_id' => DB::table('db_units')->where('name', $show_unit[1])->value('id'),
+                'factor' => $show_unit[2],
+            ]);
+        }
+
+
         //Create Ingredient
         for($i = 1; $i <= 30; $i++)
         {
             DB::table('ingredients')->insert([
                 'name' => 'Zutat '.$i,
                 'supplier_id' => rand(1, 15),
-                'unit' => Str::random(10),
+                'db_unit_id' => (rand(1,3)),
             ]);
             
             $count = (rand(0,4));
 
             for($j = 1; $j <= $count; $j++)
             {
-                DB::table('allergene_ingredient')->insert([
+                DB::table('allergenes_ingredients')->insert([
                     'ingredient_id' => $i,
                     'allergene_id' => (rand(1,13)),
                 ]);

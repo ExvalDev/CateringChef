@@ -7,6 +7,7 @@
     <div class="col-4 m-0 py-3 pr-2 pl-3 h-100" style="display: flex;
     flex-direction:column;">
         <h1 class="">Zutaten</h1>
+        {{-- Button ADD Ingredient Modal --}}
         <button type="button" class="btn float-right" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i> Zutat</button>
         <div class="bg-white" style="flex: 1">
             <div class="container p-2">
@@ -18,13 +19,7 @@
                     <li class="list-group-item bg-light rounded my-1 border-0">
                         {{ $ingredient->name }}
                         {{-- Button SHOW Ingredient Modal --}}
-                        <div class="btn-group">
-                            <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
-                                @csrf
-                                @method('GET')
-                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
-                            </form>
-                        </div>
+                        <button type="button" id="{{ $ingredient->id }}" class="btn showingredientbutton">View</button>
                         <div class="btn-group float-right">
                             {{-- Button EDIT Ingredient MODAL --}}
                             <button type="button" class="btn px-2 py-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
@@ -68,7 +63,7 @@
                             @csrf
                             <div class="form-group">            
                                 <div class="col">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autocomplete="name" autofocus required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autofocus required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -88,7 +83,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input list="suppliers" class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id" value="{{ old('supplier_id') }}" placeholder="Lieferant" autocomplete="supplier_id" autofocus>
+                                    <input list="suppliers" class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id" value="{{ old('supplier_id') }}" placeholder="Lieferant" autocomplete="on">
                                     <datalist id="suppliers">
                                         @foreach($suppliers as $supplier)
                                             <option data-value="{{ $supplier->id}}" value="{{ $supplier->name }}">
@@ -103,8 +98,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" value="{{ old('unit') }}" placeholder="Einheit" autocomplete="unit" autofocus required>                    
-                                    @error('unit')
+                                    <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}" required>
+                                        @foreach($db_units as $db_unit)
+                                            <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
+                                        @endforeach
+                                    </select>                    
+                                    @error('db_unit_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -128,6 +127,34 @@
     </div>  
     
     {{-- MODAL -> SHOW Ingredient --}}
-    
+    <div id="showingredientmodal" class="modal fade">
+        <div class="modal-dialog">
+             <div class="modal-content">
+                  <div class="modal-header">
+                       <h1>Details</h1>
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body" id="showingredient">
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Lieferant</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Allergene</th>
+                                <td></td>
+                            </tr>
+                        </table>
+                  </div>
+                  <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+             </div>
+        </div>
+   </div>
 </div>
 @endsection
