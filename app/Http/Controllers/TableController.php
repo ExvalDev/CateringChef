@@ -23,6 +23,12 @@ class TableController extends Controller
         $ingredients = DB::select('select * from ingredients order by name asc');
         $allergenes = DB::select('select * from allergenes');
         $suppliers = DB::select('select * from suppliers');
-        return view('/tables', ['ingredients' => $ingredients, 'allergenes' => $allergenes, 'suppliers' => $suppliers]);
+        $db_units =DB::select('select * from db_units');
+
+        return view('/tables', ['ingredients' => $ingredients, 
+                                'allergenes' => $allergenes, 
+                                'suppliers' => $suppliers,
+                                'db_units' => $db_units,
+                                ]);
     }
 }

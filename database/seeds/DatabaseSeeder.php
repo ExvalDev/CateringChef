@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //Factories
+        factory(App\User::class, 50)->create();
+        factory(App\Supplier::class, 15)->create();
+
+        //Create Allergene
         $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnuesse", "Soja", "Schalenobst", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen"];
         
         foreach($allergenes as $allergene)
@@ -20,37 +25,50 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for($i = 1; $i <= 30; $i++)
+        //Create DB Unit
+        $db_units = ['g', 'ml', 'Stück'];
+
+        foreach($db_units as $db_unit)
         {
-            DB::table('suppliers')->insert([
-                'name' => 'Lieferant '.$i,
-                'postcode' => rand(10000,99999),
-                'place' => 'Place'.$i,
-                'street' => 'Street',
-                'house_number' => rand(1,100),
+            DB::table('db_units')->insert([
+                'name' => $db_unit,
             ]);
-        } 
+        }
+
+        //Create Show Unit
+        $show_units = [['g', 'g' ,1], ['Kg', 'g', 1000], ['ml', 'ml', 1], ['L', 'ml', 1000], ['Stück', 'Stück', 1]];
+
+        foreach($show_units as $show_unit)
+        {
+            DB::table('show_units')->insert([
+                'name' => $show_unit[0],
+                'db_unit_id' => DB::table('db_units')->where('name', $show_unit[1])->value('id'),
+                'factor' => $show_unit[2],
+            ]);
+        }
 
 
+        //Create Ingredient
         for($i = 1; $i <= 30; $i++)
         {
             DB::table('ingredients')->insert([
                 'name' => 'Zutat '.$i,
-                'supplier_id' => rand(0, 29),
-                'unit' => Str::random(10),
+                'supplier_id' => rand(1, 15),
+                'db_unit_id' => (rand(1,3)),
             ]);
             
             $count = (rand(0,4));
 
             for($j = 1; $j <= $count; $j++)
             {
-                DB::table('allergene_ingredient')->insert([
+                DB::table('allergenes_ingredients')->insert([
                     'ingredient_id' => $i,
                     'allergene_id' => (rand(1,13)),
                 ]);
             }
         }
 
+        //Create Dev - User
         DB::table('users')->insert([
             'firstname' => 'admin',
             'surname' => 'admin',
@@ -58,7 +76,5 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
-        
-        factory(App\User::class, 50)->create();
     }
 }

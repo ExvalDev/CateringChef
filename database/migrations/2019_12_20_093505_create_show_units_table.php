@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIngredientsTable extends Migration
+class CreateShowUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateIngredientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingredients', function (Blueprint $table) {
+        Schema::create('show_units', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->unsignedBigInteger('supplier_id')->nullable();
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->string('name');
             $table->unsignedBigInteger('db_unit_id');
-            $table->foreign('db_unit_id')->references('id')->on('db_units');
-            $table->timestamps();
+            $table->foreign('db_unit_id')->references('id')->on('DB_Units');
+            $table->bigInteger('factor');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateIngredientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('show__units');
     }
 }

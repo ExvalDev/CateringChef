@@ -1,3 +1,4 @@
+//Search Ingredient
 $(document).ready(function(){
     $("#SearchIngredient").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -7,3 +8,9 @@ $(document).ready(function(){
     });
 });
 
+//Show Ingredient
+$(document).ready(function() {
+    $('.showingredientbutton').on('click', function() {
+        $('#showingredientmodal').modal('show');
+    });
+}); 
