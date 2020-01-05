@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAllergenesTable extends Migration
+class CreateDBUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAllergenesTable extends Migration
      */
     public function up()
     {
-        Schema::create('allergenes', function (Blueprint $table) {
+        Schema::create('db_units', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateAllergenesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allergenes');
+        Schema::dropIfExists('d_b__units');
     }
 }

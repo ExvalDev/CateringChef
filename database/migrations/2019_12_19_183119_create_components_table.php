@@ -15,6 +15,10 @@ class CreateComponentsTable extends Migration
     {
         Schema::create('components', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->unique();
+            $table->longText('recipe')->nullable();
+            $table->unsignedBigInteger('db_unit_id');
+            $table->foreign('db_unit_id')->references('id')->on('db_units');
             $table->timestamps();
         });
     }

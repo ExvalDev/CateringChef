@@ -39,15 +39,15 @@ class IngredientController extends Controller
     {
         $validatedData = $this->validate($request, [
             'name' => 'required',
-            'supplier' => '',
-            'unit' => 'required'
+            'supplier_id' => '',
+            'db_unit_id' => 'required'
         ]);
 
         $ingredient = new Ingredient;
 
         $ingredient->name = $request->input('name');
         $ingredient->supplier_id = $request->input('supplier_id');
-        $ingredient->unit = $request->input('unit');
+        $ingredient->db_unit_id = $request->input('db_unit_id');
 
         $ingredient->save();
 
@@ -73,8 +73,7 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-        $showingredient = Ingredient::find($id);
-        return redirect('/tables');
+       
     }
 
     /**
@@ -113,7 +112,7 @@ class IngredientController extends Controller
             'alert-type' => 'success'
         );
 
-        DB::table('allergene_ingredient')->where('ingredient_id', $id)->delete();
+        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
         DB::table('ingredients')->where('id', $id)->delete();
         return redirect('/tables')->with($notification);;
 
