@@ -28,12 +28,12 @@ transition: all 0.4s;
 
 // All Icons
 .mdi{
-    color: $darkGrey;
+    color: $CC-darkGrey;
 }
 h1, h2, h3, h4{
   font-family: $font-family-headline; 
   font-weight: 700;
-  color: $darkGrey;
+  color: $CC-darkGrey;
 }
 h1{
   font-size: $font-size-h1;
@@ -44,9 +44,11 @@ h2{
 h3{
   font-size: $font-size-h3;
 }
-.btn{
-  background-color: $green;
+
+.tableHeight{
+  height: calc(100vh - 3rem);
+  max-height: calc(100vh - 3rem);
 }
-.btn:hover{
-  background-color: $orange;
+hr{
+  border-top: 2px solid $CC-lightGreen;
 }

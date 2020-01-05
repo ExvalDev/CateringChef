@@ -1,5 +1,4 @@
-// Body
-$body-bg: #e8ecef;
+
 
 // Typography
 $font-family-headline: 'Kreon', serif; 
@@ -12,8 +11,25 @@ $font-size-h2: 1.7rem;
 $font-size-h3: 1.4rem;
 
 // Colors
-$lightGrey: #e8ecef;
-$darkGrey: #4f4f4f;
+$CC-lightGrey: #e8ecef;
+$CC-darkGrey: #4f4f4f;
+$CC-lightGreen: #CCDB75;
+$CC-midGreen: #AEC000;
+$CC-orange: #F5A168;
+$CC-white: #FFFFFF;
+
+// Body
+$body-bg: $CC-lightGrey;
+
+$primary: $CC-lightGreen;
+$secondary: $CC-orange;
+$success: $CC-midGreen;
+$info: #17a2b8;
+$warning: $CC-orange;
+$danger: #dc3545;
+$light: $CC-lightGrey;
+$dark: $CC-darkGrey;
+
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
