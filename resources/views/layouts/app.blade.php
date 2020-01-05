@@ -31,6 +31,11 @@
 
     <!-- Toastr CSS -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+    {{-- Scrollbar --}}
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css"/>
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+
 </head>
 <body>
     {{-- Notification --}}

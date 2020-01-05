@@ -2,58 +2,75 @@
 @push('styles')
     <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
 @endpush
-@section('content') 
+@section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
-    <div class="col-4 m-0 py-3 pr-2 pl-3 h-100" style="display: flex;
-    flex-direction:column;">
-        <h1 class="">Zutaten</h1>
-        <button type="button" class="btn float-right" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i> Zutat</button>
-        <div class="bg-white" style="flex: 1">
-            <div class="container p-2">
-                <input class="form-control" id="SearchIngredient" type="text" placeholder="Search..">
-                <hr class="m-2" style="border:solid #CCDB75 1px;">
+    {{-- Zutaten --}}
+    <div class="col-md-4 m-0 py-3 px-2 tableHeight">
+        <h1>Zutaten</h1>
+        <div class="bg-white shadow-sm  h-100 mh-100 d-flex flex-column">
+            <div class="">
+                <div class="px-2 pt-2 m-0">
+                    <input class="form-control bg-light border-0 shadow-none" id="SearchIngredient" type="text" placeholder="Search..">
+                </div>   
+                <hr class="p-0 my-2"/>
+                <div class="d-flex flex-row-reverse m-2 p-0">
+                    <button type="button" class="btn p-0 btn-primary shadow-none" data-toggle="modal" data-target="#addingredient"><h2 class="mdi mdi-plus m-0"></h2></button>
+                </div>
+                <hr class="p-0 my-2"/>
             </div>
-            <ul class="list-group p-2 overflow-auto" id="ListIngredient">
-                @foreach ($ingredients as $ingredient)
-                    <li class="list-group-item bg-light rounded my-1 border-0">
-                        {{ $ingredient->name }}
-                        {{-- Button SHOW Ingredient Modal --}}
-                        <div class="btn-group">
-                            <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
-                                @csrf
-                                @method('GET')
-                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
-                            </form>
-                        </div>
-                        <div class="btn-group float-right">
-                            {{-- Button EDIT Ingredient MODAL --}}
-                            <button type="button" class="btn px-2 py-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><i class="fas fa-edit"></i></button>
-                            {{-- Button DELETE Ingredient  --}}
-                            <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn px-2 py-0 shadow-none"><i class="fas fa-trash-alt"></i></button> 
-                            </form>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
+            <div data-simplebar class="h-100 mh-100 p-2 overflow-auto">
+                <ul class="list-group" id="ListIngredient">
+                    @foreach ($ingredients as $ingredient)
+                        <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
+                            <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $ingredient->name }}</span>   
+                            <div class="btn-group ml-auto align-self-center ">
+                                {{-- Button EDIT Ingredient MODAL --}}
+                                <button type="button" class="btn px-0 shadow-none" data-toggle="modal" data-target="#editingredientmodal"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                {{-- Button DELETE Ingredient  --}}
+                                <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
+                                </form>
+                                {{-- Button SHOW Ingredient Modal --}}
+                                <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                    <button class="btn px-0 shadow-none"><h2 class="mdi mdi-information-variant m-0"></button> 
+                                </form>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul> 
+            </div>
         </div>
     </div>
-    <div class="col-4  m-0 py-3 px-2" style="display: flex;
-    flex-direction:column;">
+
+    <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
         <h1>Komponenten</h1>
-        <div class="bg-white" style="flex: 1">
-            <h3>test</h3>
+        <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
+            <div>
+                
+            </div>
+            <div class="h-100 mh-100 p-2 overflow-auto">
+                {{-- Inser List Components here --}} 
+            </div>
         </div>
     </div>
-    <div class="col-4  m-0 py-3 px-2" style="display: flex;
-    flex-direction:column;">
+
+    <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
         <h1>Speisen</h1>
-        <div class="bg-white" style="flex: 1">
-            <h3>test</h3>
+        <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
+            <div>
+                
+            </div>
+            <div class="h-100 mh-100 p-2 overflow-auto">
+                {{-- Inser List Meal here --}}
+            </div>
         </div>
     </div>
+
+    
 
     {{-- MODAL -> ADD Ingredient --}}
     <div id="addingredient" class="modal fade" role="dialog">
@@ -113,13 +130,11 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <div class="form-group mb-0">
-                            <div class="col offset-md-4">
-                                <button type="submit" class="btn">
-                                    {{ __('Speichern') }}
-                                </button>
-                            </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Speichern') }}
+                            </button>
                         </div>
                     </div>
                 </form>
