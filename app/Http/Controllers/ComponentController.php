@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Component;
 use App\Ingredient;
-use App\Allergene;
+use Validator;
 
-class IngredientController extends Controller
+class ComponentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,29 +40,24 @@ class IngredientController extends Controller
     {
         $validatedData = $this->validate($request, [
             'name' => 'required',
-            'supplier_id' => '',
-            'db_unit_id' => 'required'
+            'recipe' => '',
+            'db_unit' => 'required'
         ]);
-        $ingredient = new Ingredient;
+
+        $component = new Component;
 
         $ingredient->name = $request->input('name');
-        $ingredient->supplier_id = $request->input('supplier_id');
-        $ingredient->db_unit_id = $request->input('db_unit_id');
+        $ingredient->recipe = $request->input('recipe');
+        $ingredient->db_unit_id = $request->input('db_unit');
 
         $ingredient->save();
 
-        $allergenes = $request->allergene;
-        foreach ($allergenes as $allergene)
-	    {
-            $ingredient->allergene()->attach($allergene);
-        }
-    
         $notification = array(
             'message' => 'Zutat wurde hinzugefügt!',
             'alert-type' => 'success'
         );
-
-        return redirect('/tables')->with($notification); 
+        
+        //return redirect('/tables')->with($notification);
     }
 
     /**
@@ -72,7 +68,7 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-       
+        //
     }
 
     /**
@@ -83,7 +79,7 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -107,15 +103,12 @@ class IngredientController extends Controller
     public function destroy($id)
     {
         $notification = array(
-            'message' => 'Zutat wurde gelöscht!',
+            'message' => 'Komponente wurde gelöscht!',
             'alert-type' => 'success'
         );
 
-        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('ingredients')->where('id', $id)->delete();
+        DB::table('components_ingredients')->where('component_id', $id)->delete();
+        DB::table('components')->where('id', $id)->delete();
         return redirect('/tables')->with($notification);;
-
-        
     }
 }

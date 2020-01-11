@@ -4,6 +4,7 @@
 // Variables
 @import 'variables';
 
+//Checkbox
 input[type="checkbox"] {
     -webkit-appearance: none;
     height: 30px;
@@ -52,4 +53,13 @@ input[type="checkbox"]:checked:hover+label::before {
     color: #0055cc;
     background: #fff;
 }
+
+//Progress Bar
+#addComponentForm fieldset:not(:first-of-type) {
+  display: none;
+}
+ 
+ 
+
+
 
