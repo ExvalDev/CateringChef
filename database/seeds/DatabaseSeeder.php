@@ -89,6 +89,26 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        //Create Meal
+        for($i = 1; $i <= 30; $i++)
+        {
+            DB::table('meals')->insert([
+                'name' => 'Speise '.$i,
+                'recipe' => 'Rezept '.$i,
+            ]);
+            
+            $count = (rand(4,7));
+
+            for($j = 1; $j <= $count; $j++)
+            {
+                DB::table('components_meals')->insert([
+                    'meal_id' => $i,
+                    'component_id' => (rand(1,30)),
+                    'amount' => (rand(100,200)),
+                ]);
+            }
+        }
+
         //Create Dev - User
         DB::table('users')->insert([
             'firstname' => 'admin',

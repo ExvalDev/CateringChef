@@ -29,8 +29,6 @@ class Ingredient extends Model
     {
         return $this->belongsToMany(Component::class, 'components_ingredinets', 'ingredient_id', 'component_id');
     }
-
-
 }
 
 

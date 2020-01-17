@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Component;
-use App\Ingredient;
-use Validator;
+
 
 class ComponentController extends Controller
 {
@@ -41,32 +40,49 @@ class ComponentController extends Controller
         $validatedData = $this->validate($request, [
             'name' => 'required',
             'recipe' => '',
-            'db_unit' => 'required'
+            'db_unit_id' => 'required',
         ]);
 
         $component = new Component;
 
-        $ingredient->name = $request->input('name');
-        $ingredient->recipe = $request->input('recipe');
-        $ingredient->db_unit_id = $request->input('db_unit');
+        $component->name = $request->input('name');
+        $component->recipe = $request->input('recipe');
+        $component->db_unit_id = $request->input('db_unit_id');
 
-        $ingredient->save();
+        $component->save();
+
+        $ingredients = [];
+        $amounts = [];
+        if(isset($_POST["arrayIngredient"]))
+        {
+            $ingredients = $_POST['arrayIngredient'];
+            $amounts = $_POST['arrayAmount'];
+
+        }
+        array_push($ingredients, $_POST['fieldAddIngredient']);
+        array_push($amounts, $_POST['fieldAddAmount']);
+
+        foreach($ingredients as $cnt => $ingredient) 
+        {
+            $amount = $amounts[$cnt];
+            $component->ingredient()->attach($ingredient, array('amount' => $amount));
+        }
 
         $notification = array(
-            'message' => 'Zutat wurde hinzugefügt!',
+            'message' => 'Komponente wurde hinzugefügt!',
             'alert-type' => 'success'
         );
-        
-        //return redirect('/tables')->with($notification);
+
+        return redirect('/tables')->with($notification); 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Component $component)
     {
         //
     }
@@ -74,10 +90,10 @@ class ComponentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Component $component)
     {
         //
     }
@@ -86,10 +102,10 @@ class ComponentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Component $component)
     {
         //
     }
@@ -97,7 +113,7 @@ class ComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
