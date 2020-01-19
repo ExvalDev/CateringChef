@@ -39,13 +39,15 @@ class IngredientController extends Controller
     {
         $validatedData = $this->validate($request, [
             'name' => 'required',
-            'supplier_id' => '',
+            'supplier_name' => '',
             'db_unit_id' => 'required'
         ]);
         $ingredient = new Ingredient;
 
         $ingredient->name = $request->input('name');
-        $ingredient->supplier_id = $request->input('supplier_id');
+        $supplier_name = $request->input('supplier_name');
+        $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+        $ingredient->supplier_id = $supplier_id[0]->id;
         $ingredient->db_unit_id = $request->input('db_unit_id');
 
         $ingredient->save();
@@ -83,7 +85,7 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        
+        return 'Test';
     }
 
     /**
@@ -95,7 +97,41 @@ class IngredientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation
+        $validatedData = $this->validate($request, [
+            'editname' => 'required',
+            'editsupplier_name' => '',
+            'editdb_unit_id' => 'required'
+        ]);
+        
+        //Add new Ingredient
+        $ingredient = new Ingredient;
+
+        $ingredient->name = $request->input('editname');
+        $supplier_name = $request->input('editsupplier_name');
+        $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+        $ingredient->supplier_id = $supplier_id[0]->id;
+        $ingredient->db_unit_id = $request->input('editdb_unit_id');
+
+        $ingredient->save();
+
+        $allergenes = $request->editallergene;
+        foreach ($allergenes as $allergene)
+	    {
+            $ingredient->allergene()->attach($allergene);
+        }
+    
+        //Delete old Ingredient
+        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
+        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
+        DB::table('ingredients')->where('id', $id)->delete();
+
+        $notification = array(
+            'message' => 'Zutat wurde geändert!',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/tables')->with($notification);
     }
 
     /**

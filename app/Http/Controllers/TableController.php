@@ -21,12 +21,14 @@ class TableController extends Controller
     {
         $ingredients = DB::select('select * from ingredients order by name asc');
         $components = DB::select('select * from components order by name asc');
+        $meals = DB::select('select * from meals order by name asc');
         $allergenes = DB::select('select * from allergenes');
         $suppliers = DB::select('select * from suppliers');
         $db_units =DB::select('select * from db_units');
 
         return view('/tables', ['ingredients' => $ingredients, 
                                 'components' => $components,
+                                'meals' => $meals,
                                 'allergenes' => $allergenes, 
                                 'suppliers' => $suppliers,
                                 'db_units' => $db_units,

@@ -22,4 +22,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tables', 'TableController@index');
 Route::resource('/ingredient', 'IngredientController');
 Route::resource('/component', 'ComponentController');
-
