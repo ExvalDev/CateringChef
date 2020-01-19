@@ -1,8 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
     "/css/style_auth.css": "/css/style_auth.css",
     "/css/style_tables.css": "/css/style_tables.css",
     "/js/functions.js": "/js/functions.js",
-    "/js/toastr.js": "/js/toastr.js"
+    "/js/toastr.js": "/js/toastr.js",
+    "/css/app.css": "/css/app.css"
 }

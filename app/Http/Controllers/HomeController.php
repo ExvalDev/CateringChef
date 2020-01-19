@@ -30,4 +30,8 @@ class HomeController extends Controller
     {
         return view('tables');
     }
+    public function customers()
+    {
+        return view('customers');
+    }
 }

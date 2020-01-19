@@ -56,7 +56,7 @@
                     </div>
                     <hr class="p-0 my-2"/>
                 </div>
-                <div class="h-100 mh-100 p-2 overflow-auto">
+                <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                     <ul class="list-group" id="ListComponent">
                         @foreach ($components as $component)
                             <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
@@ -94,7 +94,7 @@
                     </div>
                     <hr class="p-0 my-2"/>
                 </div>
-                <div class="h-100 mh-100 p-2 overflow-auto">
+                <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                     <ul class="list-group" id="ListMeal">
                         @foreach ($meals as $meal)
                             <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
