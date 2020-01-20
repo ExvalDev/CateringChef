@@ -139,14 +139,15 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
+        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
+        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
+        DB::table('ingredients')->where('id', $id)->delete();
+
         $notification = array(
             'message' => 'Zutat wurde gelöscht!',
             'alert-type' => 'success'
         );
-
-        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('ingredients')->where('id', $id)->delete();
+        
         return redirect('/tables')->with($notification);;
 
         
