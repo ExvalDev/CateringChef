@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComponentsTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('components', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->bigInteger('amount');
-            $table->longText('recipe')->nullable();
-            $table->unsignedBigInteger('db_unit_id');
-            $table->foreign('db_unit_id')->references('id')->on('db_units');
+            $table->string('name');
+            $table->bigInteger('postcode');
+            $table->string('place');
+            $table->string('street');
+            $table->bigInteger('house_number');
+            $table->bigInteger('adults');
+            $table->bigInteger('childrens');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('components');
+        Schema::dropIfExists('customers');
     }
 }

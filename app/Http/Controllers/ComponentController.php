@@ -39,6 +39,7 @@ class ComponentController extends Controller
     {
         $validatedData = $this->validate($request, [
             'name' => 'required',
+            'amount' => 'required',
             'recipe' => '',
             'db_unit_id' => 'required',
         ]);
@@ -46,6 +47,7 @@ class ComponentController extends Controller
         $component = new Component;
 
         $component->name = $request->input('name');
+        $component->amount = $request->input('amount');
         $component->recipe = $request->input('recipe');
         $component->db_unit_id = $request->input('db_unit_id');
 

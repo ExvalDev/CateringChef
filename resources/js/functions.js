@@ -85,6 +85,35 @@ $(document).ready(function()
     });
 });
 
+//Search Customers
+$(document).ready(function()
+{
+    $("#SearchCustomer").on("keyup", function() 
+    {
+        // Declare variables
+        var filter, tableBody, tRow, Item, i, txtValue;
+        filter = $(this).val().toLowerCase();
+        tableBody = document.getElementById("TableCustomer");
+        tRow = tableBody.getElementsByTagName('tr');
+        
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < tRow.length; i++) 
+        {
+            Item = tRow[i].getElementsByClassName('searchItem')[0];
+            console.log(Item);
+            txtValue = Item.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) 
+            {
+                tRow[i].style.display = "";
+            } 
+            else 
+            {
+                tRow[i].setAttribute('style', 'display: none !important');
+            }
+        }
+    });
+});
+
 //Show Ingredient
 $(document).ready(function(){
     $('.showIngredientButton').click(function(){
@@ -130,6 +159,24 @@ $(document).ready(function(){
               success:function(data){
                    $('#showComponent').html(data);
                    $('#showComponentModal').modal("show");
+              }
+         });
+    });
+});
+
+//Edit Ingredient
+$(document).ready(function(){
+    $('.editComponentButton').click(function(){
+         var component_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/editComponent.blade.php",
+              method:"post",
+              data:{component_id:component_id},
+              success:function(data)
+              {
+                $('#editComponentForm').attr('action', '/component/'+component_id);
+                $('#editComponent').html(data);
+                $('#editComponentModal').modal("show");
               }
          });
     });

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         //Factories
         factory(App\User::class, 50)->create();
         factory(App\Supplier::class, 15)->create();
+        factory(App\Customer::class, 20)->create();
 
         //Create Allergene
         $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnuesse", "Soja", "Schalenobst", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen"];
@@ -73,6 +74,7 @@ class DatabaseSeeder extends Seeder
         {
             DB::table('components')->insert([
                 'name' => 'Komponent '.$i,
+                'amount' => (rand(100,200)),
                 'recipe' => 'Rezept '.$i,
                 'db_unit_id' => (rand(1,3)),
             ]);
