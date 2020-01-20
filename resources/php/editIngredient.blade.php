@@ -73,7 +73,6 @@
         while($row = mysqli_fetch_array($result))
         {
             array_push($db_units, [$row['unit_id'],$row['unit_name']]);
-            
         }
         foreach ($db_units as $unit)
         {

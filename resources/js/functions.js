@@ -135,6 +135,24 @@ $(document).ready(function(){
     });
 });
 
+//Edit Ingredient
+$(document).ready(function(){
+    $('.editComponentButton').click(function(){
+         var component_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/editComponent.blade.php",
+              method:"post",
+              data:{component_id:component_id},
+              success:function(data)
+              {
+                $('#editComponentForm').attr('action', '/component/'+component_id);
+                $('#editComponent').html(data);
+                $('#editComponentModal').modal("show");
+              }
+         });
+    });
+});
+
 //Progress Bar
 $(document).ready(function(){
     var current = 1,current_step,next_step,steps;

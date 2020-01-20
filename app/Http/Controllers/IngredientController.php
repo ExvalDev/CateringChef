@@ -104,8 +104,7 @@ class IngredientController extends Controller
             'editdb_unit_id' => 'required'
         ]);
         
-        //Add new Ingredient
-        $ingredient = new Ingredient;
+        $ingredient = Ingredient::find($id);
 
         $ingredient->name = $request->input('editname');
         $supplier_name = $request->input('editsupplier_name');
@@ -115,17 +114,15 @@ class IngredientController extends Controller
 
         $ingredient->save();
 
+        //Delete Relation to Allergenes
+        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
+
         $allergenes = $request->editallergene;
         foreach ($allergenes as $allergene)
 	    {
             $ingredient->allergene()->attach($allergene);
         }
     
-        //Delete old Ingredient
-        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('ingredients')->where('id', $id)->delete();
-
         $notification = array(
             'message' => 'Zutat wurde geändert!',
             'alert-type' => 'success'

@@ -63,7 +63,7 @@
                                 <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $component->name }}</span>   
                                 <div class="btn-group ml-auto align-self-center ">
                                     {{-- Button EDIT Component MODAL --}}
-                                    <button type="button" class="btn px-0 shadow-none" data-toggle="modal" data-target="#editcomponentmodal"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                    <button type="button" id={{ $component->id }} class="btn px-0 shadow-none infobutton editComponentButton"><h2 class="mdi mdi-pencil-outline m-0"></button>
                                     {{-- Button DELETE Component  --}}
                                     <form action="{{ url('component' , $component->id ) }}" method="POST">
                                         @csrf
@@ -260,7 +260,15 @@
                                             @enderror
                                         </div>  
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">            
+                                        <div class="col p-0">
+                                            <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge" autofocus required>
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>  
                                         <div class="col p-0">
                                             <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}" required>
                                                 <option disabled selected>Einheit</option>
@@ -368,6 +376,29 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- MODAL -> EDIT Component --}}
+        <div id="editComponentModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Komponente</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="/component" method="POST" id="editComponentForm">
+                        @method('PUT')
+                        @csrf
+                        <div class="modal-body" id="editComponent"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                            <button type="submit" class="btn btn-primary">
+                                {{ __("Speichern") }}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
