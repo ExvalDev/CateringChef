@@ -19,7 +19,7 @@
         $result = mysqli_query($connect, $query);
         while($row = mysqli_fetch_array($result))
         {
-            array_push($ingredients_array, [$row['nameIngredient'], $row[amountIngredient]]);
+            array_push($ingredients_array, [$row['nameIngredient'], $row['amountIngredient']]);
         }
         $count = 1;
         foreach ($ingredients_array AS $ingredient)
