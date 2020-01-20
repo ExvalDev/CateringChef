@@ -14,8 +14,12 @@
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
     <div class="col-8 m-0 py-3 px-2 tableHeight">
-        <div>
-            <h1> Kunden </h1>
+        <div class="row">
+            <h1 class="col-3"> Kunden</h1>
+            <h1 class="col-4"> &nbsp; </h1>
+            <div class=" col-5 pr-3">
+                <input class="form-control bg-white border-0 shadow-none" id="SearchCustomer" type="text" placeholder="Suche..">
+            </div>
         </div>
         <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
             {{-- Header --}}
@@ -37,10 +41,10 @@
             {{-- Content area --}}
             <div data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                 <table class="table table-borderless">
-                    <tbody>
+                    <tbody id="TableCustomer">
                         @for ($i = 0; $i < 10; $i++)
                             <tr class="row mx-0 mb-2 bg-light rounded">
-                                <td class="col-3"><h4>Test Kunde {{$i}}</h4></td>
+                                <td class="col-3 searchItem"><h4>Test Kunde {{$i}}</h4></td>
                                 <td class="col-3"><h4>200</h4></td>
                                 <td class="col-3"><h4>100</h4></td>
                                 <td class="col-3">
@@ -58,20 +62,18 @@
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
             <script>
                 var platform = new H.service.Platform({
-                    'apikey': '{dzpjBMch4PbCH5w8XkgOrWMGPjRhTQ6v8QwsGeVdgyg}'
+                'apikey': 'dzpjBMch4PbCH5w8XkgOrWMGPjRhTQ6v8QwsGeVdgyg'
                 });
-                // Obtain the default map types from the platform object:
                 var defaultLayers = platform.createDefaultLayers();
 
-                // Instantiate (and display) a map object:
                 var map = new H.Map(
-                    document.getElementById('mapContainer'),
-                    defaultLayers.vector.normal.map,
-                    {
-                    zoom: 10,
-                    center: { lat: 52.5, lng: 13.4 },
-                    engineType: H.map.render.RenderEngine.EngineType.P2D
-                    });
+                document.getElementById('mapContainer'),
+                defaultLayers.vector.normal.map,
+                {
+                zoom: 10,
+                center: { lat: 52.5, lng: 13.4 },
+                engineType: H.map.render.RenderEngine.EngineType.P2D
+                });
             </script>
         </div>
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
