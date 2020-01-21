@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Meal;
 
-class MealsController extends Controller
+class MealController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -79,6 +81,23 @@ class MealsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try
+        {
+            DB::table('components_meals')->where('meal_id', $id)->delete();
+            DB::table('meals')->where('id', $id)->delete();
+
+            $notification = array(
+                'message' => 'Speise wurde gelöscht!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Speise kann nicht gelöscht werden!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect('/tables')->with($notification);;
     }
 }
