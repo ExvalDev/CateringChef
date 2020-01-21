@@ -11378,6 +11378,20 @@ a.text-dark:focus {
   color: #4f4f4f;
 }
 
+.fas {
+  color: #4f4f4f;
+}
+
+.navIcon {
+  color: #4f4f4f;
+  font-size: 1.7rem;
+}
+
+.fa-plus {
+  font-size: 1.2rem;
+  line-height: unset !important;
+}
+
 h1,
 h2,
 h3,
@@ -11397,6 +11411,7 @@ h2 {
 
 h3 {
   font-size: 1.4rem;
+  margin-bottom: 0 !important;
 }
 
 h4 {

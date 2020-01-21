@@ -14,26 +14,26 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn p-0 btn-primary shadow-none" data-toggle="modal" data-target="#addingredient"><h2 class="mdi mdi-plus m-0"></h2></button>
+                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i></button>
                     </div>
-                    <hr class="p-0 my-2"/>
+                    <hr class="p-0 mt-2 mb-0"/>
                 </div>
                 <div data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                     <ul class="list-group" id="ListIngredient">
                         @foreach ($ingredients as $ingredient)
-                            <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
+                            <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex">
                                 <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $ingredient->name }}</span>   
-                                <div class="btn-group ml-auto align-self-center ">
+                                <div class="btn-group ml-auto align-self-center">
+                                    {{-- Button SHOW Ingredient Modal --}}
+                                    <button type="button" id={{ $ingredient->id }} class="btn p-0 my-0 mx-2 shadow-none showIngredientButton"><i class="fas fa-info"></i></button>
                                     {{-- Button EDIT Ingredient MODAL --}}
-                                    <button type="button" id={{ $ingredient->id }} class="btn px-0 shadow-none infobutton editIngredientButton"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                    <button type="button" id={{ $ingredient->id }} class="btn p-0 my-0 mx-2 shadow-none editIngredientButton"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Ingredient  --}}
                                     <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
+                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
                                     </form>
-                                    {{-- Button SHOW Ingredient Modal --}}
-                                    <button type="button" id={{ $ingredient->id }} class="btn px-0 shadow-none infobutton showIngredientButton"><h2 class="mdi mdi-information-variant m-0"></i></button>
                                 </div>
                             </li>
                         @endforeach
@@ -52,26 +52,27 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn p-0 btn-primary shadow-none" data-toggle="modal" data-target="#addcomponent"><h2 class="mdi mdi-plus m-0"></h2></button>
+                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addcomponent"><i class="fas fa-plus"></i></button>
                     </div>
-                    <hr class="p-0 my-2"/>
+                    <hr class="p-0 mt-2 mb-0"/>
                 </div>
                 <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                     <ul class="list-group" id="ListComponent">
                         @foreach ($components as $component)
-                            <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
+                            <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex">
                                 <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $component->name }}</span>   
                                 <div class="btn-group ml-auto align-self-center ">
+                                    {{-- Button SHOW Component Modal --}}
+                                    <button type="button" id={{ $component->id }} class="btn p-0 my-0 mx-2 shadow-none showComponentButton"><i class="fas fa-info"></i></button>
                                     {{-- Button EDIT Component MODAL --}}
-                                    <button type="button" id={{ $component->id }} class="btn px-0 shadow-none infobutton editComponentButton"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                    <button type="button" id={{ $component->id }} class="btn p-0 my-0 mx-2 shadow-none infobutton editComponentButton"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Component  --}}
                                     <form action="{{ url('component' , $component->id ) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
+                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
                                     </form>
-                                    {{-- Button SHOW Component Modal --}}
-                                    <button type="button" id={{ $component->id }} class="btn px-0 shadow-none infobutton showComponentButton"><h2 class="mdi mdi-information-variant m-0"></i></button>
+                                    
                                 </div>
                             </li>
                         @endforeach
@@ -90,26 +91,27 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn p-0 btn-primary shadow-none" data-toggle="modal" data-target="#addmeal"><h2 class="mdi mdi-plus m-0"></h2></button>
+                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addmeal"><i class="fas fa-plus"></i></button>
                     </div>
-                    <hr class="p-0 my-2"/>
+                    <hr class="p-0 mt-2 mb-0"/>
                 </div>
                 <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                     <ul class="list-group" id="ListMeal">
                         @foreach ($meals as $meal)
-                            <li class="list-group-item bg-light rounded my-1 p-2 border-0 d-flex">
+                            <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex">
                                 <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $meal->name }}</span>   
                                 <div class="btn-group ml-auto align-self-center ">
+                                    {{-- Button SHOW Meal Modal --}}
+                                    <button type="button" id={{ $meal->id }} class="btn p-0 my-0 mx-2 shadow-none showMealButton"><i class="fas fa-info"></i></button>
                                     {{-- Button EDIT Meal MODAL --}}
-                                    <button type="button" class="btn px-0 shadow-none" data-toggle="modal" data-target="#editmealmodal"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                    <button type="button" class="btn p-0 my-0 mx-2 shadow-none" data-toggle="modal" data-target="#editmealmodal"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Meal  --}}
                                     <form action="{{ url('meal' , $meal->id ) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
+                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
                                     </form>
-                                    {{-- Button SHOW Meal Modal --}}
-                                    <button type="button" id={{ $meal->id }} class="btn px-0 shadow-none infobutton showMealButton"><h2 class="mdi mdi-information-variant m-0"></i></button>
+                                    
                                 </div>
                             </li>
                         @endforeach
@@ -302,7 +304,7 @@
                                                 </div>
                                             </div>
                                             <div class="input-group-append">
-                                                <button class="btn p-0 btn-primary shadow-none" onclick="addRow(this.form);"><h2 class="mdi mdi-plus m-0"></h2></button>
+                                                <button class="btn p-0 btn-primary shadow-none" onclick="addRow(this.form);"><i class="fas fa-plus"></i></button>
                                             </div>
                                         </div> 
                                     </div>

@@ -2,14 +2,6 @@
 @push('styles')
     <link href="{{ asset('css/style_customers.css') }}" rel="stylesheet">
 
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
-    type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"
-    type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
-    type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js"
-    type="text/javascript" charset="utf-8"></script>
 @endpush
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
@@ -28,11 +20,11 @@
                 <table class=" mt-2 w-100">
                     <thead>
                         <tr class="row mx-2">
-                            <th scope="col" class="col-3 pl-2"><h3>Name</h3></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Name</h3></th>
                             <th scope="col" class="col-3 pl-2"><h3>Erwachsene</h3></th>
                             <th scope="col" class="col-3 pl-2"><h3>Kinder</h3></th>
                             <th scope="col" class="col-3 pl-2 pr-0">
-                                <button type="button" class="btn p-0 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addcustomer"><h2 class="mdi mdi-plus m-0"></h2></button>
+                                <button type="button" class="btn py-1 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addcustomer"><i class="fas fa-plus"></i></button>
                             </th>
                         </tr>
                     </thead>
@@ -49,17 +41,17 @@
                                 <td class="col-3"><h4>{{ $customer->adults }}</h4></td>
                                 <td class="col-3"><h4>{{ $customer->childrens }}</h4></td>
                                 <td class="col-3">
-                                    <div class="btn-group ml-auto align-self-center ">
+                                    <div class="btn-group float-right">
+                                        {{-- Button SHOW Customer Modal --}}
+                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none showCustomerButton"><i class="fas fa-info"></i></button>
                                         {{-- Button EDIT Customer MODAL --}}
-                                        <button type="button" id={{ $customer->id }} class="btn px-0 shadow-none infobutton editCustomerButton"><h2 class="mdi mdi-pencil-outline m-0"></button>
+                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none editCustomerButton"><i class="fas fa-pen"></i></button>
                                         {{-- Button DELETE Customer  --}}
                                         <form action="{{ url('customer' , $customer->id ) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
+                                            <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
                                         </form>
-                                        {{-- Button SHOW Customer Modal --}}
-                                        <button type="button" id={{ $customer->id }} class="btn px-0 shadow-none infobutton showCustomerButton"><h2 class="mdi mdi-information-variant m-0"></i></button>
                                     </div>
                                 </td>  
                             </tr>
@@ -74,21 +66,8 @@
         <h1> &nbsp; </h1>
         {{------------------------------------- Customers Map -------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
-            <script>
-                var platform = new H.service.Platform({
-                'apikey': 'dzpjBMch4PbCH5w8XkgOrWMGPjRhTQ6v8QwsGeVdgyg'
-                });
-                var defaultLayers = platform.createDefaultLayers();
+            
 
-                var map = new H.Map(
-                document.getElementById('mapContainer'),
-                defaultLayers.vector.normal.map,
-                {
-                zoom: 10,
-                center: { lat: 52.5, lng: 13.4 },
-                engineType: H.map.render.RenderEngine.EngineType.P2D
-                });
-            </script>
         </div>
         {{------------------------------------ Customers Stats ------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
