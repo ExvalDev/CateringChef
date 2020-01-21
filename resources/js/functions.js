@@ -100,7 +100,6 @@ $(document).ready(function()
         for (i = 0; i < tRow.length; i++) 
         {
             Item = tRow[i].getElementsByClassName('searchItem')[0];
-            console.log(Item);
             txtValue = Item.innerText;
             if (txtValue.toLowerCase().indexOf(filter) > -1) 
             {
@@ -164,7 +163,7 @@ $(document).ready(function(){
     });
 });
 
-//Edit Ingredient
+//Edit Component
 $(document).ready(function(){
     $('.editComponentButton').click(function(){
          var component_id = $(this).attr("id");
@@ -208,4 +207,38 @@ $(document).ready(function(){
 		$(".progress-bar")
 			.css("width",percent+"%");
 	}
+});
+
+//Show Coustomer
+$(document).ready(function(){
+    $('.showCustomerButton').click(function(){
+         var customer_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/showCustomer.blade.php",
+              method:"post",
+              data:{customer_id:customer_id},
+              success:function(data){
+                   $('#showCustomer').html(data);
+                   $('#showCustomerModal').modal("show");
+              }
+         });
+    });
+});
+
+//Edit Customer
+$(document).ready(function(){
+    $('.editCustomerButton').click(function(){
+         var customer_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/editCustomer.blade.php",
+              method:"post",
+              data:{customer_id:customer_id},
+              success:function(data)
+              {
+                $('#editCustomerForm').attr('action', '/customer/'+customer_id);
+                $('#editCustomer').html(data);
+                $('#editCustomerModal').modal("show");
+              }
+         });
+    });
 });
