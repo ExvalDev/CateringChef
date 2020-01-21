@@ -33,7 +33,7 @@
                                         <button class="btn px-0 shadow-none"><h2 class="mdi mdi-delete-outline m-0"></i></button> 
                                     </form>
                                     {{-- Button SHOW Ingredient Modal --}}
-                                    <button type="button" id={{ $ingredient->id }} class="btn px-0 shadow-none infobutton showIngredientButton"><h2 class="mdi mdi-information-variant m-0"></i></button>
+                                    <button type="button" id={{ $ingredient->id }} class="btn px-0 shadow-none infobutton showIngredientButton"><h2 class="mdi mdi-information-variant m-0"></h2></button>
                                 </div>
                             </li>
                         @endforeach
