@@ -53,9 +53,12 @@ class IngredientController extends Controller
         $ingredient->save();
 
         $allergenes = $request->allergene;
-        foreach ($allergenes as $allergene)
-	    {
-            $ingredient->allergene()->attach($allergene);
+        if (!empty($allergenes))
+        {
+            foreach ($allergenes as $allergene)
+            {
+                $ingredient->allergene()->attach($allergene);
+            }
         }
     
         $notification = array(
@@ -74,7 +77,7 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-       
+        $ingredient = Ingredient::find($id);
     }
 
     /**
@@ -118,10 +121,14 @@ class IngredientController extends Controller
         DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
 
         $allergenes = $request->editallergene;
-        foreach ($allergenes as $allergene)
-	    {
-            $ingredient->allergene()->attach($allergene);
+        if (!empty($allergenes))
+        {
+            foreach ($allergenes as $allergene)
+            {
+                $ingredient->allergene()->attach($allergene);
+            }
         }
+        
     
         $notification = array(
             'message' => 'Zutat wurde geändert!',
@@ -139,17 +146,23 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('components_ingredients')->where('ingredient_id', $id)->delete();
-        DB::table('ingredients')->where('id', $id)->delete();
+        try
+        {
+            DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
+            DB::table('ingredients')->where('id', $id)->delete();
 
-        $notification = array(
-            'message' => 'Zutat wurde gelöscht!',
-            'alert-type' => 'success'
-        );
-        
+            $notification = array(
+                'message' => 'Zutat wurde gelöscht!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Zutat kann nicht gelöscht werden!',
+                'alert-type' => 'error'
+            );
+        }
         return redirect('/tables')->with($notification);;
-
-        
     }
 }
