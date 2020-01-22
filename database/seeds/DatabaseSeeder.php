@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -109,6 +110,53 @@ class DatabaseSeeder extends Seeder
                     'amount' => (rand(100,200)),
                 ]);
             }
+        }
+
+        /**
+         * Method to generate random date between two dates
+         * @param $sStartDate
+         * @param $sEndDate
+         * @param string $sFormat
+         * @return bool|string
+         */
+        function randomDate($sStartDate, $sEndDate, $sFormat = 'Y-m-d H:i:s')
+        {
+            // Convert the supplied date to timestamp
+            $fMin = strtotime($sStartDate);
+            $fMax = strtotime($sEndDate);
+
+            // Generate a random number from the start and end dates
+            $fVal = mt_rand($fMin, $fMax);
+
+            // Convert back to the specified date format
+            return date($sFormat, $fVal);
+        }
+
+        //Create Menu
+        $count = 1;
+        for($i = 13; $i <= 24; $i++)
+        {
+            DB::table('menus')->insert([
+                'row' => 1,
+                'date' => '2020-01-'.$i,
+            ]);
+
+            DB::table('menus')->insert([
+                'row' => 2,
+                'date' => '2020-01-'.$i,
+            ]);
+
+            DB::table('meals_menus')->insert([
+                'meal_id' => rand(1,30),
+                'menu_id' => $count,
+            ]);
+            $count++;
+
+            DB::table('meals_menus')->insert([
+                'meal_id' => rand(1,30),
+                'menu_id' => $count,
+            ]);
+            $count++;
         }
 
         //Create Dev - User

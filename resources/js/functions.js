@@ -147,6 +147,23 @@ $(document).ready(function(){
     });
 });
 
+//ADD Component -> Dynamic Form
+//Clone the hidden element and shows it
+$('.add-one').click(function(){
+    $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
+    attach_delete();
+  });
+  
+  
+  //Attach functionality to delete buttons
+  function attach_delete(){
+    $('.delete').off();
+    $('.delete').click(function(){
+      console.log("click");
+      $(this).closest('.form-group').remove();
+    });
+  }
+
 //Show Component
 $(document).ready(function(){
     $('.showComponentButton').click(function(){
@@ -207,6 +224,22 @@ $(document).ready(function(){
 		$(".progress-bar")
 			.css("width",percent+"%");
 	}
+});
+
+//Show Meal
+$(document).ready(function(){
+    $('.showMealButton').click(function(){
+         var meal_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/showMeal.blade.php",
+              method:"post",
+              data:{meal_id:meal_id},
+              success:function(data){
+                   $('#showMeal').html(data);
+                   $('#showMealModal').modal("show");
+              }
+         });
+    });
 });
 
 //Show Coustomer
