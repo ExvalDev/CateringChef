@@ -242,3 +242,12 @@ $(document).ready(function(){
          });
     });
 });
+
+//delete Customer
+$(document).ready(function(){
+    $('.deleteCustomerButton').click(function(){
+        var customer_id = $(this).attr("id");
+        $('#deleteCustomerForm').attr('action', '/customer/'+customer_id);
+        $('#deleteCustomerModal').modal("show");
+    });
+});

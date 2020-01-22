@@ -16,8 +16,22 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = DB::select('select * from customers order by name asc');
+        $adultsTotal = DB::select('select COUNT(name) AS cntCustomers, SUM(adults) AS sumAdults, SUM(childrens) AS sumChildrens from customers');
+        $cntCustomers = 0;
+        $sumAdults = 0;
+        $sumChildrens = 0;
 
-        return view('/customer', ['customers' => $customers,]);
+        foreach($adultsTotal as $adult){
+            $cntCustomers += $adult->cntCustomers;
+            $sumAdults += $adult->sumAdults;
+            $sumChildrens += $adult->sumChildrens;
+        }
+        return view('/customer', [
+            'customers' => $customers,
+            'cntCustomers' => $cntCustomers,
+            'sumAdults' => $sumAdults,
+            'sumChildrens' => $sumChildrens
+            ]);
     }
 
     /**

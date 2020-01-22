@@ -47,11 +47,7 @@
                                         {{-- Button EDIT Customer MODAL --}}
                                         <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none editCustomerButton"><i class="fas fa-pen"></i></button>
                                         {{-- Button DELETE Customer  --}}
-                                        <form action="{{ url('customer' , $customer->id ) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
-                                        </form>
+                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none deleteCustomerButton"><i class="fas fa-trash"></i></button>
                                     </div>
                                 </td>  
                             </tr>
@@ -71,6 +67,24 @@
         </div>
         {{------------------------------------ Customers Stats ------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
+            <h2 class="pt-2 px-2">Auswertung</h2>
+            <hr class="w-100 my-2"/>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr class="row mx-0">
+                        <td class="col-6 text-right"><h4>Anzahl Kunden: </h4></td>
+                        <td class="col-6"><h4>{{$cntCustomers}}</h4></td>
+                    </tr>
+                    <tr class="row mx-0">
+                        <td class="col-6 text-right"><h4>Anzahl Erwachsener: </h4></td>
+                        <td class="col-6"><h4>{{$sumAdults}}</h4></td>
+                    </tr>
+                    <tr class="row mx-0">
+                        <td class="col-6 text-right"><h4>Anzahl Kinder: </h4></td>
+                        <td class="col-6"><h4>{{$sumChildrens}}</h4></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -100,13 +114,12 @@
                     {{-- Street and Housenumber --}}
                     <div class="form-row">
                         <div class="input-group col-12">
-                            <input type="text" class="col-8 form-control rounded-left @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" placeholder="Straße" required>
+                            <input type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" placeholder="Straße" required>
                             @error('street')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            
                             <input type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" placeholder="Nr." required>
                             @error('house_number')
                                 <span class="invalid-feedback" role="alert">
@@ -119,7 +132,7 @@
                     {{-- PLZ and City --}}
                     <div class="form-row mt-3">
                         <div class="input-group col-12">
-                            <input type="number" class="col-5 form-control rounded-left @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" placeholder="PLZ" required>
+                            <input type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" placeholder="PLZ" required>
                             @error('postcode')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -203,10 +216,34 @@
                 @csrf
                 <div class="modal-body" id="editCustomer"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="submit" class="btn btn-primary">
-                        {{ __("Speichern") }}
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="submit" class="btn btn-primary">
+                            {{ __("Speichern") }}
+                        </button>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- MODAL -> DELETE Customer --}}
+<div id="deleteCustomerModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Kunde löschen</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="/customer" method="POST" id="deleteCustomerForm">
+                @csrf
+                @method('DELETE')
+                <div class="modal-body" id="editCustomer">
+                   <span>Wollen Sie wirklich diesen Kunden löschen ?</span> 
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Löschen</button>              
                 </div>
             </form>
         </div>
