@@ -42,30 +42,40 @@ class IngredientController extends Controller
             'supplier_name' => '',
             'db_unit_id' => 'required'
         ]);
-        $ingredient = new Ingredient;
 
-        $ingredient->name = $request->input('name');
-        $supplier_name = $request->input('supplier_name');
-        $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-        $ingredient->supplier_id = $supplier_id[0]->id;
-        $ingredient->db_unit_id = $request->input('db_unit_id');
-
-        $ingredient->save();
-
-        $allergenes = $request->allergene;
-        if (!empty($allergenes))
+        try
         {
-            foreach ($allergenes as $allergene)
-            {
-                $ingredient->allergene()->attach($allergene);
-            }
-        }
-    
-        $notification = array(
-            'message' => 'Zutat wurde hinzugefügt!',
-            'alert-type' => 'success'
-        );
+            $ingredient = new Ingredient;
 
+            $ingredient->name = $request->input('name');
+            $supplier_name = $request->input('supplier_name');
+            $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+            $ingredient->supplier_id = $supplier_id[0]->id;
+            $ingredient->db_unit_id = $request->input('db_unit_id');
+
+            $ingredient->save();
+
+            $allergenes = $request->allergene;
+            if (!empty($allergenes))
+            {
+                foreach ($allergenes as $allergene)
+                {
+                    $ingredient->allergene()->attach($allergene);
+                }
+            }
+        
+            $notification = array(
+                'message' => 'Zutat wurde hinzugefügt!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Zutat wurde nicht hinzugefügt!',
+                'alert-type' => 'error'
+            );
+        } 
         return redirect('/tables')->with($notification); 
     }
 
@@ -88,7 +98,7 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        return 'Test';
+        //
     }
 
     /**
@@ -107,34 +117,42 @@ class IngredientController extends Controller
             'editdb_unit_id' => 'required'
         ]);
         
-        $ingredient = Ingredient::find($id);
-
-        $ingredient->name = $request->input('editname');
-        $supplier_name = $request->input('editsupplier_name');
-        $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-        $ingredient->supplier_id = $supplier_id[0]->id;
-        $ingredient->db_unit_id = $request->input('editdb_unit_id');
-
-        $ingredient->save();
-
-        //Delete Relation to Allergenes
-        DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
-
-        $allergenes = $request->editallergene;
-        if (!empty($allergenes))
+        try
         {
-            foreach ($allergenes as $allergene)
-            {
-                $ingredient->allergene()->attach($allergene);
-            }
-        }
-        
-    
-        $notification = array(
-            'message' => 'Zutat wurde geändert!',
-            'alert-type' => 'success'
-        );
+            $ingredient = Ingredient::find($id);
 
+            $ingredient->name = $request->input('editname');
+            $supplier_name = $request->input('editsupplier_name');
+            $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+            $ingredient->supplier_id = $supplier_id[0]->id;
+            $ingredient->db_unit_id = $request->input('editdb_unit_id');
+
+            $ingredient->save();
+
+            //Delete Relation to Allergenes
+            DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
+
+            $allergenes = $request->editallergene;
+            if (!empty($allergenes))
+            {
+                foreach ($allergenes as $allergene)
+                {
+                    $ingredient->allergene()->attach($allergene);
+                }
+            }
+            
+            $notification = array(
+                'message' => 'Zutat wurde geändert!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Zutat wurde nicht geändert!',
+                'alert-type' => 'success'
+            );
+        }
         return redirect('/tables')->with($notification);
     }
 

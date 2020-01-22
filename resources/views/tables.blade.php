@@ -243,127 +243,110 @@
                         <h3><i class="fas fa-plus"></i> Komponente</h3>
                         <a class="close" data-dismiss="modal">×</a>
                     </div>
-                    <form action="{{ action('ComponentController@store') }}" method="POST" id="addComponentForm" class="mt-2">
                         <div class="modal-body">
+                            <form action="{{ action('ComponentController@store') }}" method="POST" id="addComponentForm" class="mt-2">
                             @csrf
-                            <div class="container">
-                                <div class="progress my-2">
-                                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <fieldset>
-                                    <h2>Name</h2>
-                                    <div class="form-group">            
-                                        <div class="col p-0">
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autofocus required>
-                                            @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>  
+                                <div class="container">
+                                    <div class="progress my-2">
+                                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <div class="form-group row">            
-                                        <div class="col p-0">
-                                            <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge" autofocus required>
-                                            @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>  
-                                        <div class="col p-0">
-                                            <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}" required>
-                                                <option disabled selected>Einheit</option>
-                                                @foreach($db_units as $db_unit)
-                                                    <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
-                                                @endforeach
-                                            </select>                    
-                                            @error('db_unit_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                    <fieldset>
+                                        <h2>Name</h2>
+                                        <div class="form-group">            
+                                            <div class="col p-0">
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name">
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>  
                                         </div>
-                                    </div>
-                                    <input type="button" name="next" class="next btn btn-primary" value="Weiter">
-                                </fieldset>
-                                <fieldset>
-                                    <h2>Zutaten</h2>
-                                    <div id="itemRows" class="form-group mb-2">
-                                        <div class="input-group my-2">
-                                            <select class="form-control" name="fieldAddIngredient" required>
-                                                <option disabled selected>Zutat</option>
-                                                @foreach($ingredients as $ingredient)
-                                                    <option value='{{ $ingredient->id }}'>{{ $ingredient->name }}</option>
-                                                @endforeach
-                                            </select>                    
-                                            <div class="input-group-append">
-                                                <input type="number" class="form-control rounded-0" name="fieldAddAmount" placeholder="Menge" required>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text rounded-0">Einheit</span>
+                                        <div class="form-group row">            
+                                            <div class="col p-0">
+                                                <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge">
+                                                @error('amount')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>  
+                                            <div class="col p-0">
+                                                <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}">
+                                                    <option disabled selected>Einheit</option>
+                                                    @foreach($db_units as $db_unit)
+                                                        <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
+                                                    @endforeach
+                                                </select>                    
+                                                @error('db_unit_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next btn btn-primary" value="Weiter">
+                                    </fieldset>
+                                    <fieldset>
+                                        <h2>Zutaten</h2>
+                                        {{-- START OF HIDDEN ELEMENT --}}
+                                        <div class="form-group dynamic-element" style="display:none">
+                                            <div class="row">
+                                                {{-- Replace these fields --}}
+                                                <div class="input-group">
+                                                    <select id="ingredient" name="ingredients[]" class="form-control" required>
+                                                        <option value='0' disabled selected>Zutat</option>
+                                                        @foreach ($ingredients as $ingredient)
+                                                            <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">Unit</span>
+                                                    </div>
+                                                    <div class=""><p class="delete">x</p></div>
+                                                </div>
+                                                {{-- End of fields--}}
+                                            </div>
+                                        </div>
+                                        {{-- END OF HIDDEN ELEMENT --}}
+                                        <div class="form-container">
+                                            <div class="dynamic-stuff">
+                                                {{-- Dynamic element will be cloned here --}}
+                                                {{-- You can call clone function once if you want it to show it a first element--}}
+                                            </div>
+                                            {{-- ADD Component Button --}}
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p class="add-one">+ Hinzufügen</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="input-group-append">
-                                                <button class="btn p-0 btn-primary shadow-none" onclick="addRow(this.form);"><i class="fas fa-plus"></i></button>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                    <input type="button" name="next" class="next btn btn-primary" value="Weiter" />
-                                </fieldset>
-                                <fieldset>
-                                    <h2>Rezept</h2>
-                                    <textarea name="recipe" cols="50" rows="5" class="mb-2" form="addComponentForm"></textarea>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Speichern') }}
-                                    </button>
-                                </fieldset>
-                            </div>
+                                        </div>
+                                        <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
+                                        <input type="button" name="next" class="next btn btn-primary" value="Weiter" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <h2>Rezept</h2>
+                                        <textarea name="recipe" cols="50" rows="5" class="mb-2" form="addComponentForm"></textarea>
+                                        <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Speichern') }}
+                                        </button>
+                                    </fieldset>
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button> 
                             </div> 
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-
-        {{-- ADD Component -> Dynamic Form --}}
-        <script>
-            var rowNum = 0;
-            function addRow(frm) {
-                rowNum ++;
-                var row = '<div id="rowNum'+rowNum+'">' +
-                                '<div class="input-group my-2">' +
-                                    '<select class="form-control" name="arrayIngredient[]" value="'+frm.fieldAddIngredient.value+ '"required>'+
-                                        '<option disabled selected>Zutat</option>' +
-                                        '@foreach($ingredients as $ingredient)' +
-                                            '<option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>' +
-                                        '@endforeach' +
-                                    '</select>' +
-                                    '<div class="input-group-append">' +
-                                        '<input type="number" class="form-control rounded-0" name="arrayAmount[]" value="'+frm.fieldAddAmount.value+ '"placeholder="Menge" required>' +
-                                            '<div class="input-group-append">'+
-                                                '<span class="input-group-text rounded-0">Einheit</span>' +
-                                            '</div>' +
-                                    '</div>'+
-                                    '<button type="button" class="btn p-0 btn-primary shadow-none" onclick="removeRow('+rowNum+');">'+ 
-                                        '<h2 class="mdi mdi-delete-outline m-0"></h2>' +
-                                    '</button>'+
-                                '</div>'+
-                            '</div>';
-                jQuery('#itemRows').append(row);
-                frm.fieldAddIngredient.value = '';
-                frm.fieldAddAmount.value = '';
-            }
-
-            function removeRow(rnum) {
-                jQuery('#rowNum'+rnum).remove();
-            }
-        </script>
 
         {{-- MODAL -> SHOW Component --}}
         <div id="showComponentModal" class="modal fade">
@@ -401,6 +384,23 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+         {{-- MODAL -> SHOW Meal --}}
+         <div id="showMealModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Details</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="showMeal">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    </div>
                 </div>
             </div>
         </div>
