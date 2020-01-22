@@ -147,22 +147,28 @@ $(document).ready(function(){
     });
 });
 
+//Delete Ingredient
+$(document).ready(function(){
+    $('.deleteIngredientButton').click(function(){
+        var ingredient_id = $(this).attr("id");
+        $('#deleteIngredientForm').attr('action', '/ingredient/'+ingredient_id);
+        $('#deleteIngredientModal').modal("show");
+    });
+});
+
 //ADD Component -> Dynamic Form
-//Clone the hidden element and shows it
 $('.add-one').click(function(){
     $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
     attach_delete();
-  });
+  });//Clone the hidden element and shows it
   
-  
-  //Attach functionality to delete buttons
   function attach_delete(){
     $('.delete').off();
     $('.delete').click(function(){
       console.log("click");
       $(this).closest('.form-group').remove();
     });
-  }
+  }//Attach functionality to delete buttons
 
 //Show Component
 $(document).ready(function(){
@@ -198,6 +204,15 @@ $(document).ready(function(){
     });
 });
 
+//Delete Ingredient
+$(document).ready(function(){
+    $('.deleteComponentButton').click(function(){
+        var component_id = $(this).attr("id");
+        $('#deleteComponentForm').attr('action', '/component/'+component_id);
+        $('#deleteComponentModal').modal("show");
+    });
+});
+
 //Progress Bar
 $(document).ready(function(){
     var current = 1,current_step,next_step,steps;
@@ -226,6 +241,15 @@ $(document).ready(function(){
 	}
 });
 
+//Show Unit
+$(document).ready(function(){
+    $( "#selectIngredient" ).change(function()
+    {
+        var unit = $(this).children('option:selected').attr('data-cc-unit');;
+        console.log(unit);
+    });
+});
+
 //Show Meal
 $(document).ready(function(){
     $('.showMealButton').click(function(){
@@ -239,6 +263,15 @@ $(document).ready(function(){
                    $('#showMealModal').modal("show");
               }
          });
+    });
+});
+
+//Delete Meal
+$(document).ready(function(){
+    $('.deleteMealButton').click(function(){
+        var meal_id = $(this).attr("id");
+        $('#deleteMealForm').attr('action', '/meal/'+meal_id);
+        $('#deleteMealModal').modal("show");
     });
 });
 
@@ -276,7 +309,7 @@ $(document).ready(function(){
     });
 });
 
-//delete Customer
+//Delete Customer
 $(document).ready(function(){
     $('.deleteCustomerButton').click(function(){
         var customer_id = $(this).attr("id");
