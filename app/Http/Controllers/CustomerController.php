@@ -47,26 +47,34 @@ class CustomerController extends Controller
             'adults' => '',
             'childrens' => '',
         ]);
+        try
+        {
+            $customer = new Customer;
 
-        $customer = new Customer;
-
-        $customer->name = $request->input('name');
-        $customer->street = $request->input('street');
-        $customer->house_number = $request->input('house_number');
-        $customer->postcode = $request->input('postcode');
-        $customer->place = $request->input('place');
-        $customer->adults = $request->input('adults');
-        $customer->childrens = $request->input('childrens');
+            $customer->name = $request->input('name');
+            $customer->street = $request->input('street');
+            $customer->house_number = $request->input('house_number');
+            $customer->postcode = $request->input('postcode');
+            $customer->place = $request->input('place');
+            $customer->adults = $request->input('adults');
+            $customer->childrens = $request->input('childrens');
 
 
-        $customer->save();
+            $customer->save();
 
-        $notification = array(
-            'message' => 'Kunde wurde hinzugefügt!',
-            'alert-type' => 'success'
-        );
-
-        return redirect('/customer')->with($notification); 
+            $notification = array(
+                'message' => 'Kunde wurde hinzugefügt!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Kunde nicht hinzugefügt!',
+                'alert-type' => 'error'
+            ); 
+        }
+        return redirect('/customer')->with($notification);
     }
 
     /**
@@ -110,23 +118,32 @@ class CustomerController extends Controller
             'childrens' => '',
         ]);
 
-        $customer = Customer::find($id);
+        try
+        {
+            $customer = Customer::find($id);
 
-        $customer->name = $request->input('name');
-        $customer->street = $request->input('street');
-        $customer->house_number = $request->input('house_number');
-        $customer->postcode = $request->input('postcode');
-        $customer->place = $request->input('place');
-        $customer->adults = $request->input('adults');
-        $customer->childrens = $request->input('childrens');
+            $customer->name = $request->input('name');
+            $customer->street = $request->input('street');
+            $customer->house_number = $request->input('house_number');
+            $customer->postcode = $request->input('postcode');
+            $customer->place = $request->input('place');
+            $customer->adults = $request->input('adults');
+            $customer->childrens = $request->input('childrens');
 
-        $customer->save();
+            $customer->save();
 
-        $notification = array(
-            'message' => 'Kunde wurde geändert!',
-            'alert-type' => 'success'
-        );
-
+            $notification = array(
+                'message' => 'Kunde wurde geändert!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Kunde wurde nicht geändert!',
+                'alert-type' => 'error'
+            );
+        }
         return redirect('/customer')->with($notification); 
     }
 
@@ -138,13 +155,22 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('customers')->where('id', $id)->delete();
+        try
+        {
+            DB::table('customers')->where('id', $id)->delete();
 
-        $notification = array(
-            'message' => 'Kunde wurde gelöscht!',
-            'alert-type' => 'success'
-        );
-        
+            $notification = array(
+                'message' => 'Kunde wurde gelöscht!',
+                'alert-type' => 'success'
+            );
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Kunde wurde nicht gelöscht!',
+                'alert-type' => 'error'
+            );
+        }
         return redirect('/customer')->with($notification);;
     }
 }
