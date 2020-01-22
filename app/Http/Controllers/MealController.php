@@ -84,6 +84,7 @@ class MealController extends Controller
         try
         {
             DB::table('components_meals')->where('meal_id', $id)->delete();
+            DB::table('meals_menus')->where('meal_id', $id)->delete();
             DB::table('meals')->where('id', $id)->delete();
 
             $notification = array(

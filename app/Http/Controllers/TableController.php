@@ -19,7 +19,7 @@ class TableController extends Controller
      */
     public function index()
     {
-        $ingredients = DB::select('select * from ingredients order by name asc');
+        $ingredients = DB::select('select I.*, U.name AS unit from ingredients I, db_units U WHERE I.db_unit_id = U.id order by name asc');
         $components = DB::select('select * from components order by name asc');
         $meals = DB::select('select * from meals order by name asc');
         $allergenes = DB::select('select * from allergenes');

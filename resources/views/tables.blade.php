@@ -29,11 +29,7 @@
                                     {{-- Button EDIT Ingredient MODAL --}}
                                     <button type="button" id={{ $ingredient->id }} class="btn p-0 my-0 mx-2 shadow-none editIngredientButton"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Ingredient  --}}
-                                    <form action="{{ url('ingredient' , $ingredient->id ) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
-                                    </form>
+                                    <button type="button" id={{ $ingredient->id }} class="btn p-0 my-0 mx-2 shadow-none deleteIngredientButton"><i class="fas fa-trash"></i></button>
                                 </div>
                             </li>
                         @endforeach
@@ -67,12 +63,7 @@
                                     {{-- Button EDIT Component MODAL --}}
                                     <button type="button" id={{ $component->id }} class="btn p-0 my-0 mx-2 shadow-none infobutton editComponentButton"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Component  --}}
-                                    <form action="{{ url('component' , $component->id ) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
-                                    </form>
-                                    
+                                    <button type="button" id={{ $component->id }} class="btn p-0 my-0 mx-2 shadow-none deleteComponentButton"><i class="fas fa-trash"></i></button>
                                 </div>
                             </li>
                         @endforeach
@@ -106,12 +97,7 @@
                                     {{-- Button EDIT Meal MODAL --}}
                                     <button type="button" class="btn p-0 my-0 mx-2 shadow-none" data-toggle="modal" data-target="#editmealmodal"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Meal  --}}
-                                    <form action="{{ url('meal' , $meal->id ) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn p-0 my-0 mx-2 shadow-none"><i class="fas fa-trash"></i></button> 
-                                    </form>
-                                    
+                                    <button type="button" id={{ $meal->id }} class="btn p-0 my-0 mx-2 shadow-none deleteMealButton"><i class="fas fa-trash"></i></button>
                                 </div>
                             </li>
                         @endforeach
@@ -235,6 +221,28 @@
             </div>
         </div>
 
+        {{-- MODAL -> DELETE Ingredient --}}
+        <div id="deleteIngredientModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Zutat löschen</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="/ingredient" method="POST" id="deleteIngredientForm">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body" id="editIngredient">
+                           <span>Wollen Sie wirklich die Zutat löschen ?</span> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Löschen</button>              
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- MODAL -> ADD Component --}}
         <div id="addcomponent" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -294,15 +302,15 @@
                                             <div class="row">
                                                 {{-- Replace these fields --}}
                                                 <div class="input-group">
-                                                    <select id="ingredient" name="ingredients[]" class="form-control" required>
-                                                        <option value='0' disabled selected>Zutat</option>
+                                                    <select id="selectIngredient" name="ingredients[]" class="form-control" required>
+                                                        <option value='0' disabled>Zutat</option>
                                                         @foreach ($ingredients as $ingredient)
-                                                            <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
+                                                            <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Unit</span>
+                                                        <span class="input-group-text" id="unitIngredient">Unit</span>
                                                     </div>
                                                     <div class=""><p class="delete">x</p></div>
                                                 </div>
@@ -388,6 +396,28 @@
             </div>
         </div>
 
+        {{-- MODAL -> DELETE Component --}}
+        <div id="deleteComponentModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Komponente löschen</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="/component" method="POST" id="deleteComponentForm">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body" id="editComponent">
+                           <span>Wollen Sie die Komponente wirklich löschen ?</span> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Löschen</button>              
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
          {{-- MODAL -> SHOW Meal --}}
          <div id="showMealModal" class="modal fade">
             <div class="modal-dialog">
@@ -401,6 +431,28 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+         {{-- MODAL -> DELETE Meal --}}
+         <div id="deleteMealModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Speise löschen</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="/meal" method="POST" id="deleteMealForm">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body" id="editMeal">
+                           <span>Wollen Sie die Speise wirklich löschen ?</span> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Löschen</button>              
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
