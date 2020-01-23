@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
-    {{------------------------------------ Customers Table ------------------------------------}}
+    {{------------------------------------ Supplier Table ------------------------------------}}
     <div class="col-8 m-0 py-3 px-2 tableHeight">
         <div class="row">
-            <h1 class="col-3"> Kunden</h1>
+            <h1 class="col-3"> Lieferant</h1>
             <h1 class="col-4"> &nbsp; </h1>
             <div class=" col-5 pr-3">
-                <input class="form-control bg-white border-0 shadow-none" id="SearchCustomer" type="text" placeholder="Suche..">
+                <input class="form-control bg-white border-0 shadow-none" id="SearchSupplier" type="text" placeholder="Suche..">
             </div>
         </div>
         <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
@@ -17,10 +17,10 @@
                     <thead>
                         <tr class="row mx-2">
                             <th scope="col" class="col-3 pl-2 my-auto"><h3>Name</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Erwachsene</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Kinder</h3></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"></th>
                             <th scope="col" class="col-3 pl-2 pr-0">
-                                <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addcustomer"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addsupplier"><i class="fas fa-plus"></i></button>
                             </th>
                         </tr>
                     </thead>
@@ -30,20 +30,20 @@
             {{-- Content area --}}
             <div data-simplebar class="h-100 mh-100 p-2 overflow-auto">
                 <table class="table table-borderless">
-                    <tbody id="TableCustomer">
-                        @foreach ($customers as $customer)
+                    <tbody id="TableSupplier">
+                        @foreach ($suppliers as $supplier)
                             <tr class="row mx-0 mb-2 bg-light rounded">
-                                <td class="col-3 searchItem"><h4>{{ $customer->name }}</h4></td>
-                                <td class="col-3"><h4>{{ $customer->adults }}</h4></td>
-                                <td class="col-3"><h4>{{ $customer->childrens }}</h4></td>
+                                <td class="col-3 searchItem"><h4>{{ $supplier->name }}</h4></td>
+                                <td class="col-3"></td>
+                                <td class="col-3"></td>
                                 <td class="col-3">
                                     <div class="btn-group float-right">
-                                        {{-- Button SHOW Customer Modal --}}
-                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none showCustomerButton"><i class="fas fa-info"></i></button>
-                                        {{-- Button EDIT Customer MODAL --}}
-                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none editCustomerButton"><i class="fas fa-pen"></i></button>
-                                        {{-- Button DELETE Customer  --}}
-                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none deleteCustomerButton"><i class="fas fa-trash"></i></button>
+                                        {{-- Button SHOW Supplier Modal --}}
+                                        <button type="button" id={{ $supplier->id }} class="btn p-0 my-0 mx-2 shadow-none showSupplierButton"><i class="fas fa-info"></i></button>
+                                        {{-- Button EDIT Supplier MODAL --}}
+                                        <button type="button" id={{ $supplier->id }} class="btn p-0 my-0 mx-2 shadow-none editSupplierButton"><i class="fas fa-pen"></i></button>
+                                        {{-- Button DELETE Supplier  --}}
+                                        <button type="button" id={{ $supplier->id }} class="btn p-0 my-0 mx-2 shadow-none deleteSupplierButton"><i class="fas fa-trash"></i></button>
                                     </div>
                                 </td>  
                             </tr>
@@ -53,31 +53,31 @@
             </div> 
         </div>
     </div>
-    {{------------------------------------- Customers Right Area -------------------------------------}}
+    {{------------------------------------- Supplier Right Area -------------------------------------}}
     <div class="col-4 m-0 pb-4 pt-3 px-2 tableHeight">
         <h1> &nbsp; </h1>
-        {{------------------------------------- Customers Map -------------------------------------}}
+        {{------------------------------------- Supplier Map -------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
             
 
         </div>
-        {{------------------------------------ Customers Stats ------------------------------------}}
+        {{------------------------------------ Supplier Stats ------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
             <h2 class="pt-2 px-2">Auswertung</h2>
             <hr class="w-100 my-2"/>
             <table class="table table-borderless">
                 <tbody>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Kunden: </h4></td>
-                        <td class="col-6"><h4>{{$cntCustomers}}</h4></td>
+                        <td class="col-6 text-right"><h4>Anzahl Lieferanten: </h4></td>
+                        <td class="col-6"><h4>{{$countSuppliers}}</h4></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Erwachsener: </h4></td>
-                        <td class="col-6"><h4>{{$sumAdults}}</h4></td>
+                        <td class="col-6 text-right"></td>
+                        <td class="col-6"></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Kinder: </h4></td>
-                        <td class="col-6"><h4>{{$sumChildrens}}</h4></td>
+                        <td class="col-6 text-right"></td>
+                        <td class="col-6"></td>
                     </tr>
                 </tbody>
             </table>
@@ -85,15 +85,15 @@
     </div>
 </div>
 
-{{-- MODAL -> ADD Customer --}}
-<div id="addcustomer" class="modal fade" role="dialog">
+{{-- MODAL -> ADD Supplier --}}
+<div id="addsupplier" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-plus"></i> Kunde</h3>
+                <h3><i class="fas fa-plus"></i> Lieferant</h3>
                 <a class="close" data-dismiss="modal">×</a>
             </div>
-            <form action="{{ action('CustomerController@store') }}" method="POST">
+            <form action="{{ action('SupplierController@store') }}" method="POST">
                 <div class="modal-body">
                     @csrf
                     {{-- Name Input --}}
@@ -144,30 +144,6 @@
                         </div>
                     </div>
 
-                    {{-- Adults and Childs --}}
-                    <div class="form-row mt-3">
-                        <div class="input-group col-12">  
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-male"></i></span>
-                            </div>
-                            <input type="number" class="form-control @error('adults') is-invalid @enderror" name="adults" value="{{ old('adults') }}" placeholder="Erwachsene" required>
-                            @error('adults')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror                            
-                        
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-child"></i></span>
-                            </div>
-                            <input type="number" class="form-control  @error('childrens') is-invalid @enderror" name="childrens" value="{{ old('childrens') }}" placeholder="Kinder" required>
-                            @error('childrens')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror                             
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btn-group">
@@ -182,15 +158,15 @@
     </div>
 </div>  
 
-{{-- MODAL -> SHOW Customer --}}
-<div id="showCustomerModal" class="modal fade">
+{{-- MODAL -> SHOW Supplier --}}
+<div id="showSupplierModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1>Details</h1>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" id="showCustomer">
+            <div class="modal-body" id="showSupplier">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -199,18 +175,18 @@
     </div>
 </div>
 
-{{-- MODAL -> EDIT Customer --}}
-<div id="editCustomerModal" class="modal fade">
+{{-- MODAL -> EDIT Supplier --}}
+<div id="editSupplierModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Kunde</h3>
+                <h3>Lieferant</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="/customer" method="POST" id="editCustomerForm">
+            <form action="/supplier" method="POST" id="editSupplierForm">
                 @method('PUT')
                 @csrf
-                <div class="modal-body" id="editCustomer"></div>
+                <div class="modal-body" id="editSupplier"></div>
                 <div class="modal-footer">
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -224,19 +200,19 @@
     </div>
 </div>
 
-{{-- MODAL -> DELETE Customer --}}
-<div id="deleteCustomerModal" class="modal fade">
+{{-- MODAL -> DELETE Supplier --}}
+<div id="deleteSupplierModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Kunde löschen</h3>
+                <h3>Lieferant löschen</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="/customer" method="POST" id="deleteCustomerForm">
+            <form action="/supplier" method="POST" id="deleteSupplierForm">
                 @csrf
                 @method('DELETE')
-                <div class="modal-body" id="editCustomer">
-                   <span>Wollen Sie wirklich diesen Kunden löschen ?</span> 
+                <div class="modal-body" id="editSupplier">
+                   <span>Wollen Sie wirklich diesen Lieferant löschen ?</span> 
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Löschen</button>              
