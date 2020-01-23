@@ -298,11 +298,11 @@
                                     <fieldset>
                                         <h2>Zutaten</h2>
                                         {{-- START OF HIDDEN ELEMENT --}}
-                                        <div class="form-group dynamic-element" style="display:none">
+                                        <div class="form-group dynamic-element" style="display:block">
                                             <div class="row">
                                                 {{-- Replace these fields --}}
                                                 <div class="input-group">
-                                                    <select id="selectIngredient" name="ingredients[]" class="form-control" required>
+                                                    <select id="selectIngredient" name="ingredients[]" class="form-control selectIngredient" required>
                                                         <option value='0' disabled>Zutat</option>
                                                         @foreach ($ingredients as $ingredient)
                                                             <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
@@ -310,7 +310,7 @@
                                                     </select>
                                                     <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text" id="unitIngredient">Unit</span>
+                                                        <span class="input-group-text unitIngredient" id="unitIngredient">Unit</span>
                                                     </div>
                                                     <div class=""><p class="delete">x</p></div>
                                                 </div>

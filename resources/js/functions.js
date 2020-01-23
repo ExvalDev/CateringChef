@@ -243,10 +243,10 @@ $(document).ready(function(){
 
 //Show Unit
 $(document).ready(function(){
-    $( "#selectIngredient" ).change(function()
+    $(".selectIngredient").change(function()
     {
-        var unit = $(this).children('option:selected').attr('data-cc-unit');;
-        console.log(unit);
+        var unit = $("#selectIngredient option:selected").attr('data-cc-unit');
+        $('.unitIngredient').text(unit); 
     });
 });
 
