@@ -14,7 +14,7 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn py-0 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addingredient"><i class="fas fa-plus"></i></button>
                     </div>
                     <hr class="p-0 mt-2 mb-0"/>
                 </div>
@@ -48,7 +48,7 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addcomponent"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn py-0 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addcomponent"><i class="fas fa-plus"></i></button>
                     </div>
                     <hr class="p-0 mt-2 mb-0"/>
                 </div>
@@ -82,7 +82,7 @@
                     </div>   
                     <hr class="p-0 my-2"/>
                     <div class="d-flex flex-row-reverse m-2 p-0">
-                        <button type="button" class="btn py-1 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addmeal"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn py-0 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addmeal"><i class="fas fa-plus"></i></button>
                     </div>
                     <hr class="p-0 mt-2 mb-0"/>
                 </div>

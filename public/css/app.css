@@ -11384,7 +11384,11 @@ a.text-dark:focus {
 
 .navIcon {
   color: #4f4f4f;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+}
+
+.navText {
+  font-size: 0.7rem;
 }
 
 .fa-plus {
