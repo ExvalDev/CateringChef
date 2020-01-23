@@ -185,14 +185,16 @@ $(document).ready(function(){
 });
 
 //ADD Component -> Dynamic Form
-let count = 0;
 $('.add-one').click(function(){
     var row = $('.dynamic-element').first().clone();
-    count++;
-    $('[id^=selectIngredient]').last().attr('id', 'selectIngredient'+count);
-    $('[id^=unitIngredient]').last().attr('id', 'unitIngredient'+count);
     row.appendTo('.dynamic-stuff').show();
     attach_delete();
+    var parent = document.getElementById("dynamic-stuff");
+    var count = parent.getElementsByClassName("dynamic-element").length-1;
+    console.log(count);
+    $('.selectIngredient').last().attr('id', 'selectIngredient'+count);
+    $('.selectIngredient').last().attr('onchange', 'changeUnit('+count+')');
+    $('.unitIngredient').last().attr('id', 'unitIngredient'+count);
   });//Clone the hidden element and shows it
   
   function attach_delete(){
@@ -272,8 +274,6 @@ $(document).ready(function(){
 			.css("width",percent+"%");
 	}
 });
-
-
 
 //Show Meal
 $(document).ready(function(){

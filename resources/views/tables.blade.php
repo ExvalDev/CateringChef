@@ -4,13 +4,11 @@
 @endpush
 @push('scripts')
     <script>
-        //Show Unit
-        function changeUnit()
+        function changeUnit(element)
         {
-            var unit = $("#selectIngredient option:selected").attr('data-cc-unit');
-            console.log(unit);
-            // $('.unitIngredient').text(unit); 
-        };
+            var unit = $("#selectIngredient"+element+" option:selected").attr('data-cc-unit');
+            $('#unitIngredient'+element).text(unit);
+        }
     </script>
 @endpush
 @section('content')
@@ -308,29 +306,28 @@
                                     </fieldset>
                                     <fieldset>
                                         <h2>Zutaten</h2>
-                                        {{-- START OF HIDDEN ELEMENT --}}
-                                        <div class="form-group dynamic-element" style="display:block">
-                                            <div class="row">
-                                                {{-- Replace these fields --}}
-                                                <div class="input-group">
-                                                    <select id="selectIngredient" name="ingredients[]" class="form-control selectselect" onchange="changeUnit()" required>
-                                                        <option value='0' disabled>Zutat</option>
-                                                        @foreach ($ingredients as $ingredient)
-                                                            <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text unitIngredient" id="unitIngredient">Unit</span>
-                                                    </div>
-                                                    <div class=""><p class="delete">x</p></div>
-                                                </div>
-                                                {{-- End of fields--}}
-                                            </div>
-                                        </div>
-                                        {{-- END OF HIDDEN ELEMENT --}}
                                         <div class="form-container">
-                                            <div class="dynamic-stuff">
+                                            <div class="dynamic-stuff" id="dynamic-stuff">
+                                                {{-- START OF HIDDEN ELEMENT --}}
+                                                <div class="form-group dynamic-element" style="display:none">
+                                                    <div class="row">
+                                                        {{-- Replace these fields --}}
+                                                        <div class="input-group">
+                                                            <select id="selectIngredient" name="ingredients[]" class="form-control selectIngredient" onchange="changeUnit()" required>
+                                                                @foreach ($ingredients as $ingredient)
+                                                                    <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text unitIngredient" id="unitIngredient">Unit</span>
+                                                            </div>
+                                                            <div class=""><p class="delete">x</p></div>
+                                                        </div>
+                                                        {{-- End of fields--}}
+                                                    </div>
+                                                </div>
+                                                {{-- END OF HIDDEN ELEMENT --}}
                                                 {{-- Dynamic element will be cloned here --}}
                                                 {{-- You can call clone function once if you want it to show it a first element--}}
                                             </div>
