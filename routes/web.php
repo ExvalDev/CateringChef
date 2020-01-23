@@ -21,6 +21,7 @@ Route::get('/', 'MenuController@index');
 Route::get('/menu', 'MenuController@index');
 Route::get('/tables', 'TableController@index');
 Route::resource('/customer', 'CustomerController');
+Route::resource('/supplier', 'SupplierController');
 Route::resource('/ingredient', 'IngredientController');
 Route::resource('/component', 'ComponentController');
 Route::resource('/meal', 'MealController');

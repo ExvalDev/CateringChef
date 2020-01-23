@@ -113,6 +113,34 @@ $(document).ready(function()
     });
 });
 
+//Search Customers
+$(document).ready(function()
+{
+    $("#SearchSupplier").on("keyup", function() 
+    {
+        // Declare variables
+        var filter, tableBody, tRow, Item, i, txtValue;
+        filter = $(this).val().toLowerCase();
+        tableBody = document.getElementById("TableSupplier");
+        tRow = tableBody.getElementsByTagName('tr');
+        
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < tRow.length; i++) 
+        {
+            Item = tRow[i].getElementsByClassName('searchItem')[0];
+            txtValue = Item.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) 
+            {
+                tRow[i].style.display = "";
+            } 
+            else 
+            {
+                tRow[i].setAttribute('style', 'display: none !important');
+            }
+        }
+    });
+});
+
 //Show Ingredient
 $(document).ready(function(){
     $('.showIngredientButton').click(function(){
@@ -157,15 +185,19 @@ $(document).ready(function(){
 });
 
 //ADD Component -> Dynamic Form
+let count = 0;
 $('.add-one').click(function(){
-    $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
+    var row = $('.dynamic-element').first().clone();
+    count++;
+    $('[id^=selectIngredient]').last().attr('id', 'selectIngredient'+count);
+    $('[id^=unitIngredient]').last().attr('id', 'unitIngredient'+count);
+    row.appendTo('.dynamic-stuff').show();
     attach_delete();
   });//Clone the hidden element and shows it
   
   function attach_delete(){
     $('.delete').off();
     $('.delete').click(function(){
-      console.log("click");
       $(this).closest('.form-group').remove();
     });
   }//Attach functionality to delete buttons
@@ -241,14 +273,7 @@ $(document).ready(function(){
 	}
 });
 
-//Show Unit
-$(document).ready(function(){
-    $(".selectIngredient").change(function()
-    {
-        var unit = $("#selectIngredient option:selected").attr('data-cc-unit');
-        $('.unitIngredient').text(unit); 
-    });
-});
+
 
 //Show Meal
 $(document).ready(function(){
@@ -315,5 +340,48 @@ $(document).ready(function(){
         var customer_id = $(this).attr("id");
         $('#deleteCustomerForm').attr('action', '/customer/'+customer_id);
         $('#deleteCustomerModal').modal("show");
+    });
+});
+
+//Show Supplier
+$(document).ready(function(){
+    $('.showSupplierButton').click(function(){
+         var supplier_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/showSupplier.blade.php",
+              method:"post",
+              data:{supplier_id:supplier_id},
+              success:function(data){
+                   $('#showSupplier').html(data);
+                   $('#showSupplierModal').modal("show");
+              }
+         });
+    });
+});
+
+//Edit Supplier
+$(document).ready(function(){
+    $('.editSupplierButton').click(function(){
+         var supplier_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/editSupplier.blade.php",
+              method:"post",
+              data:{supplier_id:supplier_id},
+              success:function(data)
+              {
+                $('#editSupplierForm').attr('action', '/supplier/'+supplier_id);
+                $('#editSupplier').html(data);
+                $('#editSupplierModal').modal("show");
+              }
+         });
+    });
+});
+
+//Delete Supplier
+$(document).ready(function(){
+    $('.deleteSupplierButton').click(function(){
+        var supplier_id = $(this).attr("id");
+        $('#deleteSupplierForm').attr('action', '/supplier/'+supplier_id);
+        $('#deleteSupplierModal').modal("show");
     });
 });

@@ -2,6 +2,17 @@
 @push('styles')
     <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
 @endpush
+@push('scripts')
+    <script>
+        //Show Unit
+        function changeUnit()
+        {
+            var unit = $("#selectIngredient option:selected").attr('data-cc-unit');
+            console.log(unit);
+            // $('.unitIngredient').text(unit); 
+        };
+    </script>
+@endpush
 @section('content')
     <div class="container-fluid row m-0 p-0 vh-100">
         {{------------------------------------ Ingredients ------------------------------------}}
@@ -302,7 +313,7 @@
                                             <div class="row">
                                                 {{-- Replace these fields --}}
                                                 <div class="input-group">
-                                                    <select id="selectIngredient" name="ingredients[]" class="form-control selectIngredient" required>
+                                                    <select id="selectIngredient" name="ingredients[]" class="form-control selectselect" onchange="changeUnit()" required>
                                                         <option value='0' disabled>Zutat</option>
                                                         @foreach ($ingredients as $ingredient)
                                                             <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>

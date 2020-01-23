@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css"/>
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 
+    @stack('scripts')
 </head>
 <body>
     {{-- Notification --}}
