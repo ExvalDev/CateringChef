@@ -24,7 +24,7 @@
                             <th scope="col" class="col-3 pl-2 my-auto"><h3>Erwachsene</h3></th>
                             <th scope="col" class="col-3 pl-2 my-auto"><h3>Kinder</h3></th>
                             <th scope="col" class="col-3 pl-2 pr-0">
-                                <button type="button" class="btn py-1 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addcustomer"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addcustomer"><i class="fas fa-plus"></i></button>
                             </th>
                         </tr>
                     </thead>

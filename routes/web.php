@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/* Route::get('/', function () {
+    return view('menu');
+}); */
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/', 'MenuController@index');
+Route::get('/menu', 'MenuController@index');
 Route::get('/tables', 'TableController@index');
 Route::resource('/customer', 'CustomerController');
 Route::resource('/ingredient', 'IngredientController');

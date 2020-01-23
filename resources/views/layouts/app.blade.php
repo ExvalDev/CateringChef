@@ -65,21 +65,62 @@
     </script>
     <div id="app">    
         <div class="vertical-nav bg-white">       
-            <nav class="nav flex-column">
-                    <a href="{{ url('/') }}" class="nav-brand mx-auto mt-3"><i class="fas fa-home navIcon"></i></a>
-                    <a href="{{ url('/menu') }}" class="nav-link mx-auto mt-3"><i class="far fa-calendar-alt navIcon"></i></a>
-                    <a href="{{ url('/tables') }}" class="nav-link mx-auto mt-3"> <i class="fas fa-utensils navIcon"></i></a>
-                    <a href="{{ url('/customer') }}" class="nav-link mx-auto mt-3"><i class="far fa-address-card navIcon"></i></a>
-                    <a class="nav-link mx-auto mt-3" href="{{ route('logout') }}" 
-                        onclick="
-                            event.preventDefault();
-                            document.getElementById('logout-form').submit();
-                        ">
-                        {{ __('') }} <i class="fas fa-sign-out-alt navIcon"></i>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+            <nav class="nav flex-column h-100">
+                    <a class="navbar-brand mx-auto" href="#"><img src="../img/CC-logo.png" class="mx-auto d-block" alt="CC" width="80%"></a>
+                    <a href="{{ url('/menu') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
+                    <a href="{{ url('/tables') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
+                    <a href="{{ url('/recipes') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
+                    <a href="{{ url('/customer') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
+                    <a href="{{ url('/supplier') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
+                    
+                    <div class="mt-auto mb-2 w-100 text-center">
+                        <a href="{{ url('/settings') }}" class="nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
+                        <a href="{{ route('logout') }}" class="nav-link mx-auto mt-2 mb-3" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                            onclick="
+                                event.preventDefault();
+                                document.getElementById('logout-form').submit();
+                            ">
+                            {{ __('') }} <i class="fas fa-sign-out-alt navIcon"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <span class="navText">
+                            @php
+                                $dayNr = date('N');
+                                switch ($dayNr) {
+                                    case 1:
+                                        echo 'Montag';
+                                        break;
+                                    case 2:
+                                        echo 'Dienstag';
+                                        break;
+                                    case 3:
+                                        echo 'Mittwoch';
+                                        break;
+                                    case 4:
+                                        echo 'Donnerstag';
+                                        break;
+                                    case 5:
+                                        echo 'Freitag';
+                                        break;
+                                    case 6:
+                                        echo 'Samstag';
+                                        break;
+                                    case 7:
+                                        echo 'Sonntag';
+                                        break;  
+                                }
+                            @endphp
+                            
+                        </span>    
+                        <span class="navText">
+                            @php
+                                echo (date('d.m.Y'))
+                            @endphp
+                        </span>  
+                    </div>
+                    
             </nav>    
         </div>
         <div class="page-content">
@@ -88,4 +129,9 @@
             </main>
         </div>
 </body>
+<script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </html>

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <example-component></example-component> -->
+
+<h1>Menü</h1>
 @endsection
