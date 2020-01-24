@@ -257,34 +257,41 @@
                         <div class="modal-body">
                             <form action="{{ action('ComponentController@store') }}" method="POST" id="addComponentForm" class="mt-2">
                             @csrf
-                                <div class="container">
-                                    <div class="progress my-2">
+                                <div class="container p-0">
+                                    <ul id="progressbar">
+                                        <li class="active">Allgemein</li>
+                                        <li>Zutaten</li>
+                                        <li>Rezept</li>
+                                    </ul>
+                                    {{-- <div class="progress my-2">
                                         <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    </div> --}}
+                                    {{-- Page I --}}
                                     <fieldset>
-                                        <h2>Name</h2>
-                                        <div class="form-group">            
-                                            <div class="col p-0">
+                                        <h2>Allgemein</h2>
+                                        {{-- name Input --}}
+                                        <div class="form-row">
+                                            <div class="form-group col-12">            
                                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name">
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
-                                            </div>  
+                                            </div>
                                         </div>
-                                        <div class="form-group row">            
-                                            <div class="col p-0">
+                                        {{-- Amount & Unit --}}
+                                        <div class="form-row">            
+                                            <div class="input-group col-12">
                                                 <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge">
                                                 @error('amount')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
-                                            </div>  
-                                            <div class="col p-0">
+
                                                 <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}">
-                                                    <option disabled selected>Einheit</option>
+                                                    <option disabled selected hidden> Einheit</option>
                                                     @foreach($db_units as $db_unit)
                                                         <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
                                                     @endforeach
@@ -296,63 +303,65 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <input type="button" name="next" class="next btn btn-primary" value="Weiter">
+                                        {{-- next Page --}}
+                                        <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="Weiter">
                                     </fieldset>
+
+                                    {{-- Page II --}}
                                     <fieldset>
-                                        <h2>Zutaten</h2>
-                                        <div class="form-container">
+                                        <div class="d-flex">
+                                            <h2>Zutaten</h2> 
+                                        {{-- ADD Component Button --}}
+                                        <p class="btn py-0 px-2 btn-primary shadow-none ml-auto add-one"><i class="fas fa-plus"></i></p>
+                                        </div>
+                                        
+                                        <div class="form-container mb-3">
                                             <div class="dynamic-stuff" id="dynamic-stuff">
                                                 {{-- START OF HIDDEN ELEMENT --}}
-                                                <div class="form-group dynamic-element" style="display:none">
-                                                    <div class="row">
-                                                        {{-- Replace these fields --}}
-                                                        <div class="input-group">
-                                                            <select id="selectIngredient" name="ingredients[]" class="form-control selectIngredient" onchange="changeUnit()" required>
-                                                                @foreach ($ingredients as $ingredient)
-                                                                    <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text unitIngredient" id="unitIngredient">Einheit</span>
-                                                            </div>
-                                                            <div class=""><p class="delete">x</p></div>
+                                                <div class="form-row mt-2 dynamic-element" style="display:none">
+                                                    {{-- Replace these fields --}}
+                                                    <div class="input-group col-12">
+                                                        {{-- Choose Ingredient --}}
+                                                        <select id="selectIngredient" name="ingredients[]" class="form-control col-5 selectIngredient" onchange="changeUnit()" required>
+                                                            <option disabled selected hidden> Zutat wählen</option>
+                                                            @foreach ($ingredients as $ingredient)
+                                                                <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        {{-- input Amount --}}
+                                                        <input type="number" class="form-control col-3" name="amounts[]" placeholder="Menge">
+                                                        {{-- Unit for selected Ingredient --}}
+                                                        <span class="form-control unitIngredient col-3" id="unitIngredient">Einheit</span>
+                                                        {{-- delete Row --}}
+                                                        <div class="input-group-append d-flex col-1 px-0">
+                                                            <button class="btn btn-outline-danger flex-fill delete" type="button"> x </button>
                                                         </div>
-                                                        {{-- End of fields--}}
                                                     </div>
+                                                    {{-- End of fields--}}
                                                 </div>
                                                 {{-- END OF HIDDEN ELEMENT --}}
                                                 {{-- Dynamic element will be cloned here --}}
                                                 {{-- You can call clone function once if you want it to show it a first element--}}
                                             </div>
-                                            {{-- ADD Component Button --}}
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p class="add-one">+ Hinzufügen</p>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
+
                                         <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                        <input type="button" name="next" class="next btn btn-primary" value="Weiter" />
+                                        <input type="button" name="next" class="next btn btn-primary float-right" value="Weiter" />
+                                        
                                     </fieldset>
+                                    {{-- Page III --}}
                                     <fieldset>
                                         <h2>Rezept</h2>
-                                        <textarea name="recipe" cols="50" rows="5" class="mb-2" form="addComponentForm"></textarea>
+                                        <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addComponentForm"></textarea>
                                         <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary float-right">
                                             {{ __('Speichern') }}
                                         </button>
                                     </fieldset>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button> 
-                            </div> 
-                        </div>
+                        
                     </div>
                 </div>
             </div>

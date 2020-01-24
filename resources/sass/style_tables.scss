@@ -60,4 +60,44 @@ input[type="checkbox"]:checked:hover+label::before {
 }
 
 
+/*progressbar*/
+#progressbar {
+    overflow: hidden;
+    padding-left: 0;
+    text-align: center;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: $CC-darkGrey;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-family: 'Kreon', serif;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 0.1rem solid $CC-darkGrey;
+    border-radius: 50%;
+    line-height: 2.3rem;
+    display: block;
+    font-size: 1.6rem;
+    color: $CC-darkGrey;
+    margin: 0 auto 10px auto;
+}
+
+#progressbar li.active:before, #progressbar li.active:after {
+    border-color: $CC-midGreen;
+    color: $CC-midGreen;
+}
+
 
