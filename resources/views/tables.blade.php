@@ -3,7 +3,13 @@
     <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
 @endpush
 @push('scripts')
-    <script></script>
+    <script>
+        function changeUnit(element)
+            {
+                var unit = $("#selectIngredient"+element+" option:selected").attr('data-cc-unit');
+                $('#unitIngredient'+element).text(unit);
+            }
+    </script>
 @endpush
 @section('content')
     <div class="container-fluid row m-0 p-0 vh-100">
