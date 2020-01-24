@@ -12,19 +12,24 @@
             $output .= '
                 <tr>
                         <td width="30%"><label>Komponent</label></td>
-                        <td width="70%">'.$row["nameComponent"].'</td>
+                        <td width="30%">'.$row["nameComponent"].'</td>
+                        <td width="40%"></td>
                 </tr>';
         }
-        $query = "SELECT I.Name AS nameIngredient, CI.amount AS amountIngredient FROM ingredients I, components C,  components_ingredients CI WHERE I.id = CI.ingredient_id AND CI.component_id = C.id AND C.id ='".$_POST["component_id"]."'";
+        $query = "SELECT I.Name AS nameIngredient, CI.amount AS amountIngredient , U.name AS unitIngredient FROM ingredients I, components C,  components_ingredients CI, db_units U WHERE I.id = CI.ingredient_id AND CI.component_id = C.id AND I.db_unit_id = U.id AND C.id ='".$_POST["component_id"]."'";
         $result = mysqli_query($connect, $query);
         while($row = mysqli_fetch_array($result))
         {
-            array_push($ingredients_array, [$row['nameIngredient'], $row['amountIngredient']]);
+            array_push($ingredients_array, [$row['nameIngredient'], $row['amountIngredient'], $row['unitIngredient']]);
         }
         $count = 1;
         foreach ($ingredients_array AS $ingredient)
         {
-            $output .= '<tr><td width="30%"><label>Zutat '.$count.'</label></td><td width="70%">'.$ingredient[0].'<td><td>'.$ingredient[1].'</td></tr>';
+            $output .= '<tr>
+                            <td><label>Zutat '.$count.'</label></td>
+                            <td><label>'.$ingredient[0].'</label></td>
+                            <td class="float-left">'.$ingredient[1].' '.$ingredient[2].'</td>
+                        </tr>';
             $count++;
         }
         $query = "SELECT C.recipe AS recipeComponent FROM components C WHERE C.id='".$_POST["component_id"]."'";
@@ -33,8 +38,10 @@
         {
             $output .= '
                 <tr>
-                        <td width="30%"><label>Rezept</label></td>
-                        <td width="70%">'.$row["recipeComponent"].'</td>
+                        <td><label>Rezept</label></td>
+                        <td>'.$row["recipeComponent"].'</td>
+                        <td></td>
+                        
                 </tr>';
         }
         $output .= "</table></div>";

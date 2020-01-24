@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
 
 
         //Create Ingredient
-        for($i = 1; $i <= 30; $i++)
+        for($i = 1; $i <= 200; $i++)
         {
             DB::table('ingredients')->insert([
                 'name' => 'Zutat '.$i,
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         }
 
         //Create Component
-        for($i = 1; $i <= 30; $i++)
+        for($i = 1; $i <= 100; $i++)
         {
             DB::table('components')->insert([
                 'name' => 'Komponent '.$i,
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
         }
 
         //Create Meal
-        for($i = 1; $i <= 30; $i++)
+        for($i = 1; $i <= 70; $i++)
         {
             DB::table('meals')->insert([
                 'name' => 'Speise '.$i,

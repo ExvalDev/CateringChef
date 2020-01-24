@@ -64,10 +64,18 @@ class ComponentController extends Controller
 
             if(!empty($ingredients) && !empty($amounts))
             {
+                $first = 0;
                 foreach($ingredients as $cnt => $ingredient) 
                 {
-                    $amount = $amounts[$cnt+1];
-                    $component->ingredient()->attach($ingredient, array('amount' => $amount));
+                    if ($first == 0)
+                    {
+                        $first++;
+                    }
+                    else
+                    {
+                        $amount = $amounts[$cnt];
+                        $component->ingredient()->attach($ingredient, array('amount' => $amount));
+                    }
                 }
 
                 $notification = array(
