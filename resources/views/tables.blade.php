@@ -320,7 +320,7 @@
                                                             </select>
                                                             <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
                                                             <div class="input-group-append">
-                                                                <span class="input-group-text unitIngredient" id="unitIngredient">Unit</span>
+                                                                <span class="input-group-text unitIngredient" id="unitIngredient">Einheit</span>
                                                             </div>
                                                             <div class=""><p class="delete">x</p></div>
                                                         </div>

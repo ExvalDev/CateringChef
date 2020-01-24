@@ -8,10 +8,18 @@
         $result = mysqli_query($connect, $query);
         while($row = mysqli_fetch_array($result))
         {
-            $output .= '<div class="form-group"><div class="col"><input type="text" class="form-control" name="editname" value="'.$row["nameComponent"].'" required></div></div>';
-            $output .= '<div class="form-group row"><div class="col p-0"><input type="number" class="form-control" name="amount" value="'.$row["amountComponent"].'" required></div>'; 
+            $output .= '<div class="form-group">
+                            <div class="col">
+                                <input type="text" class="form-control" name="editname" value="'.$row["nameComponent"].'" required>
+                            </div>
+                        </div>';
+            $output .= '<div class="form-group row">
+                            <div class="col p-0">
+                                <input type="number" class="form-control" name="amount" value="'.$row["amountComponent"].'" required>
+                            </div>'; 
         }
-        $output .= '<div class="col p-0"><select class="form-control" name="db_unit_id" required><option disabled selected>Einheit</option>';
+        $output .= '<div class="col p-0">
+                        <select class="form-control" name="db_unit_id" required>';
         $unitComponent= '';
         $query = "SELECT C.db_unit_id AS unitComponent FROM components C WHERE C.id ='".$_POST["component_id"]."'";
         $result = mysqli_query($connect, $query);
@@ -38,67 +46,102 @@
                 $output .= '<option value="'.$unit[0].'">'.$unit[1].'</option>';
             }
         }
-        $output .= '</select></div></div></fieldset>';
-        $ingredientsComponent = []; 
-        $query = "SELECT I.id AS ingredientId, CI.amount AS ingredientAmount FROM ingredients I, components_ingredients CI WHERE I.id = CI.ingredient_id AND CI.component_id ='".$_POST["component_id"]."'";
-        $result = mysqli_query($connect, $query);
-        while($row = mysqli_fetch_array($result))
-        {
-            array_push($ingredientsComponent, [$row['ingredientId'], $row['ingredientAmount']]);
-        }
-        $ingredients = [];
-        $query = "SELECT id AS ingredientId, name AS ingredientName FROM ingredients";
-        $result = mysqli_query($connect, $query);
-        while($row = mysqli_fetch_array($result))
-        {
-            array_push($ingredients, [$row['ingredientId'],$row['ingredientName']]);
-        }
-        $output .= '<fieldset><h2>Zutaten</h2>';
-        $count = 0;
-        foreach ($ingredientsComponent as $ingredientComponent)
-        {
-            if ($count == 0)
-            {
-                $output .= '<div id="itemRows"><div class="input-group my-2"><select class="form-control" name="fieldAddIngredient" required>';
-                foreach ($ingredients as $ingredient)
-                {
-                    if ($ingredient[0] == $ingredientComponent[0])
-                    {
-                        $output .= '<option value="'.$ingredient[0].'" selected>'.$ingredient[1].'</option>';
-                    }
-                    else 
-                    {
-                        $output .= '<option value="'.$ingredient[0].'">'.$ingredient[1].'</option>';
-                    }
-                }
-                $output .= '</select><div class="input-group-append">';
-                $output .= '<input type="number" class="form-control rounded-0" name="fieldAddAmount" value="'.$ingredientComponent[1].'" required>';
-                $output .= '<div class="input-group-append"><span class="input-group-text rounded-0">Einheit</span></div></div><div class="input-group-append">';
-                $output .= '<button class="btn p-0 btn-primary shadow-none" onclick="addRow(this.form);"><i class="fas fa-plus"></i></button></button></div></div></div>';  
-                $count++;
-            }
-            else 
-            {
-                $output .= '<div id="rowNum'.$count.'"><div class="input-group my-2"><select class="form-control" name="fieldAddIngredient" required>';
-                foreach ($ingredients as $ingredient)
-                {
-                    if ($ingredient[0] == $ingredientComponent[0])
-                    {
-                        $output .= '<option value="'.$ingredient[0].'" selected>'.$ingredient[1].'</option>';
-                    }
-                    else 
-                    {
-                        $output .= '<option value="'.$ingredient[0].'">'.$ingredient[1].'</option>';
-                    }
-                }
-                $output .= '</select><div class="input-group-append">';
-                $output .= '<input type="number" class="form-control rounded-0" name="fieldAddAmount" value="'.$ingredientComponent[1].'" required>';
-                $output .= '<div class="input-group-append"><span class="input-group-text rounded-0">Einheit</span></div></div><div class="input-group-append">';
-                $output .= '<button type="button" class="btn p-0 btn-primary shadow-none" onclick="removeRow('.$count.');"><h2 class="mdi mdi-delete-outline m-0"></h2></button></div></div></div>';  
-                $count++;   
-            }
-        } 
         $output .= '</fieldset>';
+        $output .= '
+        <fieldset>
+            <h2>Zutaten</h2>
+            <div class="form-container">
+                <div class="dynamic-stuff" id="dynamic-stuff">';
+                    $ingredientsComponent = []; 
+                    $query = "SELECT I.id AS ingredientId, CI.amount AS ingredientAmount FROM ingredients I, components_ingredients CI WHERE I.id = CI.ingredient_id AND CI.component_id ='".$_POST["component_id"]."'";
+                    $result = mysqli_query($connect, $query);
+                    while($row = mysqli_fetch_array($result))
+                    {
+                        array_push($ingredientsComponent, [$row['ingredientId'], $row['ingredientAmount']]);
+                    }
+                    $ingredients = [];
+                    $query = "SELECT I.id AS ingredientId, I.name AS ingredientName, U.name AS ingredientUnit FROM ingredients I, db_units U WHERE I.db_unit_id = U.id";
+                    $result = mysqli_query($connect, $query);
+                    while($row = mysqli_fetch_array($result))
+                    {
+                        array_push($ingredients, [$row['ingredientId'],$row['ingredientName'], $row['ingredientUnit']]);
+                    }
+                    $count = 0;
+                    foreach ($ingredientsComponent as $ingredientComponent)
+                    {
+                        if ($count == 0)
+                        {
+                            $output .= '
+                                        <div class="form-group dynamic-element" style="display:none">
+                                            <div class="row">
+                                            <div class="input-group">
+                                                <select id="selectIngredient" name="ingredients[]" class="form-control selectIngredient" onchange="changeUnit()" required>';
+                                                foreach ($ingredients as $ingredient)
+                                                {
+                                                    if ($ingredient[0] == $ingredientComponent[0])
+                                                    {
+                                                        $output .= '<option value="'.$ingredient[0].'" data-cc-unit="'.$ingredient[2].'" selected>'.$ingredient[1].'</option>';
+                                                    }
+                                                    else 
+                                                    {
+                                                        $output .= '<option value="'.$ingredient[0].'" data-cc-unit="'.$ingredient[2].'">'.$ingredient[1].'</option>';
+                                                    }
+                                                }
+                                                $output .= '
+                                                </select>
+                                                <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text unitIngredient" id="unitIngredient">Einheit</span>
+                                                </div>
+                                                <div class=""><p class="delete">x</p></div>
+                                            </div>
+                                        </div>
+                                    </div>';  
+                                    $count++;
+                        }
+                        else 
+                        {
+                            $output .= '
+                            <div class="form-group dynamic-element">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <select id="selectIngredient"'.$count.' name="ingredients[]" class="form-control selectIngredient" onchange="changeUnit()" required>';
+                                        foreach ($ingredients as $ingredient)
+                                        {
+                                            if ($ingredient[0] == $ingredientComponent[0])
+                                            {
+                                                $output .= '<option value="'.$ingredient[0].'" data-cc-unit="'.$ingredient[2].'" selected>'.$ingredient[1].'</option>';
+                                            }
+                                            else 
+                                            {
+                                                $output .= '<option value="'.$ingredient[0].'" data-cc-unit="'.$ingredient[2].'">'.$ingredient[1].'</option>';
+                                            }
+                                        }
+                                        $output .= '
+                                        </select>
+                                        <input type="number" class="form-control" name="amounts[]" placeholder="Menge">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text unitIngredient" id="unitIngredient">Einheit</span>
+                                        </div>
+                                        <div class=""><p class="delete">x</p></div>
+                                    </div>
+                                </div>
+                            </div>';
+                        $count++;   
+                        }
+                    }
+                $output = '
+                </div>'; 
+                $output = '           
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="add-one">+ Hinzufügen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>';
         $query = "SELECT C.recipe AS recipeComponent FROM components C WHERE C.id='".$_POST["component_id"]."'";
         $result = mysqli_query($connect, $query);
         while($row = mysqli_fetch_array($result))
