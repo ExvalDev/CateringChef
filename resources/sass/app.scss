@@ -41,6 +41,22 @@ transition: all 0.4s;
 .navText{
   font-size: 0.7rem;
 }
+#responsive-nav{
+  margin-left: 5.5rem;
+  max-width: 30rem;
+  position: absolute;
+  
+}
+.responsiveBackground{
+  display: none;
+  position: absolute;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.navResponsiveTrigger{
+  display: none;
+} 
 
 .fa-plus{
   font-size: 1.2rem;
@@ -75,3 +91,11 @@ hr{
   border-top: 2px solid $CC-lightGreen;
 }
 
+@media screen and ( max-height: 32rem ){
+  .navBtn{
+    display: none;
+  } 
+  .navResponsiveTrigger{
+    display: block;
+  }
+}

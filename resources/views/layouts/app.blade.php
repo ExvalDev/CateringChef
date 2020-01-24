@@ -67,24 +67,21 @@
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
                     <a class="navbar-brand mx-auto" href="#"><img src="../img/CC-logo.png" class="mx-auto d-block" alt="CC" width="80%"></a>
-                    <a href="{{ url('/menu') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
-                    <a href="{{ url('/tables') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
-                    <a href="{{ url('/recipes') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
-                    <a href="{{ url('/customer') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
-                    <a href="{{ url('/supplier') }}" class="nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
-                    
+                    <a href="{{ url('/menu') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
+                    <a href="{{ url('/tables') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
+                    <a href="{{ url('/recipes') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
+                    <a href="{{ url('/customer') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
+                    <a href="{{ url('/supplier') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
+                    <a class="nav-link mx-auto mt-2 navResponsiveTrigger" data-toggle="tooltip" data-placement="right" title="Navigation"><i class="fas fa-bars navIcon" data-toggle="collapse" data-target="#responsive-nav"></i></a>
                     <div class="mt-auto mb-2 w-100 text-center">
-                        <a href="{{ url('/settings') }}" class="nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
-                        <a href="{{ route('logout') }}" class="nav-link mx-auto mt-2 mb-3" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                        <a href="{{ url('/settings') }}" class="navBtn nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
+                        <a href="{{ route('logout') }}" class="navBtn nav-link mx-auto mt-2 mb-3" data-toggle="tooltip" data-placement="right" title="Ausloggen"
                             onclick="
                                 event.preventDefault();
                                 document.getElementById('logout-form').submit();
                             ">
                             {{ __('') }} <i class="fas fa-sign-out-alt navIcon"></i>
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
                         <span class="navText">
                             @php
                                 $dayNr = date('N');
@@ -123,6 +120,32 @@
                     
             </nav>    
         </div>
+        <div id="responsive-nav" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <nav class="navbar">
+                            <a href="{{ url('/menu') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
+                            <a href="{{ url('/tables') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
+                            <a href="{{ url('/recipes') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
+                            <a href="{{ url('/customer') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
+                            <a href="{{ url('/supplier') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
+                            <a href="{{ url('/settings') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
+                            <a href="{{ route('logout') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                                onclick="
+                                    event.preventDefault();
+                                    document.getElementById('logout-form').submit();
+                                ">
+                                {{ __('') }} <i class="fas fa-sign-out-alt navIcon"></i>
+                            </a>
+                        </nav>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         <div class="page-content">
             <main >
                 @yield('content')
@@ -131,7 +154,12 @@
 </body>
 <script>
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+      $('[data-toggle="tooltip"]').tooltip();
     })
+    $(document).ready(function(){
+        $('.navResponsiveTrigger').click(function(){
+            $('#responsive-nav').modal("show");
+        });
+    });
 </script>
 </html>
