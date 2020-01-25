@@ -82,7 +82,6 @@ $(document).ready(function()
     searchInTable("#SearchSupplier", "TableSupplier");
 });
 
-
 //Show Ingredient
 $(document).ready(function(){
     $('.showIngredientButton').click(function(){
@@ -133,7 +132,6 @@ $('.add-one').click(function(){
     attach_delete();
     var parent = document.getElementById("dynamic-stuff");
     var count = parent.getElementsByClassName("dynamic-element").length-1;
-    console.log(count);
     $('.selectIngredient').last().attr('id', 'selectIngredient'+count);
     $('.selectIngredient').last().attr('onchange', 'changeUnit('+count+')');
     $('.unitIngredient').last().attr('id', 'unitIngredient'+count);
@@ -180,6 +178,24 @@ $(document).ready(function(){
     });
 });
 
+//Edit Component -> Dynamic Form
+$('.add-one-edit').click(function(){
+    var row = $('.dynamic-element-edit').first().clone();
+    row.appendTo('.dynamic-stuff-edit').show();
+    attach_delete_edit();
+    var parent = document.getElementById("dynamic-stuff-edit");
+    var count = parent.getElementsByClassName("dynamic-element-edit").length-1;
+    $('.selectIngredient').last().attr('id', 'selectIngredient'+count);
+    $('.selectIngredient').last().attr('onchange', 'changeUnit('+count+')');
+    $('.unitIngredient').last().attr('id', 'unitIngredient'+count);
+});//Clone the hidden element and shows it
+  
+function attach_delete_edit(){
+    $('.delete-edit').click(function(){
+        $(this).closest('.dynamic-element-edit').remove();
+    });
+}//Attach functionality to delete buttons
+
 //Delete Ingredient
 $(document).ready(function(){
     $('.deleteComponentButton').click(function(){
@@ -189,8 +205,11 @@ $(document).ready(function(){
     });
 });
 
-//Progress Bar
+//Progress Bar ADD
 $(document).ready(function(){
+    var first = $(".fieldsetComponent")
+    first.next().hide();
+    first.next().next().hide();
     var current = 1,current_step,next_step,steps;
 	steps = $("fieldset").length;
 	$(".next").click(function(){
@@ -209,14 +228,6 @@ $(document).ready(function(){
 		//de-activate current step on progressbar
         $("#progressbar li").eq($("fieldset").index(current_step)).removeClass("active");
 	});
-	setProgressBar(current);
-	// Change progress bar action
-	function setProgressBar(curStep){
-		var percent = parseFloat(100 / steps) * curStep;
-        percent = percent.toFixed();
-		$(".progress-bar")
-			.css("width",percent+"%");
-	}
 });
 
 //Show Meal

@@ -51,19 +51,19 @@ class ComponentController extends Controller
             {
                 $ingredients = $_POST['ingredients'];
                 $amounts = $_POST['amounts'];
-
             }
-            $component = new Component;
-
-            $component->name = $request->input('name');
-            $component->amount = $request->input('amount');
-            $component->recipe = $request->input('recipe');
-            $component->db_unit_id = $request->input('db_unit_id');
-
-            $component->save();
 
             if(!empty($ingredients) && !empty($amounts))
             {
+                $component = new Component;
+
+                $component->name = $request->input('name');
+                $component->amount = $request->input('amount');
+                $component->recipe = $request->input('recipe');
+                $component->db_unit_id = $request->input('db_unit_id');
+
+                $component->save();
+
                 $first = 0;
                 foreach($ingredients as $cnt => $ingredient) 
                 {
@@ -130,9 +130,69 @@ class ComponentController extends Controller
      * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Component $component)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $this->validate($request, [
+            'name' => 'required',
+            'amount' => 'required',
+            'recipe' => '',
+            'db_unit_id' => 'required'
+        ]);
+        try
+        {
+            $ingredients = [];
+            $amounts = [];
+            if(isset($_POST["ingredients"]) && isset($_POST["amounts"]))
+            {
+                $ingredients = $_POST['ingredients'];
+                $amounts = $_POST['amounts'];
+            }
+
+            if(!empty($ingredients) && !empty($amounts))
+            {
+                
+                $component = Component::find($id);
+
+                $component->name = $request->input('name');
+                $component->amount = $request->input('amount');
+                $component->recipe = $request->input('recipe');
+                $component->db_unit_id = $request->input('db_unit_id');
+
+                $component->save();
+                
+                //Delete Relation to Ingredients
+                DB::table('components_ingredients')->where('component_id', $id)->delete();
+
+                $count = 0;
+                foreach($ingredients as $ingredient) 
+                {
+                    
+                    $amount = $amounts[$count];
+                    $component->ingredient()->attach($ingredient, array('amount' => $amount));
+                    $count++;
+                }
+
+                $notification = array(
+                    'message' => 'Komponente wurde geändert!',
+                    'alert-type' => 'success'
+                );
+            }
+            else
+            {
+                $notification = array(
+                    'message' => 'Keine Zutaten angegeben!',
+                    'alert-type' => 'error'
+                );
+            }
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Komponente wurde nicht geändert!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect('/tables')->with($notification);
     }
 
     /**

@@ -87,7 +87,7 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-        $ingredient = Ingredient::find($id);
+
     }
 
     /**
