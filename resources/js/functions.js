@@ -209,14 +209,6 @@ $(document).ready(function(){
 		//de-activate current step on progressbar
         $("#progressbar li").eq($("fieldset").index(current_step)).removeClass("active");
 	});
-	setProgressBar(current);
-	// Change progress bar action
-	function setProgressBar(curStep){
-		var percent = parseFloat(100 / steps) * curStep;
-        percent = percent.toFixed();
-		$(".progress-bar")
-			.css("width",percent+"%");
-	}
 });
 
 //Show Meal

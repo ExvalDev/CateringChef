@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Menu;
 class MenuController extends Controller
 {
     public function __construct()
@@ -18,7 +19,12 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('menu');
+        $menus = DB::select('select * from menus');
+        $meals = DB::select('select * from meals order by name asc');
+    
+        return view('/menu', [  'menus' => $menus,
+                                'meals' => $meals
+                            ]);
     }
 
     /**

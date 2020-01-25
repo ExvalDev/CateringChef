@@ -1,0 +1,25 @@
+// Variables
+@import 'variables';
+
+#menuTable thead tr th{
+  width: 20% !important;
+}
+
+#menuTableHead tr th{
+  border-bottom: 2px solid $CC-lightGreen;
+  $padTH: 0.4rem;
+  padding-top:  $padTH !important;
+  padding-bottom:  $padTH !important;
+}
+
+#courseMain, #courseDessert{
+  border-bottom: 2px solid $CC-lightGreen;
+}
+.courseName h4{
+  color: $CC-midGreen !important;
+}
+
+.emptyCourse{
+  border: 2px dashed $CC-darkGrey;
+  height: 15rem;
+}

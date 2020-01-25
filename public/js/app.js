@@ -49827,6 +49827,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/style_menu.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/style_menu.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/style_tables.scss":
 /*!******************************************!*\
   !*** ./resources/sass/style_tables.scss ***!
@@ -49839,16 +49850,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*********************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/style_auth.scss ./resources/sass/style_tables.scss ***!
-  \*********************************************************************************************************************************/
+/*!******************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/style_auth.scss ./resources/sass/style_tables.scss ./resources/sass/style_menu.scss ***!
+  \******************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\js\app.js */"./resources/js/app.js");
 __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\app.scss */"./resources/sass/app.scss");
 __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_auth.scss */"./resources/sass/style_auth.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_tables.scss */"./resources/sass/style_tables.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_tables.scss */"./resources/sass/style_tables.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_menu.scss */"./resources/sass/style_menu.scss");
 
 
 /***/ })
