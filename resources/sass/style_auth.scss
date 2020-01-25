@@ -41,3 +41,17 @@ form {
     color: #212529;
 }
 
+.cookie-consent{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: $CC-white;
+    padding: 1rem;
+    text-align: center;
+}
+.cookie-consent button{
+    background-color: $CC-lightGrey;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.4rem;
+}
