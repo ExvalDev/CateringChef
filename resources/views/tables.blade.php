@@ -2,15 +2,6 @@
 @push('styles')
     <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
 @endpush
-@push('scripts')
-    <script>
-        function changeUnit(element)
-            {
-                var unit = $("#selectIngredient"+element+" option:selected").attr('data-cc-unit');
-                $('#unitIngredient'+element).text(unit);
-            }
-    </script>
-@endpush
 @section('content')
     <div class="container-fluid row m-0 p-0 vh-100">
         {{------------------------------------ Ingredients ------------------------------------}}
@@ -269,9 +260,6 @@
                                         <li>Zutaten</li>
                                         <li>Rezept</li>
                                     </ul>
-                                    {{-- <div class="progress my-2">
-                                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div> --}}
                                     {{-- Page I --}}
                                     <fieldset>
                                         <h2>Allgemein</h2>
@@ -402,12 +390,6 @@
                         @method('PUT')
                         @csrf
                         <div class="modal-body" id="editComponent"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                            <button type="submit" class="btn btn-primary">
-                                {{ __("Speichern") }}
-                            </button>
-                        </div>
                     </form>
                 </div>
             </div>

@@ -37,8 +37,7 @@
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css"/>
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
-<body>
-    @stack('scripts')
+<body>  
     {{-- Notification --}}
     <script src="{{ asset('js/toastr.js') }}"></script>
     <script>
@@ -161,5 +160,11 @@
             $('#responsive-nav').modal("show");
         });
     });
+
+    function changeUnit(element)
+    {
+        var unit = $("#selectIngredient"+element+" option:selected").attr('data-cc-unit');
+        $('#unitIngredient'+element).text(unit);
+    }
 </script>
 </html>
