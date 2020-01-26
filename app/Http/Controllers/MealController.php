@@ -36,7 +36,65 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $this->validate($request, [
+            'name' => 'required',
+            'recipe' => '',
+        ]);
+        
+        try
+        {
+            $components = [];
+            $amounts = [];
+            if(isset($_POST["components"]) && isset($_POST["amounts"]))
+            {
+                $components = $_POST['components'];
+                $amounts = $_POST['amounts'];
+            }
+
+            if(!empty($components) && !empty($amounts))
+            {
+                $meal = new Meal;
+
+                $meal->name = $request->input('name');
+                $meal->recipe = $request->input('recipe');
+
+                $meal->save();
+
+                $first = 0;
+                foreach($components as $cnt => $component) 
+                {
+                    if ($first == 0)
+                    {
+                        $first++;
+                    }
+                    else
+                    {
+                        $amount = $amounts[$cnt+1];
+                        $meal->component()->attach($component, array('amount' => $amount));
+                    }
+                }
+
+                $notification = array(
+                    'message' => 'Speise wurde hinzugefügt!',
+                    'alert-type' => 'success'
+                );
+            }
+            else
+            {
+                $notification = array(
+                    'message' => 'Keine Komponenten angegeben!',
+                    'alert-type' => 'error'
+                );
+            }
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Speise wurde nicht hinzugefügt!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect('/tables')->with($notification);
     }
 
     /**
@@ -70,7 +128,7 @@ class MealController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

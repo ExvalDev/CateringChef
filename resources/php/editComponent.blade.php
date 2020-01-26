@@ -68,13 +68,13 @@
             <fieldset class="fieldsetComponent">
                 <div class="d-flex">
                     <h2>Zutaten</h2>
-                    <p class="btn py-0 px-2 btn-primary shadow-none ml-auto add-one-edit"><i class="fas fa-plus"></i></p>
+                    <p class="btn py-0 px-2 btn-primary shadow-none ml-auto edit-ingredient"><i class="fas fa-plus"></i></p>
                 </div>
                 <div class="form-container mb-3">
-                    <div class="dynamic-stuff-edit" id="dynamic-stuff-edit">
-                        <div class="form-row mt-2 dynamic-element-edit" style="display:none">
+                    <div class="dynamic-ingredient-edit-area" id="dynamic-ingredient-edit-area">
+                        <div class="form-row mt-2 dynamic-ingredient-edit" style="display:none">
                             <div class="input-group col-12">
-                                <select id="selectIngredient" name="ingredients[]" class="form-control col-5 selectIngredient" onchange="changeUnit()" required>';
+                                <select id="selectIngredientEdit" name="ingredients[]" class="form-control col-5 selectIngredientEdit" onchange="changeUnitEditIngredient()" required>';
                                 $ingredients = [];
                                 $query = 'SELECT I.id AS idIngredient, I.name AS nameIngredient, I.db_unit_id AS unitIngredient, U.name AS nameUnit FROM ingredients I, db_units U WHERE I.db_unit_id = U.id';
                                 $result = mysqli_query($connect, $query);
@@ -89,9 +89,9 @@
                                 $output .='
                                 </select>
                                 <input type="number" class="form-control col-3" name="amounts[]" placeholder="Menge">
-                                <span class="form-control unitIngredient col-3" id="unitIngredient">Einheit</span>
+                                <span class="form-control unitIngredientEdit col-3" id="unitIngredientEdit">Einheit</span>
                                 <div class="input-group-append d-flex col-1 px-0">
-                                    <button class="btn btn-outline-danger flex-fill delete-edit" type="button"> x </button>
+                                    <button class="btn btn-outline-danger flex-fill delete-ingredient-edit" type="button"> x </button>
                                 </div>
                             </div>
                         </div>';
@@ -106,9 +106,9 @@
                         foreach($ingredients_component as $ingredient_component)
                         {
                             $output .='
-                            <div class="form-row mt-2 dynamic-element-edit" style="display:block">
+                            <div class="form-row mt-2 dynamic-ingredient-edit" style="display:block">
                                 <div class="input-group col-12">
-                                    <select id="selectIngredient'.$count.'" name="ingredients[]" class="form-control col-5 selectIngredient" onchange="changeUnit('.$count.')" required>';
+                                    <select id="selectIngredientEdit'.$count.'" name="ingredients[]" class="form-control col-5 selectIngredientEdit" onchange="changeUnitEditIngredient('.$count.')" required>';
                                     foreach($ingredients as $ingredient)
                                     {
                                         if($ingredient[0] == $ingredient_component[0])
@@ -123,9 +123,9 @@
                                     $output .='
                                     </select>
                                     <input type="number" class="form-control col-3" name="amounts[]" value="'.$ingredient_component[1].'">
-                                    <span class="form-control unitIngredient col-3" id="unitIngredient'.$count.'">'.$ingredient_component[2].'</span>
+                                    <span class="form-control unitIngredientEdit col-3" id="unitIngredientEdit'.$count.'">'.$ingredient_component[2].'</span>
                                     <div class="input-group-append d-flex col-1 px-0">
-                                        <button class="btn btn-outline-danger flex-fill delete-edit" type="button"> x </button>
+                                        <button class="btn btn-outline-danger flex-fill delete-ingredient-edit" type="button"> x </button>
                                     </div>
                                 </div>
                             </div>';

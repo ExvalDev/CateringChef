@@ -13,7 +13,7 @@
                 <tr>
                         <td width="30%"><label>Komponent</label></td>
                         <td width="30%">'.$row["nameComponent"].'</td>
-                        <td width="40%"></td>
+                        <td width="40%" class="float-left"></td>
                 </tr>';
         }
         $query = "SELECT I.Name AS nameIngredient, CI.amount AS amountIngredient , U.name AS unitIngredient FROM ingredients I, components C,  components_ingredients CI, db_units U WHERE I.id = CI.ingredient_id AND CI.component_id = C.id AND I.db_unit_id = U.id AND C.id ='".$_POST["component_id"]."'";
@@ -28,7 +28,7 @@
             $output .= '<tr>
                             <td><label>Zutat '.$count.'</label></td>
                             <td><label>'.$ingredient[0].'</label></td>
-                            <td class="float-left">'.$ingredient[1].' '.$ingredient[2].'</td>
+                            <td>'.$ingredient[1].' '.$ingredient[2].'</td>
                         </tr>';
             $count++;
         }
