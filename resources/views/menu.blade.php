@@ -7,19 +7,34 @@
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
   {{------------------------------------ Menu table ------------------------------------}}
-  <div class="col-9 m-0 py-3 px-2 tableHeight">
-    <div class="">
-      <h1 class="">Speiseplan</h1>
+  <div class="col-9 m-0 pt-3 px-2 tableHeight">
+    <div class="d-flex">
+      <h1 class="mr-auto">Speiseplan</h1>
+      {{-- choose Week --}}
       <div id="weekControl">
-
+        <form action="">
+          <div class="input-group">
+            <button type="submit" id="previousWeek" class="form-control"><i class="fas fa-chevron-left"></i></button>
+            <span class="input-group-append input-group-text rounded-0 bg-white"><h4>KW3</h4></span>
+            <button type="submit" id="nextWeek" class="form-control"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </form>
       </div>
-      <div id="yearControl">
-        
+      {{-- choose Year --}}
+      <div id="yearControl" class="ml-2">
+        <form action="">
+            <select class="form-control" name="selectedYear" id="">
+              <option>2019</option>
+              <option selected>2020</option>
+              <option>2021</option>
+            </select>
+        </form>
       </div>
-      
   </div>
+  {{-- Table area --}}
   <div class="bg-white shadow-sm  mh-100 d-flex flex-column">
     <table id="menuTable">
+      {{-- Weekdays --}}
       <thead class="text-center" id="menuTableHead">
         <th><h2>Montag</h2></th>
         <th><h2>Dienstag</h2></th>
@@ -31,6 +46,7 @@
         <tr class="text-center">
           <td class="py-2 courseName"><h4>Hauptgericht</h4></td>
         </tr>
+        {{-- Main course --}}
         <tr id="courseMain">
           <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
           <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
@@ -42,6 +58,7 @@
         <tr class="text-center">
           <td class="py-2 courseName"><h4>Dessert</h4></td>
         </tr>
+        {{-- Dessert Course --}}
         <tr id="courseDessert">
           <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
           <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
@@ -51,8 +68,12 @@
         </tr>
       </tbody>
     </table>
-    <div class="">
-      <button></button>
+    {{-- Actions  --}}
+    <div class="p-2">
+      <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu">Löschen  <i class="fas fa-trash text-white"></i></div>
+      <button class="btn btn-light m-0 float-right"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button>
+      <button class="btn btn-light m-0 float-right mr-2"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
+      
     </div>
   </div>
   </div>

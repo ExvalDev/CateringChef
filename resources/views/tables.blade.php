@@ -269,9 +269,6 @@
                                         <li>Zutaten</li>
                                         <li>Rezept</li>
                                     </ul>
-                                    {{-- <div class="progress my-2">
-                                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div> --}}
                                     {{-- Page I --}}
                                     <fieldset>
                                         <h2>Allgemein</h2>
