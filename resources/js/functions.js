@@ -125,22 +125,51 @@ $(document).ready(function(){
     });
 });
 
+//Progress Bar
+$(document).ready(function(){
+    //Hide the Elements
+    var firstComponent = $(".fieldsetComponent");
+    firstComponent.next().hide();
+    firstComponent.next().next().hide();
+    var firstMeal = $(".fieldsetAddMeal");
+    firstMeal.next().hide();
+    firstMeal.next().next().hide();
+    var current = 1,current_step,next_step,steps;
+	steps = $("fieldset").length;
+	$(".next").click(function(){
+		current_step = $(this).parent();
+		next_step = $(this).parent().next();
+		next_step.show();
+        current_step.hide();
+        //activate next step on progressbar using the index of next_fs
+        $("#progressbar li").eq($("fieldset").index(next_step)).addClass("active");
+	});
+	$(".previous").click(function(){
+		current_step = $(this).parent();
+		next_step = $(this).parent().prev();
+		next_step.show();
+		current_step.hide();
+		//de-activate current step on progressbar
+        $("#progressbar li").eq($("fieldset").index(current_step)).removeClass("active");
+	});
+});
+
 //ADD Component -> Dynamic Form
-$('.add-one').click(function(){
-    var row = $('.dynamic-element').first().clone();
-    row.appendTo('.dynamic-stuff').show();
-    attach_delete();
-    var parent = document.getElementById("dynamic-stuff");
-    var count = parent.getElementsByClassName("dynamic-element").length-1;
-    $('.selectIngredient').last().attr('id', 'selectIngredient'+count);
-    $('.selectIngredient').last().attr('onchange', 'changeUnit('+count+')');
-    $('.unitIngredient').last().attr('id', 'unitIngredient'+count);
+$('.add-ingredient').click(function(){
+    var row = $('.dynamic-ingredient').first().clone();
+    row.appendTo('.dynamic-ingredient-area').show();
+    attach_delete_add_ingredient();
+    var parent = document.getElementById("dynamic-ingredient-area");
+    var count = parent.getElementsByClassName("dynamic-ingredient").length-1;
+    $('.selectIngredientAdd').last().attr('id', 'selectIngredientAdd'+count);
+    $('.selectIngredientAdd').last().attr('onchange', 'changeUnitAddIngredient('+count+')');
+    $('.unitIngredientAdd').last().attr('id', 'unitIngredientAdd'+count);
 });//Clone the hidden element and shows it
   
-function attach_delete(){
-    $('.delete').off();
-    $('.delete').click(function(){
-        $(this).closest('.dynamic-element').remove();
+function attach_delete_add_ingredient(){
+    $('.delete-dynamic-ingredient').off();
+    $('.delete-dynamic-ingredient').click(function(){
+        $(this).closest('.dynamic-ingredient').remove();
     });
 }//Attach functionality to delete buttons
 
@@ -179,24 +208,24 @@ $(document).ready(function(){
 });
 
 //Edit Component -> Dynamic Form
-$('.add-one-edit').click(function(){
-    var row = $('.dynamic-element-edit').first().clone();
-    row.appendTo('.dynamic-stuff-edit').show();
-    attach_delete_edit();
-    var parent = document.getElementById("dynamic-stuff-edit");
-    var count = parent.getElementsByClassName("dynamic-element-edit").length-1;
+$('.edit-ingredient').click(function(){
+    var row = $('.dynamic-ingredient-edit').first().clone();
+    row.appendTo('.dynamic-ingredient-edit-area').show();
+    attach_delete_edit_ingredient();
+    var parent = document.getElementById("dynamic-ingredient-edit-area");
+    var count = parent.getElementsByClassName("dynamic-ingredient-edit").length-1;
     $('.selectIngredient').last().attr('id', 'selectIngredient'+count);
     $('.selectIngredient').last().attr('onchange', 'changeUnit('+count+')');
     $('.unitIngredient').last().attr('id', 'unitIngredient'+count);
 });//Clone the hidden element and shows it
   
-function attach_delete_edit(){
-    $('.delete-edit').click(function(){
-        $(this).closest('.dynamic-element-edit').remove();
+function attach_delete_edit_ingredient(){
+    $('.delete-ingredient-edit').click(function(){
+        $(this).closest('.dynamic-ingredient-edit').remove();
     });
 }//Attach functionality to delete buttons
 
-//Delete Ingredient
+//Delete Component
 $(document).ready(function(){
     $('.deleteComponentButton').click(function(){
         var component_id = $(this).attr("id");
@@ -205,30 +234,24 @@ $(document).ready(function(){
     });
 });
 
-//Progress Bar ADD
-$(document).ready(function(){
-    var first = $(".fieldsetComponent")
-    first.next().hide();
-    first.next().next().hide();
-    var current = 1,current_step,next_step,steps;
-	steps = $("fieldset").length;
-	$(".next").click(function(){
-		current_step = $(this).parent();
-		next_step = $(this).parent().next();
-		next_step.show();
-        current_step.hide();
-        //activate next step on progressbar using the index of next_fs
-        $("#progressbar li").eq($("fieldset").index(next_step)).addClass("active");
-	});
-	$(".previous").click(function(){
-		current_step = $(this).parent();
-		next_step = $(this).parent().prev();
-		next_step.show();
-		current_step.hide();
-		//de-activate current step on progressbar
-        $("#progressbar li").eq($("fieldset").index(current_step)).removeClass("active");
-	});
-});
+//ADD Meal -> Dynamic Form
+$('.add-component').click(function(){
+    var row = $('.dynamic-component').first().clone();
+    row.appendTo('.dynamic-component-area').show();
+    attach_delete_add_component();
+    var parent = document.getElementById("dynamic-component-area");
+    var count = parent.getElementsByClassName("dynamic-component").length-1;
+    $('.selectComponentAdd').last().attr('id', 'selectComponentAdd'+count);
+    $('.selectComponentAdd').last().attr('onchange', 'changeUnitAddMeal('+count+')');
+    $('.unitComponentAdd').last().attr('id', 'unitComponentAdd'+count);
+});//Clone the hidden element and shows it
+  
+function attach_delete_add_component(){
+    $('.delete-dynamic-component').off();
+    $('.delete-dynamic-component').click(function(){
+        $(this).closest('.dynamic-component').remove();
+    });
+}//Attach functionality to delete buttons
 
 //Show Meal
 $(document).ready(function(){

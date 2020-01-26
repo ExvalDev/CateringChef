@@ -161,10 +161,22 @@
         });
     });
 
-    function changeUnit(element)
+    function changeUnitAddIngredient(element)
     {
-        var unit = $("#selectIngredient"+element+" option:selected").attr('data-cc-unit');
-        $('#unitIngredient'+element).text(unit);
+        var unit = $("#selectIngredientAdd"+element+" option:selected").attr('data-cc-unit');
+        $('#unitIngredientAdd'+element).text(unit);
+    }
+
+    function changeUnitEditIngredient(element)
+    {
+        var unit = $("#selectIngredientEdit"+element+" option:selected").attr('data-cc-unit');
+        $('#unitIngredientEdit'+element).text(unit);
+    }
+
+    function changeUnitAddMeal(element)
+    {
+        var unit = $("#selectComponentAdd"+element+" option:selected").attr('data-cc-unit');
+        $('#unitComponentAdd'+element).text(unit);
     }
 </script>
 </html>

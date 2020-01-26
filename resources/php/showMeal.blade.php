@@ -10,22 +10,27 @@
         {
             $output .= '
                 <tr>
-                        <td width="30%"><label>Zutat</label></td>
-                        <td width="70%">'.$row["nameMeal"].'</td>
+                        <td width="30%"><label>Speise</label></td>
+                        <td width="30%">'.$row["nameMeal"].'</td>
+                        <td width="40%" class="float-left"></td>
                 </tr>
                 ';
         }
-        $components_array = [];
-        $query = "SELECT C.Name AS nameComponent FROM components C,  components_meals CM, meals M WHERE C.id = CM.component_id AND CM.meal_id = M.id AND M.id ='".$_POST["meal_id"]."'";
+        $components_meal = [];
+        $query = "SELECT C.Name AS nameComponent, CM.amount AS amountComponent, U.name AS unitComponent FROM components C,  components_meals CM, meals M, db_units U WHERE C.id = CM.component_id AND CM.meal_id = M.id AND C.db_unit_id = U.id AND M.id ='".$_POST["meal_id"]."'";
         $result = mysqli_query($connect, $query);
         while($row = mysqli_fetch_array($result))
         {
-            array_push($components_array, $row['nameComponent']);
+            array_push($components_meal, [$row['nameComponent'], $row['amountComponent'], $row['unitComponent']]);
         }
         $count = 1;
-        foreach ($components_array AS $component)
+        foreach ($components_meal AS $component)
         {
-            $output .= '<tr><td width="30%"><label>Komponente '.$count.'</label></td><td width="70%">'.$component.'<td></tr>';
+            $output .= '<tr>
+                            <td><label>Komponente '.$count.'</label></td>
+                            <td>'.$component[0].'</td>
+                            <td>'.$component[1].' '.$component[2].'</td>
+                        </tr>';
             $count++;
         }
         $query = "SELECT recipe AS recipeMeal FROM meals WHERE id='".$_POST["meal_id"]."'";
