@@ -17,5 +17,6 @@ mix.js('resources/js/toastr.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/style_auth.scss', 'public/css')
    .sass('resources/sass/style_tables.scss', 'public/css')
+   .sass('resources/sass/style_menu.scss', 'public/css')
 mix.copyDirectory('resources/php', 'public/php');
 mix.copyDirectory('resources/img', 'public/img');
