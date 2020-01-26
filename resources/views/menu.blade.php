@@ -85,11 +85,12 @@
             <div class="px-2 pt-2 m-0">
                 <input class="form-control bg-light border-0 shadow-none" id="SearchMeal" type="text" placeholder="Suche..">
             </div>   
-            <hr class="p-0 my-2"/>
-            <div class="d-flex flex-row-reverse m-2 p-0">
-                <button type="button" class="btn py-0 px-2 btn-primary shadow-none" data-toggle="modal" data-target="#addmeal"><i class="fas fa-plus"></i></button>
+            {{-- <hr class="p-0 my-2"/> --}}
+            <div class="d-flex m-2 p-0">
+                <button type="button" class="btn py-1 px-2 btn-light shadow-none">Sortieren <i class="fas fa-sort"></i></button>
+                <button type="button" class="btn py-1 px-2 ml-2 btn-light shadow-none">Filter <i class="fas fa-filter"></i></button>
             </div>
-            <hr class="p-0 mt-2 mb-0"/>
+            {{-- <hr class="p-0 mt-2 mb-0"/> --}}
         </div>
         <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
             <ul class="list-group" id="ListMeal">
