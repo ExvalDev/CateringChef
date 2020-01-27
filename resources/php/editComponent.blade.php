@@ -28,7 +28,7 @@
                     $result = mysqli_query($connect, $query);
                     while($row = mysqli_fetch_array($result))
                     {
-                        $output .= '<input type="number" class="form-control" name="amount" value="'.$row['amountComponent'].'">';
+                        $output .= '<input type="number" min="0" class="form-control" name="amount" value="'.$row['amountComponent'].'">';
                     }
                     $units = [];
                     $query = 'SELECT id, name FROM db_units';
@@ -74,7 +74,8 @@
                     <div class="dynamic-ingredient-edit-area" id="dynamic-ingredient-edit-area">
                         <div class="form-row mt-2 dynamic-ingredient-edit" style="display:none">
                             <div class="input-group col-12">
-                                <select id="selectIngredientEdit" name="ingredients[]" class="form-control col-5 selectIngredientEdit" onchange="changeUnitEditIngredient()" required>';
+                                <select id="selectIngredientEdit" name="ingredients[]" class="form-control col-5 selectIngredientEdit" onchange="changeUnitEditIngredient()" required>
+                                    <option disabled selected hidden> Zutat wählen</option>';
                                 $ingredients = [];
                                 $query = 'SELECT I.id AS idIngredient, I.name AS nameIngredient, I.db_unit_id AS unitIngredient, U.name AS nameUnit FROM ingredients I, db_units U WHERE I.db_unit_id = U.id';
                                 $result = mysqli_query($connect, $query);
@@ -88,7 +89,7 @@
                                 }
                                 $output .='
                                 </select>
-                                <input type="number" class="form-control col-3" name="amounts[]" placeholder="Menge">
+                                <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="Menge">
                                 <span class="form-control unitIngredientEdit col-3" id="unitIngredientEdit">Einheit</span>
                                 <div class="input-group-append d-flex col-1 px-0">
                                     <button class="btn btn-outline-danger flex-fill delete-ingredient-edit" type="button"> x </button>
@@ -122,7 +123,7 @@
                                     }
                                     $output .='
                                     </select>
-                                    <input type="number" class="form-control col-3" name="amounts[]" value="'.$ingredient_component[1].'">
+                                    <input type="number" min="0" class="form-control col-3" name="amounts[]" value="'.$ingredient_component[1].'">
                                     <span class="form-control unitIngredientEdit col-3" id="unitIngredientEdit'.$count.'">'.$ingredient_component[2].'</span>
                                     <div class="input-group-append d-flex col-1 px-0">
                                         <button class="btn btn-outline-danger flex-fill delete-ingredient-edit" type="button"> x </button>
@@ -141,7 +142,7 @@
             $output .='
             <fieldset class="fieldsetComponent">
                 <h2>Rezept</h2>
-                <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addComponentForm">';
+                <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editComponentForm">';
                 $query = 'SELECT recipe FROM components C WHERE C.id="'.$_POST["component_id"].'"';
                 $result = mysqli_query($connect, $query);
                 while($row = mysqli_fetch_array($result))

@@ -173,10 +173,16 @@
         $('#unitIngredientEdit'+element).text(unit);
     }
 
-    function changeUnitAddMeal(element)
+    function changeUnitAddComponent(element)
     {
         var unit = $("#selectComponentAdd"+element+" option:selected").attr('data-cc-unit');
         $('#unitComponentAdd'+element).text(unit);
+    }
+
+    function changeUnitEditComponent(element)
+    {
+        var unit = $("#selectComponentEdit"+element+" option:selected").attr('data-cc-unit');
+        $('#unitComponentEdit'+element).text(unit);
     }
 </script>
 </html>

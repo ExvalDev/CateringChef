@@ -60,18 +60,10 @@ class MealController extends Controller
 
                 $meal->save();
 
-                $first = 0;
                 foreach($components as $cnt => $component) 
                 {
-                    if ($first == 0)
-                    {
-                        $first++;
-                    }
-                    else
-                    {
-                        $amount = $amounts[$cnt+1];
-                        $meal->component()->attach($component, array('amount' => $amount));
-                    }
+                    $amount = $amounts[$cnt+1];
+                    $meal->component()->attach($component, ['amount' => $amount]);
                 }
 
                 $notification = array(
@@ -128,7 +120,61 @@ class MealController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $this->validate($request, [
+            'name' => 'required',
+            'recipe' => '',
+        ]);
         
+        try
+        {
+            $components = [];
+            $amounts = [];
+            if(isset($_POST["components"]) && isset($_POST["amounts"]))
+            {
+                $components = $_POST['components'];
+                $amounts = $_POST['amounts'];
+            }
+
+            if(!empty($components) && !empty($amounts))
+            {
+                $meal = Meal::find($id);
+
+                $meal->name = $request->input('name');
+                $meal->recipe = $request->input('recipe');
+
+                $meal->save();
+
+                //Delete Relation to Components
+                DB::table('components_meals')->where('meal_id', $id)->delete();
+
+                $first = 0;
+                foreach($components as $cnt => $component) 
+                {
+                        $amount = $amounts[$cnt+1];
+                        $meal->component()->attach($component, ['amount' => $amount]);
+                }
+
+                $notification = array(
+                    'message' => 'Speise wurde geändert!',
+                    'alert-type' => 'success'
+                );
+            }
+            else
+            {
+                $notification = array(
+                    'message' => 'Keine Komponenten angegeben!',
+                    'alert-type' => 'error'
+                );
+            }
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            $notification = array(
+                'message' => 'Speise wurde nicht geändert!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect('/tables')->with($notification);
     }
 
     /**
