@@ -96,7 +96,7 @@
                                     {{-- Button SHOW Meal Modal --}}
                                     <button type="button" id={{ $meal->id }} class="btn p-0 my-0 mx-2 shadow-none showMealButton"><i class="fas fa-info"></i></button>
                                     {{-- Button EDIT Meal MODAL --}}
-                                    <button type="button" class="btn p-0 my-0 mx-2 shadow-none" data-toggle="modal" data-target="#editmealmodal"><i class="fas fa-pen"></i></button>
+                                    <button type="button" id={{ $meal->id }} class="btn p-0 my-0 mx-2 shadow-none infobutton editMealButton"><i class="fas fa-pen"></i></button>
                                     {{-- Button DELETE Meal  --}}
                                     <button type="button" id={{ $meal->id }} class="btn p-0 my-0 mx-2 shadow-none deleteMealButton"><i class="fas fa-trash"></i></button>
                                 </div>
@@ -206,7 +206,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3>Zutat</h3>
+                        <h3><i class="fas fa-pen"></i> Zutat</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/ingredient" method="POST" id="editIngredientForm">
@@ -282,7 +282,7 @@
                                     {{-- Amount & Unit --}}
                                     <div class="form-row">            
                                         <div class="input-group col-12">
-                                            <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge">
+                                            <input type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge">
                                             @error('amount')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -328,7 +328,7 @@
                                                         @endforeach
                                                     </select>
                                                     {{-- input Amount --}}
-                                                    <input type="number" class="form-control col-3" name="amounts[]" placeholder="Menge">
+                                                    <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="Menge">
                                                     {{-- Unit for selected Ingredient --}}
                                                     <span class="form-control unitIngredientAdd col-3" id="unitIngredientAdd">Einheit</span>
                                                     {{-- delete Row --}}
@@ -386,7 +386,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3>Komponente</h3>
+                        <h3><i class="fas fa-pen"></i> Komponente</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/component" method="POST" id="editComponentForm">
@@ -472,14 +472,14 @@
                                                     {{-- Replace these fields --}}
                                                     <div class="input-group col-12">
                                                         {{-- Choose Component --}}
-                                                        <select id="selectComponentAdd" name="components[]" class="form-control col-5 selectComponentAdd" onchange="changeUnitAddMeal()" required>
+                                                        <select id="selectComponentAdd" name="components[]" class="form-control col-5 selectComponentAdd" onchange="changeUnitAddComponent()" required>
                                                             <option disabled selected hidden> Komponente wählen</option>
                                                             @foreach ($components as $component)
                                                                 <option value="{{$component->id}}" data-cc-unit="{{$component->unit}}">{{$component->name}}</option>
                                                             @endforeach
                                                         </select>
                                                         {{-- input Amount --}}
-                                                        <input type="number" class="form-control col-3" name="amounts[]" placeholder="Menge">
+                                                        <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="Menge">
                                                         {{-- Unit for selected Ingredient --}}
                                                         <span class="form-control unitComponentAdd col-3" id="unitComponentAdd">Einheit</span>
                                                         {{-- delete Row --}}
@@ -533,6 +533,23 @@
             </div>
         </div>
 
+        {{-- MODAL -> EDIT Meal --}}
+        <div id="editMealModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-pen"></i> Speise</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="/meal" method="POST" id="editMealForm">
+                        @method('PUT')
+                        @csrf
+                        <div class="modal-body" id="editMeal"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- MODAL -> DELETE Meal --}}
         <div id="deleteMealModal" class="modal fade">
             <div class="modal-dialog">
@@ -554,6 +571,6 @@
                 </div>
             </div>
         </div>
-        {{------------------------------------ END ------------------------------------}}
     </div>
+    {{------------------------------------ END ------------------------------------}}
 @endsection

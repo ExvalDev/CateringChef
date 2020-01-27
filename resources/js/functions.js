@@ -1,3 +1,4 @@
+//------------------------------- Search -------------------------------
 
 /**
  *Search in a List by input
@@ -82,6 +83,8 @@ $(document).ready(function()
     searchInTable("#SearchSupplier", "TableSupplier");
 });
 
+//------------------------------- Ingredient -------------------------------
+
 //Show Ingredient
 $(document).ready(function(){
     $('.showIngredientButton').click(function(){
@@ -125,15 +128,20 @@ $(document).ready(function(){
     });
 });
 
+//------------------------------- Progress Bar -------------------------------
+
 //Progress Bar
 $(document).ready(function(){
     //Hide the Elements
-    var firstComponent = $(".fieldsetComponent");
-    firstComponent.next().hide();
-    firstComponent.next().next().hide();
-    var firstMeal = $(".fieldsetAddMeal");
-    firstMeal.next().hide();
-    firstMeal.next().next().hide();
+    var firstComponentEdit = $(".fieldsetComponent");
+    firstComponentEdit.next().hide();
+    firstComponentEdit.next().next().hide();
+    var firstMealAdd = $(".fieldsetAddMeal");
+    firstMealAdd.next().hide();
+    firstMealAdd.next().next().hide();
+    var firstMealEdit = $(".fieldsetEditMeal");
+    firstMealEdit.next().hide();
+    firstMealEdit.next().next().hide();
     var current = 1,current_step,next_step,steps;
 	steps = $("fieldset").length;
 	$(".next").click(function(){
@@ -153,6 +161,8 @@ $(document).ready(function(){
         $("#progressbar li").eq($("fieldset").index(current_step)).removeClass("active");
 	});
 });
+
+//------------------------------- Component -------------------------------
 
 //ADD Component -> Dynamic Form
 $('.add-ingredient').click(function(){
@@ -234,6 +244,8 @@ $(document).ready(function(){
     });
 });
 
+//------------------------------- Meal -------------------------------
+
 //ADD Meal -> Dynamic Form
 $('.add-component').click(function(){
     var row = $('.dynamic-component').first().clone();
@@ -242,7 +254,7 @@ $('.add-component').click(function(){
     var parent = document.getElementById("dynamic-component-area");
     var count = parent.getElementsByClassName("dynamic-component").length-1;
     $('.selectComponentAdd').last().attr('id', 'selectComponentAdd'+count);
-    $('.selectComponentAdd').last().attr('onchange', 'changeUnitAddMeal('+count+')');
+    $('.selectComponentAdd').last().attr('onchange', 'changeUnitAddComponent('+count+')');
     $('.unitComponentAdd').last().attr('id', 'unitComponentAdd'+count);
 });//Clone the hidden element and shows it
   
@@ -269,6 +281,43 @@ $(document).ready(function(){
     });
 });
 
+//Edit Meal
+$(document).ready(function(){
+    $('.editMealButton').click(function(){
+         var meal_id = $(this).attr("id");
+         $.ajax({
+              url:"http://127.0.0.1:8000/php/editMeal.blade.php",
+              method:"post",
+              data:{meal_id:meal_id},
+              success:function(data)
+              {
+                console.log('test');
+                $('#editMealForm').attr('action', '/meal/'+meal_id);
+                $('#editMeal').html(data);
+                $('#editMealModal').modal("show");
+              }
+         });
+    });
+});
+
+//Edit Meal -> Dynamic Form
+$('.edit-component').click(function(){
+    var row = $('.dynamic-component-edit').first().clone();
+    row.appendTo('.dynamic-component-edit-area').show();
+    attach_delete_edit_component();
+    var parent = document.getElementById("dynamic-component-edit-area");
+    var count = parent.getElementsByClassName("dynamic-component-edit").length-1;
+    $('.selectComponentEdit').last().attr('id', 'selectComponentEdit'+count);
+    $('.selectComponentEdit').last().attr('onchange', 'changeUnitEditComponent('+count+')');
+    $('.unitComponentEdit').last().attr('id', 'unitComponentEdit'+count);
+});//Clone the hidden element and shows it
+  
+function attach_delete_edit_component(){
+    $('.delete-component-edit').click(function(){
+        $(this).closest('.dynamic-component-edit').remove();
+    });
+}//Attach functionality to delete buttons
+
 //Delete Meal
 $(document).ready(function(){
     $('.deleteMealButton').click(function(){
@@ -277,6 +326,8 @@ $(document).ready(function(){
         $('#deleteMealModal').modal("show");
     });
 });
+
+//-------------------------------Customer -------------------------------
 
 //Show Coustomer
 $(document).ready(function(){
@@ -320,6 +371,8 @@ $(document).ready(function(){
         $('#deleteCustomerModal').modal("show");
     });
 });
+
+//------------------------------- Supplier -------------------------------
 
 //Show Supplier
 $(document).ready(function(){

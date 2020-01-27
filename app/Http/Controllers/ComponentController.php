@@ -52,7 +52,6 @@ class ComponentController extends Controller
                 $ingredients = $_POST['ingredients'];
                 $amounts = $_POST['amounts'];
             }
-
             if(!empty($ingredients) && !empty($amounts))
             {
                 $component = new Component;
@@ -64,18 +63,10 @@ class ComponentController extends Controller
 
                 $component->save();
 
-                $first = 0;
                 foreach($ingredients as $cnt => $ingredient) 
                 {
-                    if ($first == 0)
-                    {
-                        $first++;
-                    }
-                    else
-                    {
-                        $amount = $amounts[$cnt];
-                        $component->ingredient()->attach($ingredient, array('amount' => $amount));
-                    }
+                    $amount = $amounts[$cnt+1];
+                    $component->ingredient()->attach($ingredient, ['amount' => $amount]);
                 }
 
                 $notification = array(
@@ -147,7 +138,6 @@ class ComponentController extends Controller
                 $ingredients = $_POST['ingredients'];
                 $amounts = $_POST['amounts'];
             }
-
             if(!empty($ingredients) && !empty($amounts))
             {
                 
@@ -163,13 +153,18 @@ class ComponentController extends Controller
                 //Delete Relation to Ingredients
                 DB::table('components_ingredients')->where('component_id', $id)->delete();
 
-                $count = 0;
-                foreach($ingredients as $ingredient) 
+                $first = 0;
+                foreach($ingredients as $cnt => $ingredient) 
                 {
-                    
-                    $amount = $amounts[$count];
-                    $component->ingredient()->attach($ingredient, array('amount' => $amount));
-                    $count++;
+                    if($first == 0)
+                    {
+                        $first++;
+                    }
+                    else
+                    {
+                        $amount = $amounts[$cnt];
+                        $component->ingredient()->attach($ingredient, ['amount' => $amount]);
+                    }
                 }
 
                 $notification = array(
