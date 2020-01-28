@@ -66,6 +66,7 @@
                         {
                             array_push($components_meal, [$row['idComponent'], $row['amountComponent'], $row['nameUnit']]);
                         }
+                        $count = 1;
                         foreach($components_meal as $component_meal)
                         {
                             $output .='
