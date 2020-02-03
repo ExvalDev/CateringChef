@@ -4,6 +4,10 @@
     <link href="{{ asset('css/style_menu.css') }}" rel="stylesheet">
 @endpush
 
+@push('scripts')
+  <script src="{{ asset('js/menuDnD.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
   {{------------------------------------ Menu table ------------------------------------}}
@@ -55,27 +59,32 @@
           <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
         </tr>
 
-        <tr class="text-center">
-          <td class="py-2 courseName"><h4>Dessert</h4></td>
-        </tr>
-        {{-- Dessert Course --}}
-        <tr id="courseDessert">
-          <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
-        </tr>
-      </tbody>
-    </table>
-    {{-- Actions  --}}
-    <div class="p-2">
-      <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu">Löschen  <i class="fas fa-trash text-white"></i></div>
-      <button class="btn btn-light m-0 float-right"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button>
-      <button class="btn btn-light m-0 float-right mr-2"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
-      
+          <tr class="text-center">
+            <td class="py-2 courseName"><h4>Dessert</h4></td>
+          </tr>
+          {{-- Dessert Course --}}
+          <tr id="courseDessert">
+            <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
+            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+            <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
+          </tr>
+        </tbody>
+      </table>
+      {{-- Actions  --}}
+      <div class="p-2">
+        <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu">Löschen  <i class="fas fa-trash text-white"></i></div>
+        <button class="btn btn-light m-0 float-right"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button>
+        <button class="btn btn-light m-0 float-right mr-2"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
+        
+      </div>
     </div>
-  </div>
+    <div class="bg-white mt-2 shadow-sm d-flex flex-column">
+      @foreach ($allergenes as $allergene)
+        {{$allergene->id}} -> {{$allergene->name}} 
+      @endforeach
+    </div>
   </div>
   {{------------------------------------- Meals view -------------------------------------}}
   <div class="col-3 m-0 py-3 px-2 tableHeight">
@@ -94,8 +103,9 @@
         </div>
         <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
             <ul class="list-group" id="ListMeal">
+              {{-- Meals --}}
                 @foreach ($meals as $meal)
-                    <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex">
+                    <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex" id="meal:{{$meal->id}}" data-name="{{ $meal->name }}" data-allergenes="{{$meal->allergenes}}" draggable='true' ondragstart='drag(event)'>
                         <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $meal->name }}</span>   
                         <div class="btn-group ml-auto align-self-center ">
                             {{-- Button SHOW Meal Modal --}}
@@ -105,6 +115,7 @@
                 @endforeach
             </ul> 
         </div>
+      </div>
   </div>
 
 </div>

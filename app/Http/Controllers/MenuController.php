@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Menu;
 class MenuController extends Controller
 {
@@ -19,11 +20,42 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = DB::select('select * from menus');
-        $meals = DB::select('select * from meals order by name asc');
+        
+        $menus = DB::table('menus')->get();
+        $meals = DB::table('meals')->orderBy('name','asc')->get();
+        $allergenes = DB::table('allergenes')->orderBy('id','asc')->get();
+        $allergeneToMeal = DB::select('SELECT DISTINCT M.id as mealId, A.id AS allergeneId
+                                        FROM meals AS M, components_meals AS CM, components_ingredients AS CI, allergenes_ingredients AS AI, allergenes AS A
+                                        WHERE M.id = CM.meal_id
+                                        AND CM.component_id = CI.component_id
+                                        AND CI.ingredient_id = AI.ingredient_id
+                                        AND AI.allergene_id = A.id;');
+        /* $allergeneToMeal = DB::table('meals')
+                                ->distinct()
+                                ->join('components_meals',          'meals.id',                             '=','components_meals.meal_id')
+                                ->join('components_ingredients',    'components_meals.component_id',        '=','components_ingredients.component_id')
+                                ->join('allergenes_ingredients',    'components_ingredients.ingredient_id', '=','allergenes_ingredients.ingredient_id')
+                                ->join('allergenes',                'allergenes_ingredients.allergene_id',  '=','allergenes.id')
+                                ->select('meals.id as mealId', 'allergenes.id as allergeneId'); */
+            
+        $viewMeals = array();
+        foreach ($meals as $id => $meal) {
+            $mealId = $meal->id;
+            $mealAllergenes = array();
+            foreach ($allergeneToMeal as $relation) {
+                if ($relation->mealId == $mealId) {
+                    $mealAllergenes[] = $relation->allergeneId;
+                }
+            }
+            $mealAllergenes = implode(",", $mealAllergenes);
+            $meal->allergenes = $mealAllergenes;
+            $viewMeals[$mealId] = $meal; 
+        }
+       /*  Log::info($viewMeals); */
     
         return view('/menu', [  'menus' => $menus,
-                                'meals' => $meals
+                                'meals' => $viewMeals,
+                                'allergenes' => $allergenes
                             ]);
     }
 
