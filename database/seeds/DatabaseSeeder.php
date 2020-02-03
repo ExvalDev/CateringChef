@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         }
 
         //Create Allergene
-        $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnuesse", "Soja", "Schalenobst", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen"];
+        $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnüsse", "Soja", "Schalenfrüchte", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen", "Weichtiere"];
         
         foreach($allergenes as $allergene)
         {
@@ -63,8 +63,7 @@ class DatabaseSeeder extends Seeder
 
 
         //Create Ingredient
-        $count_ingredient = 0;
-        $ingredients= [['Couscous',1,1], ['Zitronensaft',1,2], ['Wasser(Leitung)',null,2],['Knoblauch',2,1],['Paprika',2,1],['Gurke',2,1],['Tomate',2,1],['Zwiebel',2,1],['Salz',1,1],['Pfeffer',1,1],['Schafskäse',1,1],['Knollensellerie',2,1],['Möhren',2,1],['Olivenöl',1,2],['Tomatenmark',1,1],['Schmand',1,1],['Milch',1,2],['Ei',1,3],['Margarine',1,1],['Suppenknochen vom Rind',1,1],['Suppengrün',1,1],['Petersilie',1,1],['Öl',1,2],['Hackfleisch',3,1],['Passierte Tomaten',1,1],['Oregano',1,1],['Spaghetti',1,1],['Mehl',1,1],['Sahne',1,2],['Emmentaler gerieben',1,1],['Risottoreis',1,1],['Gemüsefond',1,2],['Weißwein',1,2],['Butter',1,1],['Zucker',1,1],['Backpulver',1,1],['Äpfel',2,1],['Zimt',1,1],['Puddingpulver Vanille',1,1],['Schlagsahne',1,2],['Erdbeere',2,1],['Sahnesteif',1,1],['Backkakao',1,1],['Schokolade',1,1],['Marshmallows',1,1],['Parmesan',1,1]];
+        $ingredients= [['Couscous',1,1], ['Zitronensaft',1,2], ['Wasser(Leitung)',null,2],['Knoblauch',2,1],['Paprika',2,1],['Gurke',2,1],['Tomate',2,1],['Zwiebel',2,1],['Salz',1,1],['Pfeffer',1,1],['Schafskäse',1,1],['Knollensellerie',2,1],['Karotte',2,1],['Olivenöl',1,2],['Tomatenmark',1,1],['Schmand',1,1],['Milch',1,2],['Ei',1,3],['Margarine',1,1],['Suppenknochen vom Rind',1,1],['Suppengrün',1,1],['Petersilie',1,1],['Öl',1,2],['Hackfleisch',3,1],['Passierte Tomaten',1,1],['Oregano',1,1],['Spaghetti',1,1],['Mehl',1,1],['Sahne',1,2],['Emmentaler gerieben',1,1],['Risottoreis',1,1],['Gemüsefond',1,2],['Weißwein',1,2],['Butter',1,1],['Zucker',1,1],['Backpulver',1,1],['Apfel',2,1],['Zimt',1,1],['Puddingpulver Vanille',1,1],['Schlagsahne',1,2],['Erdbeere',2,1],['Sahnesteif',1,1],['Backkakao',1,1],['Schokolade',1,1],['Marshmallows',1,1],['Parmesan',1,1]];
         foreach ($ingredients as $ingredient)
         {
             DB::table('ingredients')->insert([
@@ -73,16 +72,15 @@ class DatabaseSeeder extends Seeder
                 'db_unit_id' => $ingredient[2],
             ]);
             
-            $count = (rand(0,4));
-            $count_ingredient ++;
+        }
 
-            for($j = 1; $j <= $count; $j++)
-            {
-                DB::table('allergenes_ingredients')->insert([
-                    'ingredient_id' => $count_ingredient,
-                    'allergene_id' => (rand(1,13)),
-                ]);
-            }
+        $ingredients_allergenes= [[1,2],[10,10],[11,1],[12,9],[16,1],[17,1],[18,4],[19,1],[21,9],[24,12],[27,4],[27,2],[27,7],[28,2],[29,1],[30,1],[32,9],[33,12],[34,1],[36,12],[40,1],[42,1],[43,6],[44,6],[46,1],];
+        foreach ($ingredients_allergenes as $ingredient_allergene)
+        {
+            DB::table('allergenes_ingredients')->insert([
+                'ingredient_id' => $ingredient_allergene[0],
+                'allergene_id' => $ingredient_allergene[1],
+            ]);
         }
 
         //Create Component

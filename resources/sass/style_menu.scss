@@ -14,12 +14,25 @@
 
 #courseMain, #courseDessert{
   border-bottom: 2px solid $CC-lightGreen;
+  height: 25vh;
+  
 }
+
 .courseName h4{
   color: $CC-midGreen !important;
 }
 
 .emptyCourse{
   border: 2px dashed $CC-darkGrey;
-  height: 15rem;
+  height: 25vh;
+}
+.course{
+  height: 12vh;
+}
+.oneMoreCourse{
+  border: 2px dashed $CC-darkGrey;
+  height: 12vh;
+}
+.noMoreCourse{
+  display: none;
 }

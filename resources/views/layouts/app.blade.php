@@ -62,6 +62,7 @@
             }
         @endif
     </script>
+    @stack('scripts')
     <div id="app">    
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
@@ -150,6 +151,7 @@
                 @yield('content')
             </main>
         </div>
+    </div>
 </body>
 <script>
     $(function () {
