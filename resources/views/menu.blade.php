@@ -33,7 +33,7 @@
   </div>
   {{-- Table area --}}
   <div class="bg-white shadow-sm  mh-100 d-flex flex-column">
-    <table id="menuTable">
+    <table id="menuTable" class="w-100">
       {{-- Weekdays --}}
       <thead class="text-center" id="menuTableHead">
         <th><h2>Montag</h2></th>
