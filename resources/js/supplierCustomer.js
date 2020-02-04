@@ -44,53 +44,40 @@ $(function () {
     $('#deleteCustomerForm').attr('action', '/customer/'+customer_id);
     $('#deleteCustomerModal').modal("show");
   });
-});
-
 
 //------------------------------- Supplier -------------------------------
-
-//Show Supplier
-$(document).ready(function(){
-  $('.showSupplierButton').click(function(){
-       var supplier_id = $(this).attr("id");
-       $.ajax({
-            url:"/php/showSupplier.blade.php",
-            method:"post",
-            data:{supplier_id:supplier_id},
-            success:function(data){
-                 $('#showSupplier').html(data);
-                 $('#showSupplierModal').modal("show");
-            }
-       });
+    // Show Supplier
+    $('.showSupplierButton').click(function(){
+      let supplierId = $(this).attr("id");
+      $.get('supplier/'+ supplierId, function (supplier) {
+          $('#showName').text(supplier.name);
+          $('#showPostcode').text(supplier.postcode);
+          $('#showPlace').text(supplier.place);
+          $('#showStreet').text(supplier.street);
+          $('#showHouse_number').text(supplier.house_number);
+          $('#showSupplierModal').modal('show');
+      })
   });
-});
 
-//Edit Supplier
-$(document).ready(function(){
+  // edit Supplier
   $('.editSupplierButton').click(function(){
-       var supplier_id = $(this).attr("id");
-       $.ajax({
-            url:"/php/editSupplier.blade.php",
-            method:"post",
-            data:{supplier_id:supplier_id},
-            success:function(data)
-            {
-              $('#editSupplierForm').attr('action', '/supplier/'+supplier_id);
-              $('#editSupplier').html(data);
-              $('#editSupplierModal').modal("show");
-            }
-       });
+    let supplierId = $(this).attr("id");
+    $.get('supplier/'+ supplierId + '/edit', function (supplier) {
+        console.log(supplier);
+        $('#editSupplierForm').attr('action', '/supplier/'+supplierId);
+        $('#editName').val(supplier.name);
+        $('#editPostcode').val(supplier.postcode);
+        $('#editPlace').val(supplier.place);
+        $('#editStreet').val(supplier.street);
+        $('#editHouse_number').val(supplier.house_number);
+        $('#editSupplierModal').modal('show');
+    })
   });
-});
 
-//Delete Supplier
-$(document).ready(function(){
+  //Delete Supplier
   $('.deleteSupplierButton').click(function(){
       var supplier_id = $(this).attr("id");
       $('#deleteSupplierForm').attr('action', '/supplier/'+supplier_id);
       $('#deleteSupplierModal').modal("show");
   });
 });
-
-
-
