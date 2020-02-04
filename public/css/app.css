@@ -11368,7 +11368,7 @@ a.text-dark:focus {
 }
 
 .page-content {
-  width: calc(100% - $sidenavWidth);
+  width: calc(100% - 5rem);
   margin-left: 5rem;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;

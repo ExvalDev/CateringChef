@@ -38,8 +38,8 @@
                                 <td class="col-3"><h4>{{ $customer->childrens }}</h4></td>
                                 <td class="col-3">
                                     <div class="btn-group float-right">
-                                        {{-- Button SHOW Customer Modal --}}
-                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none showCustomerButton"><i class="fas fa-info"></i></button>
+                                        {{-- Button SHOW Customer Modal --}} 
+                                        <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none showCustomerTest"><i class="fas fa-info"></i></button>
                                         {{-- Button EDIT Customer MODAL --}}
                                         <button type="button" id={{ $customer->id }} class="btn p-0 my-0 mx-2 shadow-none editCustomerButton"><i class="fas fa-pen"></i></button>
                                         {{-- Button DELETE Customer  --}}
@@ -191,6 +191,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" id="showCustomer">
+                
+                    
+                    <input type="text" id="nameEdit" name="nameEdit" value="">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -245,4 +249,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection

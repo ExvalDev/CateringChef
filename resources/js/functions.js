@@ -90,7 +90,7 @@ $(document).ready(function(){
     $('.showIngredientButton').click(function(){
          var ingredient_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/showIngredient.blade.php",
+              url:"/php/showIngredient.blade.php",
               method:"post",
               data:{ingredient_id:ingredient_id},
               success:function(data){
@@ -106,7 +106,7 @@ $(document).ready(function(){
     $('.editIngredientButton').click(function(){
          var ingredient_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/editIngredient.blade.php",
+              url:"/php/editIngredient.blade.php",
               method:"post",
               data:{ingredient_id:ingredient_id},
               success:function(data)
@@ -188,7 +188,7 @@ $(document).ready(function(){
     $('.showComponentButton').click(function(){
          var component_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/showComponent.blade.php",
+              url:"/php/showComponent.blade.php",
               method:"post",
               data:{component_id:component_id},
               success:function(data){
@@ -204,7 +204,7 @@ $(document).ready(function(){
     $('.editComponentButton').click(function(){
          var component_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/editComponent.blade.php",
+              url:"/php/editComponent.blade.php",
               method:"post",
               data:{component_id:component_id},
               success:function(data)
@@ -270,7 +270,7 @@ $(document).ready(function(){
     $('.showMealButton').click(function(){
          var meal_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/showMeal.blade.php",
+              url:"/php/showMeal.blade.php",
               method:"post",
               data:{meal_id:meal_id},
               success:function(data){
@@ -286,7 +286,7 @@ $(document).ready(function(){
     $('.editMealButton').click(function(){
          var meal_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/editMeal.blade.php",
+              url:"/php/editMeal.blade.php",
               method:"post",
               data:{meal_id:meal_id},
               success:function(data)
@@ -334,7 +334,7 @@ $(document).ready(function(){
     $('.showCustomerButton').click(function(){
          var customer_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/showCustomer.blade.php",
+              url:"/php/showCustomer.blade.php",
               method:"post",
               data:{customer_id:customer_id},
               success:function(data){
@@ -350,7 +350,7 @@ $(document).ready(function(){
     $('.editCustomerButton').click(function(){
          var customer_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/editCustomer.blade.php",
+              url:"/php/editCustomer.blade.php",
               method:"post",
               data:{customer_id:customer_id},
               success:function(data)
@@ -379,7 +379,7 @@ $(document).ready(function(){
     $('.showSupplierButton').click(function(){
          var supplier_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/showSupplier.blade.php",
+              url:"/php/showSupplier.blade.php",
               method:"post",
               data:{supplier_id:supplier_id},
               success:function(data){
@@ -395,7 +395,7 @@ $(document).ready(function(){
     $('.editSupplierButton').click(function(){
          var supplier_id = $(this).attr("id");
          $.ajax({
-              url:"http://127.0.0.1:8000/php/editSupplier.blade.php",
+              url:"/php/editSupplier.blade.php",
               method:"post",
               data:{supplier_id:supplier_id},
               success:function(data)
@@ -415,4 +415,25 @@ $(document).ready(function(){
         $('#deleteSupplierForm').attr('action', '/supplier/'+supplier_id);
         $('#deleteSupplierModal').modal("show");
     });
+});
+
+
+
+$(function () {
+       
+    /* $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }); */
+    $('.showCustomerTest').click(function(){
+        let customerId = $(this).attr("id");
+        $.get('customer/'+ customerId +'/edit', function (customer) {
+            $('#nameEdit').val(customer.name);
+            
+            $('#showCustomerModal').modal('show');
+        })
+    });
+  
+   
 });

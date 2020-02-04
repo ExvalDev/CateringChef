@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+
         //Create Supplier
         $suppliers = [['METRO Neu-Ulm', 89231, 'Neu-Ulm','Borsigstraße',8],['Obstbau Köpf GbR',89174,'Altheim','Bismarckstraße',27],['Metzgerei Mack',89518,'Heidenheim an der Brenz','Griegstraße',1]];
         foreach($suppliers as $supplier)
