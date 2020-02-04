@@ -17,7 +17,7 @@ class CreateShowUnitsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('db_unit_id');
-            $table->foreign('db_unit_id')->references('id')->on('DB_Units');
+            $table->foreign('db_unit_id')->references('id')->on('db_units');
             $table->bigInteger('factor');
         });
     }

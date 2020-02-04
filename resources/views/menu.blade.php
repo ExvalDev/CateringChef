@@ -34,30 +34,30 @@
             </select>
         </form>
       </div>
-    </div>
-    {{-- Table area --}}
-    <div class="bg-white shadow-sm  mh-100 d-flex flex-column">
-      <table id="menuTable">
-        {{-- Weekdays --}}
-        <thead class="text-center" id="menuTableHead">
-          <th><h2>Montag</h2></th>
-          <th><h2>Dienstag</h2></th>
-          <th><h2>Mittwoch</h2></th>
-          <th><h2>Donnerstag</h2></th>
-          <th><h2>Freitag</h2></th>
-        </thead>
-        <tbody >
-          <tr class="text-center">
-            <td class="py-2 courseName"><h4>Hauptgericht</h4></td>
-          </tr>
-          {{-- Main course --}}
-          <tr id="courseMain">
-            <td ondrop='copy(event)' ondragover='allowDrop(event)' data-courseCount="0"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          </tr>
+  </div>
+  {{-- Table area --}}
+  <div class="bg-white shadow-sm  mh-100 d-flex flex-column">
+    <table id="menuTable" class="w-100">
+      {{-- Weekdays --}}
+      <thead class="text-center" id="menuTableHead">
+        <th><h2>Montag</h2></th>
+        <th><h2>Dienstag</h2></th>
+        <th><h2>Mittwoch</h2></th>
+        <th><h2>Donnerstag</h2></th>
+        <th><h2>Freitag</h2></th>
+      </thead>
+      <tbody >
+        <tr class="text-center">
+          <td class="py-2 courseName"><h4>Hauptgericht</h4></td>
+        </tr>
+        {{-- Main course --}}
+        <tr id="courseMain">
+          <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
+          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+          <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
+        </tr>
 
           <tr class="text-center">
             <td class="py-2 courseName"><h4>Dessert</h4></td>
