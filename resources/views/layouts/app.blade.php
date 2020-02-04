@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/functions.js') }}" defer></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -38,6 +37,7 @@
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 <body>  
+    {{---------------------------------------SCRIPTS-----------------------------------------}}
     {{-- Notification --}}
     <script src="{{ asset('js/toastr.js') }}"></script>
     <script>
@@ -62,7 +62,11 @@
             }
         @endif
     </script>
-    @stack('scripts')
+    {{-- search scripts --}}
+    <script src="{{ asset('js/search.js') }}"></script>
+
+    @stack('topScripts')
+
     <div id="app">    
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
