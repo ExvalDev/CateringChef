@@ -71,11 +71,11 @@
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
                     <a class="navbar-brand mx-auto" href="#"><img src="../img/CC-logo.png" class="mx-auto d-block" alt="CC" width="80%"></a>
-                    <a href="{{ url('/menu') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
-                    <a href="{{ url('/tables') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
-                    <a href="{{ url('/recipes') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
-                    <a href="{{ url('/customer') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
-                    <a href="{{ url('/supplier') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
+                    <a href="{{ url('/menu') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon" id="{{Request::path() === 'menu' ? 'acIcon' : ''}}"></i></a>
+                    <a href="{{ url('/tables') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon" id="{{Request::path() === 'tables' ? 'acIcon' : ''}}"></i></a>
+                    <a href="{{ url('/recipes') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon" id="{{Request::path() === 'recipes' ? 'acIcon' : ''}}"></i></a>
+                    <a href="{{ url('/customer') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon" id="{{Request::path() === 'customer' ? 'acIcon' : ''}}"></i></a>
+                    <a href="{{ url('/supplier') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon" id="{{Request::path() === 'supplier' ? 'acIcon' : ''}}"></i></a>
                     <a class="nav-link mx-auto mt-2 navResponsiveTrigger" data-toggle="tooltip" data-placement="right" title="Navigation"><i class="fas fa-bars navIcon" data-toggle="collapse" data-target="#responsive-nav"></i></a>
                     <div class="mt-auto mb-2 w-100 text-center">
                         <a href="{{ url('/settings') }}" class="navBtn nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
