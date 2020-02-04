@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //Factories
-        factory(App\User::class, 50)->create();
-        factory(App\Customer::class, 20)->create();
+        //factory(App\User::class, 50)->create();
+        //factory(App\Customer::class, 20)->create();
 
         //Create Supplier
         $suppliers = [['METRO Neu-Ulm', 89231, 'Neu-Ulm','Borsigstraße',8],['Obstbau Köpf GbR',89174,'Altheim','Bismarckstraße',27],['Metzgerei Mack',89518,'Heidenheim an der Brenz','Griegstraße',1]];
