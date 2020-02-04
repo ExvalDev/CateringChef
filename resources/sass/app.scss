@@ -21,7 +21,7 @@ $sidenavWidth: 5rem;
   }
 // Main Content area
 .page-content {
-width: calc(100% - $sidenavWidth);
+width: calc(100% - #{$sidenavWidth});
 margin-left: $sidenavWidth;
 transition: all 0.4s;
 }
