@@ -1,8 +1,13 @@
 <?php
+        namespace App;
+        use App\Http\Controllers\CustomerController;
+
     if(isset($_POST["customer_id"]))
     {
         $output = '';
         $output .= '<div class="table-responsive"><table class="table table-hover mt-3">';
+        $customerId = $_POST["customer_id"];
+        $customers = CustomerController::edit($customerId);
         $connect = mysqli_connect("127.0.0.1", "root", "", "cateringchef");
         $query = "SELECT name, street, house_number, postcode, place, adults, childrens  FROM customers WHERE id='".$_POST["customer_id"]."'";
         $result = mysqli_query($connect, $query);

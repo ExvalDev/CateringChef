@@ -416,3 +416,24 @@ $(document).ready(function(){
         $('#deleteSupplierModal').modal("show");
     });
 });
+
+
+
+$(function () {
+       
+    /* $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }); */
+    $('.showCustomerTest').click(function(){
+        let customerId = $(this).attr("id");
+        $.get('customer/'+ customerId +'/edit', function (customer) {
+            $('#nameEdit').val(customer.name);
+            
+            $('#showCustomerModal').modal('show');
+        })
+    });
+  
+   
+});
