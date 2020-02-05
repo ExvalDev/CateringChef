@@ -17,12 +17,12 @@
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'MenuController@index');
-Route::get('/menu', 'MenuController@index');
-Route::get('/tables', 'TableController@index');
-Route::resource('/customer', 'CustomerController');
-Route::resource('/supplier', 'SupplierController');
-Route::resource('/ingredient', 'IngredientController');
-Route::resource('/component', 'ComponentController');
-Route::resource('/meal', 'MealController');
+Route::get('/', 'MenuController@index')->middleware('verified');
+Route::get('/menu', 'MenuController@index')->middleware('verified');
+Route::get('/tables', 'TableController@index')->middleware('verified');
+Route::resource('/customer', 'CustomerController')->middleware('verified');
+Route::resource('/supplier', 'SupplierController')->middleware('verified');
+Route::resource('/ingredient', 'IngredientController')->middleware('verified');
+Route::resource('/component', 'ComponentController')->middleware('verified');
+Route::resource('/meal', 'MealController')->middleware('verified');
 
