@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Redirect,Response;
 use App\Ingredient;
 use App\Allergene;
 
@@ -49,8 +50,11 @@ class IngredientController extends Controller
 
             $ingredient->name = $request->input('name');
             $supplier_name = $request->input('supplier_name');
-            $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-            $ingredient->supplier_id = $supplier_id[0]->id;
+            if (!empty($supplier_name))
+            {   
+                $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+                $ingredient->supplier_id = $supplier_id[0]->id;
+            } 
             $ingredient->db_unit_id = $request->input('db_unit_id');
 
             $ingredient->save();
@@ -87,7 +91,14 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-
+        $data = Ingredient::findOrFail($id);
+        $supplier = Ingredient::find($id)->supplier;
+        $data['supplier'] = $supplier;
+        $unit = DB::table('ingredients')->where('ingredients.id', $id)->join('db_units', 'ingredients.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+        $data['db_unit'] = $unit[0]->name;
+        $allergenes = Ingredient::find($id)->allergene;
+        $data['allergenes'] = $allergenes;
+        return Response::json($data);
     }
 
     /**
@@ -98,7 +109,14 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Ingredient::findOrFail($id);
+        $supplier = Ingredient::find($id)->supplier;
+        $data['supplier'] = $supplier;
+        $unit = DB::table('ingredients')->where('ingredients.id', $id)->join('db_units', 'ingredients.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+        $data['db_unit'] = $unit[0]->name;
+        $allergenes = Ingredient::find($id)->allergene;
+        $data['allergenes'] = $allergenes;
+        return Response::json($data);
     }
 
     /**
@@ -112,27 +130,34 @@ class IngredientController extends Controller
     {
         //Validation
         $validatedData = $this->validate($request, [
-            'editname' => 'required',
-            'editsupplier_name' => '',
-            'editdb_unit_id' => 'required'
+            'name' => 'required',
+            'supplier_name' => '',
+            'db_unit_id' => 'required'
         ]);
         
         try
         {
             $ingredient = Ingredient::find($id);
 
-            $ingredient->name = $request->input('editname');
-            $supplier_name = $request->input('editsupplier_name');
-            $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-            $ingredient->supplier_id = $supplier_id[0]->id;
-            $ingredient->db_unit_id = $request->input('editdb_unit_id');
+            $ingredient->name = $request->input('name');
+            $supplier_name = $request->input('supplier_name');
+            if (!empty($supplier_name))
+            {   
+                $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
+                $ingredient->supplier_id = $supplier_id[0]->id;
+            }  
+            else
+            {
+                $ingredient->supplier_id = NULL;
+            } 
+            $ingredient->db_unit_id = $request->input('db_unit_id');
 
             $ingredient->save();
 
             //Delete Relation to Allergenes
             DB::table('allergenes_ingredients')->where('ingredient_id', $id)->delete();
 
-            $allergenes = $request->editallergene;
+            $allergenes = $request->allergene;
             if (!empty($allergenes))
             {
                 foreach ($allergenes as $allergene)

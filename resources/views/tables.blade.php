@@ -2,6 +2,9 @@
 @push('styles')
     <link href="{{ asset('css/style_tables.css') }}" rel="stylesheet">
 @endpush
+@push('topScripts')
+    <script src="{{ asset('js/tables.js') }}" defer></script>
+@endpush
 @section('content')
     {{------------------------------------ START ------------------------------------}}
     <div class="container-fluid row m-0 p-0 vh-100">
@@ -193,6 +196,16 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="showIngredient">
+                        <h3 id="showNameIngredient"></h3>
+                        <hr>
+                        <h4>Lieferant</h4>
+                        <span id="showSupplierIngredient"></span><br>
+                        <hr>
+                        <h4>Einheit</h4>
+                        <span id="showUnitIngredient"></span><br>
+                        <hr>
+                        <h4>Allergene</h4>
+                        <span id="showAllergenesIngredient"></span><br>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -213,6 +226,56 @@
                         @method('PUT')
                         @csrf
                         <div class="modal-body" id="editIngredient"></div>
+                        <div class="form-group">            
+                            <div class="col">
+                                <input id="editNameIngredient" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="Name" autofocus required>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col">
+                                <div class="form-check allergene p-0">
+                                    @foreach($allergenes as $allergene)
+                                        <input class="form-check-input" id="edit{{ $allergene->name }}" type="checkbox" name="allergene[]" value="{{ $allergene->id }}">
+                                        <label class="form-check-label" for="edit{{ $allergene->name }}">{{ $allergene->name }}</label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="editSupplierIngredient" list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="" placeholder="Lieferant" autocomplete="on">
+                                <datalist id="suppliers">
+                                    @foreach($suppliers as $supplier)
+                                        <option value="{{ $supplier->name}}">
+                                    @endforeach
+                                </datalist>
+                                @error('supplier_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col">
+                                <select id="editUnitIngredient" class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="" required>
+                                    <option disabled selected hidden>Einheit</option>
+                                    @foreach($db_units as $db_unit)
+                                        <option id="editUnit{{ $db_unit->id }}" value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
+                                    @endforeach
+                                </select>                    
+                                @error('db_unit_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                             <button type="submit" class="btn btn-primary">
@@ -373,6 +436,16 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="showComponent">
+                        <h3 id="showNameComponent"></h3>
+                        <hr>
+                        <h4>Menge</h4>
+                        <span id="showAmountComponent"></span> <span id="showUnitComponent"></span>
+                        <hr>
+                        <h4>Zutaten</h4>
+                        <div id="showIngredientsComponent"></div>
+                        <hr>
+                        <h4>Rezept</h4>
+                        <span id="showRecipeComponent"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>

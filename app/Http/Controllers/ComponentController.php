@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Redirect,Response;
 use App\Component;
 
 
@@ -98,9 +99,19 @@ class ComponentController extends Controller
      * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function show(Component $component)
+    public function show($id)
     {
-        //
+        $data = Component::findOrFail($id);
+        $unit = DB::table('components')->where('components.id', $id)->join('db_units', 'components.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+        $data['db_unit'] = $unit[0]->name;
+        $ingredients = Component::find($id)->ingredient;
+        foreach($ingredients as $ingredient)
+        {
+            $unit = DB::table('ingredients')->where('ingredients.id', $ingredient->id)->join('db_units', 'ingredients.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $ingredient['db_unit'] = $unit[0]->name;
+        }
+        $data['ingredients'] = $ingredients;
+        return Response::json($data);
     }
 
     /**
