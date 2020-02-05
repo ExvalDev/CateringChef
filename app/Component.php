@@ -11,7 +11,8 @@ class Component extends Model
 {
     public function Ingredient()
     {
-        return $this->belongsToMany(Ingredient::class, 'components_ingredients', 'component_id', 'ingredient_id');
+        return $this->belongsToMany(Ingredient::class, 'components_ingredients', 'component_id', 'ingredient_id')->withPivot('amount');
+        ;
     }
 
     public function DB_Units()

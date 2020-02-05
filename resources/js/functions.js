@@ -85,48 +85,10 @@ $(document).ready(function()
 
 //------------------------------- Ingredient -------------------------------
 
-//Show Ingredient
-$(document).ready(function(){
-    $('.showIngredientButton').click(function(){
-         var ingredient_id = $(this).attr("id");
-         $.ajax({
-              url:"/php/showIngredient.blade.php",
-              method:"post",
-              data:{ingredient_id:ingredient_id},
-              success:function(data){
-                   $('#showIngredient').html(data);
-                   $('#showIngredientModal').modal("show");
-              }
-         });
-    });
-});
 
-//Edit Ingredient
-$(document).ready(function(){
-    $('.editIngredientButton').click(function(){
-         var ingredient_id = $(this).attr("id");
-         $.ajax({
-              url:"/php/editIngredient.blade.php",
-              method:"post",
-              data:{ingredient_id:ingredient_id},
-              success:function(data)
-              {
-                $('#editIngredientForm').attr('action', '/ingredient/'+ingredient_id);
-                $('#editIngredient').html(data);
-                $('#editIngredientModal').modal("show");
-              }
-         });
-    });
-});
 
-//Delete Ingredient
-$(document).ready(function(){
-    $('.deleteIngredientButton').click(function(){
-        var ingredient_id = $(this).attr("id");
-        $('#deleteIngredientForm').attr('action', '/ingredient/'+ingredient_id);
-        $('#deleteIngredientModal').modal("show");
-    });
-});
+
+
 
 //------------------------------- Progress Bar -------------------------------
 
@@ -183,21 +145,6 @@ function attach_delete_add_ingredient(){
     });
 }//Attach functionality to delete buttons
 
-//Show Component
-$(document).ready(function(){
-    $('.showComponentButton').click(function(){
-         var component_id = $(this).attr("id");
-         $.ajax({
-              url:"/php/showComponent.blade.php",
-              method:"post",
-              data:{component_id:component_id},
-              success:function(data){
-                   $('#showComponent').html(data);
-                   $('#showComponentModal').modal("show");
-              }
-         });
-    });
-});
 
 //Edit Component
 $(document).ready(function(){
@@ -428,6 +375,7 @@ $(function () {
     }); */
     $('.showCustomerTest').click(function(){
         let customerId = $(this).attr("id");
+        console.log(customerId);
         $.get('customer/'+ customerId +'/edit', function (customer) {
             $('#nameEdit').val(customer.name);
             

@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
 mix.js('resources/js/functions.js', 'public/js')
 mix.js('resources/js/toastr.js', 'public/js')
+mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/style_auth.scss', 'public/css')
    .sass('resources/sass/style_tables.scss', 'public/css')

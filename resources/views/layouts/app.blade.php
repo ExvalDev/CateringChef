@@ -62,7 +62,8 @@
             }
         @endif
     </script>
-    @stack('scripts')
+    @stack('topScripts')
+    
     <div id="app">    
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
