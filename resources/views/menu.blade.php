@@ -4,7 +4,7 @@
     <link href="{{ asset('css/style_menu.css') }}" rel="stylesheet">
 @endpush
 
-@push('scripts')
+@push('topScripts')
   <script src="{{ asset('js/menuDnD.js') }}"></script>
 @endpush
 

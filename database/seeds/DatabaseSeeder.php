@@ -12,9 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Factories
-        //factory(App\User::class, 50)->create();
-        //factory(App\Customer::class, 20)->create();
+
 
         //Create Supplier
         $suppliers = [['METRO Neu-Ulm', 89231, 'Neu-Ulm','Borsigstraße',8],['Obstbau Köpf GbR',89174,'Altheim','Bismarckstraße',27],['Metzgerei Mack',89518,'Heidenheim an der Brenz','Griegstraße',1]];
@@ -28,6 +26,21 @@ class DatabaseSeeder extends Seeder
                 'house_number' => $supplier[4],
             ]);
         }
+
+         //Create Customer
+         $customers = [['Katholischer Kindergarten Rust - St. Michael', 77977, 'Rust','Hindenburgstraße',34,35,280],['Kommunaler Kindergarten Rust',77977,'Rust','Walter-Schießle-Straße',14,17,125],['Kita Rheinpiraten Rust',77977,'Rust','Walter-Schießle-Straße',16,125,470],['Grund- und Gemeinschaftsschule Rust', 77977, 'Rust','Kirchstraße',9,120,800],['Gymnasium Ettenheim', 77955, 'Ettenheim','Johann-Baptist-von-Weiß-Straße',7,85,577]];
+         foreach($customers as $customer)
+         {
+             DB::table('customers')->insert([
+                 'name' => $customer[0],
+                 'postcode' => $customer[1],
+                 'place' => $customer[2],
+                 'street' => $customer[3],
+                 'house_number' => $customer[4],
+                 'adults' => $customer[5],
+                 'childrens' => $customer[6],
+             ]);
+         }
 
         //Create Allergene
         $allergenes = ["Milch", "Weizen", "Krebstiere", "Eier", "Fisch", "Erdnüsse", "Soja", "Schalenfrüchte", "Sellerie", "Senf", "Sesamsamen", "Schwefeldioxide und Sulfide", "Lupinen", "Weichtiere"];

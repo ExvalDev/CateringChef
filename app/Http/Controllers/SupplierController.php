@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Supplier;
+use Redirect,Response;
 
 class SupplierController extends Controller
 {
@@ -89,7 +90,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Supplier::findOrFail($id);
+        return Response::json($data);
     }
 
     /**
@@ -100,7 +102,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Supplier::findOrFail($id);
+        return Response::json($data);
     }
 
     /**

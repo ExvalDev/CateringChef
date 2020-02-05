@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Customer;
+use Redirect,Response;
 
 class CustomerController extends Controller
 {
@@ -99,7 +100,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Customer::findOrFail($id);
+        return Response::json($data);
     }
 
     /**
@@ -110,7 +112,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Customer::findOrFail($id);
+        return Response::json($data);
     }
 
     /**
