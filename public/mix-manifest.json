@@ -5,6 +5,8 @@
     "/css/style_tables.css": "/css/style_tables.css",
     "/css/style_menu.css": "/css/style_menu.css",
     "/js/functions.js": "/js/functions.js",
+    "/js/search.js": "/js/search.js",
+    "/js/supplierCustomer.js": "/js/supplierCustomer.js",
     "/js/toastr.js": "/js/toastr.js",
     "/js/menuDnD.js": "/js/menuDnD.js"
 }
