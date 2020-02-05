@@ -121,11 +121,13 @@ class DatabaseSeeder extends Seeder
         
 
         //Create Meal
-        $meals = [['Couscoussalat','Couscous zu Gemüse unterrühren'],['Tomatencremesuppe','servieren'],['Mehlklösesuppe','1. Mehlköse in kochende Suppenbrühe hinzugeben 2. 20 Minuten köcheln lassen 3. klare Suppenbrühe mit einem Sieb in einen anderen Topf abgießen'],['Käsespätzle','1. Die Spätzle unter die Käsemasse heben. 2. Auf niedriger Stufe kurz ziehen lassen.'],['Meeresfrüchterisotto','1. Meeresfrüchterisotto auf den Teller geben und den restlichen Parmesan darüberstreuen'],['Pfannkuchen','1. Pfannkuchen auf den Teller geben. 2. Apfelmuß darüber geben.'],['Pudding','1. Pudding auf Teller stürzen. 2. Erdbeersoße darüber geben.'],['Tassenkuchen','1. Glasur über den Kuchen geben. 2. Mit Marshmallows verzieren.'],['Spaghetti Bolognese','1. Nudeln in den Teller geben. 2. Bolognese Soße darüber geben.']];
+        $meals = [['Couscoussalat','Couscous zu Gemüse unterrühren', true, false],['Tomatencremesuppe','servieren', true, false],['Mehlklösesuppe','1. Mehlköse in kochende Suppenbrühe hinzugeben 2. 20 Minuten köcheln lassen 3. klare Suppenbrühe mit einem Sieb in einen anderen Topf abgießen', true, false],['Käsespätzle','1. Die Spätzle unter die Käsemasse heben. 2. Auf niedriger Stufe kurz ziehen lassen.', true, false],['Meeresfrüchterisotto','1. Meeresfrüchterisotto auf den Teller geben und den restlichen Parmesan darüberstreuen', true, false],['Pfannkuchen','1. Pfannkuchen auf den Teller geben. 2. Apfelmuß darüber geben.', true, true],['Pudding','1. Pudding auf Teller stürzen. 2. Erdbeersoße darüber geben.', false, true],['Tassenkuchen','1. Glasur über den Kuchen geben. 2. Mit Marshmallows verzieren.', false, true],['Spaghetti Bolognese','1. Nudeln in den Teller geben. 2. Bolognese Soße darüber geben.', true, false]];
         foreach ($meals as $meal) {
             DB::table('meals')->insert([
                 'name' => $meal[0],
                 'recipe' => $meal[1],
+                'main' => $meal[2],
+                'dessert' => $meal[3]
             ]);
         }
         $component_meals = [[1,1,75],[1,2,300],[2,3,400],[3,4,30],[3,5,300],[4,8,275],[4,9,180],[5,10,420],[6,11,350],[6,12,200],[7,13,140],[7,14,67],[8,15,330],[8,16,30],[9,6,300],[9,7,125]];
@@ -143,12 +145,12 @@ class DatabaseSeeder extends Seeder
         for($i = 13; $i <= 24; $i++)
         {
             DB::table('menus')->insert([
-                'row' => 1,
+                'course' => 'main',
                 'date' => '2020-01-'.$i,
             ]);
 
             DB::table('menus')->insert([
-                'row' => 2,
+                'course' => 'dessert',
                 'date' => '2020-01-'.$i,
             ]);
 

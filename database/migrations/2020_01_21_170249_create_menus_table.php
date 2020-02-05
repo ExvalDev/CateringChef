@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('row');
+            $table->string('course');
             $table->date('date');
             $table->timestamps();
         });

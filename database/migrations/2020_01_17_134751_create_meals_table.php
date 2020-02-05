@@ -17,6 +17,8 @@ class CreateMealsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->longText('recipe')->nullable();
+            $table->boolean('main');
+            $table->boolean('dessert');
             $table->timestamps();
         });
     }
