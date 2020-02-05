@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@push('topScripts')
+  <script src="{{ asset('js/supplierCustomer.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="container-fluid row m-0 p-0 vh-100">
     {{------------------------------------ Supplier Table ------------------------------------}}
@@ -166,7 +171,13 @@
                 <h1>Details</h1>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" id="showSupplier">
+            <div class="modal-body">
+                <h3 id="showName"></h3>
+                <hr>
+                <h4>Adresse</h4>
+                <span id="showStreet"></span> <span id="showHouse_number"></span><br>
+                <span id="showPostcode"></span> <span id="showPlace"></span>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -186,7 +197,56 @@
             <form action="/supplier" method="POST" id="editSupplierForm">
                 @method('PUT')
                 @csrf
-                <div class="modal-body" id="editSupplier"></div>
+                <div class="modal-body">
+                    @csrf
+                    {{-- Name Input --}}
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <input id="editName" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Name" autofocus required>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    {{-- Street and Housenumber --}}
+                    <div class="form-row">
+                        <div class="input-group col-12">
+                            <input id="editStreet" type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" placeholder="Straße" required>
+                            @error('street')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input id="editHouse_number" type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number"  placeholder="Nr." required>
+                            @error('house_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror     
+                        </div>
+                    </div>
+
+                    {{-- PLZ and City --}}
+                    <div class="form-row mt-3">
+                        <div class="input-group col-12">
+                            <input id="editPostcode" type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode"  placeholder="PLZ" required>
+                            @error('postcode')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <input id="editPlace" type="text" class="col-7 form-control rounded-right @error('place') is-invalid @enderror" name="place"  placeholder="Ort" required>
+                            @error('place')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>

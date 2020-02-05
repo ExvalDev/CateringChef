@@ -100,7 +100,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Customer::findOrFail($id);
+        return Response::json($data);
     }
 
     /**
