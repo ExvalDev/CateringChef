@@ -141,30 +141,19 @@ class DatabaseSeeder extends Seeder
             }
 
         //Create Menu
-        $count = 1;
-        for($i = 13; $i <= 24; $i++)
-        {
+        $menus = [['main','2020-01-13'],['main','2020-01-13'],['dessert','2020-01-13'],['dessert','2020-01-13'],['main','2020-01-15'],['main','2020-01-15'],['dessert','2020-01-15'],['main','2020-01-16'],['dessert','2020-01-16'],['main','2020-01-17'],['dessert','2020-01-20'],['dessert','2020-01-20'],['main','2020-01-22'],['dessert','2020-01-22'],['dessert','2020-01-22'],['main','2020-01-23'],['main','2020-01-23'],['main','2020-01-24'],['main','2020-01-24'],['dessert','2020-01-24']];
+        foreach ($menus as $menu) {
             DB::table('menus')->insert([
-                'course' => 'main',
-                'date' => '2020-01-'.$i,
+                'course' => $menu[0],
+                'date' => $menu[1],
             ]);
-
-            DB::table('menus')->insert([
-                'course' => 'dessert',
-                'date' => '2020-01-'.$i,
-            ]);
-
+        }
+        $meals_menus=[[2,1],[4,2],[7,3],[8,4],[1,5],[5,6],[6,7],[3,8],[8,9],[6,10],[7,11],[8,12],[1,13],[6,14],[8,15],[3,16],[4,17],[1,18],[5,19],[6,20]];
+        foreach ($meals_menus as $meals_menu) {
             DB::table('meals_menus')->insert([
-                'meal_id' => rand(1,9),
-                'menu_id' => $count,
+                'meal_id' => $meals_menu[0],
+                'menu_id' => $meals_menu[1],
             ]);
-            $count++;
-
-            DB::table('meals_menus')->insert([
-                'meal_id' => rand(1,9),
-                'menu_id' => $count,
-            ]);
-            $count++;
         }
 
         //Create Dev - User
