@@ -140,6 +140,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
+
          //Create Menu
          $menus = [['main','2020-01-13'],['dessert','2020-01-13'],['main','2020-01-15'],['dessert','2020-01-15'],['main','2020-01-16'],['dessert','2020-01-16'],['main','2020-01-17'],['dessert','2020-01-20'],['main','2020-01-22'],['dessert','2020-01-22'],['main','2020-01-23'],['main','2020-01-24'],['dessert','2020-01-24']];
          foreach ($menus as $menu) {
@@ -155,6 +156,7 @@ class DatabaseSeeder extends Seeder
                  'menu_id' => $meals_menu[1],
              ]);
          }
+
 
         //Create Dev - User
         DB::table('users')->insert([
