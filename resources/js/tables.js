@@ -74,10 +74,11 @@ $(function () {
             for(var i = 0; i < component.ingredients.length; i++) {
                 ingredients.push([component.ingredients[i].name, component.ingredients[i].pivot.amount, component.ingredients[i].db_unit])
             }
-            let ingredientsHTML ="";
+            let ingredientsHTML ="<table class='table table-striped table-sm mt-2'>";
             ingredients.forEach(ingredient =>{
-                ingredientsHTML += `<span> ${ingredient[0]}</span> <span> ${ingredient[1]} ${ingredient[2]}</span> <br>`
+                ingredientsHTML += `<tr><td> ${ingredient[1]} ${ingredient[2]}</td><td> ${ingredient[0]}</td></tr>`
             });
+            ingredientsHTML += "</table>";
             $('#showIngredientsComponent').html(ingredientsHTML);
             $('#showRecipeComponent').text(component.recipe);
             $('#showComponentModal').modal('show');

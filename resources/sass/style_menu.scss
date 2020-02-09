@@ -29,6 +29,10 @@
 .course{
   height: 12vh;
 }
+.course:hover, .mealItem:hover{
+  border: 3px solid $CC-midGreen !important;
+  cursor: move;
+}
 .oneMoreCourse{
   border: 2px dashed $CC-darkGrey;
   height: 12vh;
