@@ -18,7 +18,6 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'MenuController@index')->middleware('verified');
-Route::get('/menu', 'MenuController@index')->middleware('verified');
 Route::get('/tables', 'TableController@index')->middleware('verified');
 Route::resource('/customer', 'CustomerController')->middleware('verified');
 Route::resource('/supplier', 'SupplierController')->middleware('verified');
@@ -26,3 +25,6 @@ Route::resource('/ingredient', 'IngredientController')->middleware('verified');
 Route::resource('/component', 'ComponentController')->middleware('verified');
 Route::resource('/meal', 'MealController')->middleware('verified');
 
+Route::get('/menu', 'MenuController@index')->middleware('verified');
+Route::get('/menu/changeWeek/{week}/{direction}', 'MenuController@index')->middleware('verified');
+Route::get('/menu/changeYear', 'MenuController@changeYear')->middleware('verified');

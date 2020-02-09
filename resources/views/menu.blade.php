@@ -5,7 +5,7 @@
 @endpush
 
 @push('topScripts')
-  <script src="{{ asset('js/menuDnD.js') }}"></script>
+  <script src="{{ asset('js/menu.js') }}"></script>
 @endpush
 
 @section('content')
@@ -16,21 +16,19 @@
       <h1 class="mr-auto">Speiseplan</h1>
       {{-- choose Week --}}
       <div id="weekControl">
-        <form action="">
           <div class="input-group">
-            <button type="submit" id="previousWeek" class="form-control"><i class="fas fa-chevron-left"></i></button>
-            <span class="input-group-append input-group-text rounded-0 bg-white"><h4>KW3</h4></span>
-            <button type="submit" id="nextWeek" class="form-control"><i class="fas fa-chevron-right"></i></button>
+          <a href="/menu/changeWeek/{{$KW}}/last" id="previousWeek" class="form-control"><i class="fas fa-chevron-left"></i></a>
+          <span class="input-group-append input-group-text rounded-0 bg-white"><h4>KW{{$KW}}</h4></span>
+          <a href="/menu/changeWeek/{{$KW}}/next" id="nextWeek" class="form-control"><i class="fas fa-chevron-right"></i></a>
           </div>
-        </form>
       </div>
       {{-- choose Year --}}
       <div id="yearControl" class="ml-2">
-        <form action="">
-            <select class="form-control" name="selectedYear" id="">
-              <option>2019</option>
-              <option selected>2020</option>
-              <option>2021</option>
+        <form action="/menu/changeYear">
+            <select class="form-control" name="selectedYear" id="" onchange="this.form.submit()">
+              <option>{{$year-1}}</option>
+              <option selected>{{$year}}</option>
+              <option>{{$year+1}}</option>
             </select>
         </form>
       </div>
@@ -51,13 +49,54 @@
           <td class="py-2 courseName"><h4>Hauptgericht</h4></td>
         </tr>
         {{-- Main course --}}
-        <tr id="courseMain">
-          <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
+        <tr id="courseMain" class="px-2 mx-2">
+          @php
+            $startDay = new DateTime($startDate);
+            $endDay = new DateTime($endDate);
+            $endDay->modify('+1 day');
+            $daterange = new DatePeriod($startDay, new DateInterval('P1D'), $endDay);
+            foreach ($daterange as $date) { 
+              $dayCourses = array();
+              foreach ($mainCourse as $course) {
+                if ($course->date == ($date->format('Y-m-d'))) {
+                  $dayCourses[] = $course;
+                }
+              }
+              switch (count($dayCourses)) {
+                  case 0:
+                    echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
+                    break;
+                  
+                  case 1:
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="1"><div id="menu_'.$dayCourses[0]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($dayCourses[0]->meal->name);
+                    echo '<br>';
+                    echo  ($dayCourses[0]->meal->allergenes);
+                    echo '</div>'; 
+                    echo '<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div></td>';
+                    break;
+
+                  case 2:
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="2"><div id="menu_'.$dayCourses[0]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($dayCourses[0]->meal->name);
+                    echo '<br>';
+                    echo  ($dayCourses[0]->meal->allergenes);
+                    echo '</div>';
+                    echo '<div id="menu_'.$dayCourses[1]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($dayCourses[1]->meal->name);
+                    echo '<br>';
+                    echo  ($dayCourses[1]->meal->allergenes);
+                    echo '</div></td>';
+                    break;
+                }
+            }
+            
+          @endphp
+         {{--  <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
           <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
           <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
           <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
-        </tr>
+         --}}</tr>
 
           <tr class="text-center">
             <td class="py-2 courseName"><h4>Dessert</h4></td>
@@ -74,9 +113,9 @@
       </table>
       {{-- Actions  --}}
       <div class="p-2">
-        <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu">Löschen  <i class="fas fa-trash text-white"></i></div>
-        <button class="btn btn-light m-0 float-right"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button>
-        <button class="btn btn-light m-0 float-right mr-2"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
+        <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu" ondrop="deleteMenu(event)" ondragover="allowDrop(event)">Löschen  <i class="fas fa-trash text-white"></i></div>
+        {{-- <button class="btn btn-light m-0 float-right ml-2"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button> --}}
+        <button class="btn btn-light m-0 float-right "> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
         
       </div>
     </div>
@@ -105,7 +144,7 @@
             <ul class="list-group" id="ListMeal">
               {{-- Meals --}}
                 @foreach ($meals as $meal)
-                    <li class="list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex" id="meal:{{$meal->id}}" data-name="{{ $meal->name }}" data-allergenes="{{$meal->allergenes}}" draggable='true' ondragstart='drag(event)'>
+                    <li class="mealItem list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex" id="meal:{{$meal->id}}" data-name="{{ $meal->name }}" data-allergenes="{{$meal->allergenes}}" draggable='true' ondragstart='drag(event)'>
                         <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $meal->name }}</span>   
                         <div class="btn-group ml-auto align-self-center ">
                             {{-- Button SHOW Meal Modal --}}
