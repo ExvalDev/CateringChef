@@ -213,6 +213,25 @@ $('.add-component').click(function(){
     $('.selectComponentAdd').last().attr('onchange', 'changeUnitAddComponent('+count+')');
     $('.unitComponentAdd').last().attr('id', 'unitComponentAdd'+count);
 });//Clone the hidden element and shows it
+
+//ADD Meal -> Main Course Checkbox
+$("#mainCourse").on('change', function() {
+    if ($(this).is(':checked')) {
+      $(this).attr('value', 'true');
+    } else {
+      $(this).attr('value', 'false');
+    }
+});
+
+//ADD Meal -> Dessert Course Checkbox
+$("#dessertCourse").on('change', function() {
+    if ($(this).is(':checked')) {
+      $(this).attr('value', 'true');
+    } else {
+      $(this).attr('value', 'false');
+    }
+});
+
   
 function attach_delete_add_component(){
     $('.delete-dynamic-component').off();
@@ -227,6 +246,16 @@ $(function () {
         let mealId = $(this).attr("id");
         $.get('meal/'+ mealId, function (meal) {
             $('#showNameMeal').text(meal.name);
+            let course = "";
+            if(meal.main == 1)
+            {
+                course += "Hauptgericht, ";
+            }
+            if(meal.dessert == 1)
+            {
+                course += "Dessert, ";
+            }
+            $('#showCourseMeal').text("("+course.substr(0, course.length-2)+")"); 
             let components = []; 
             for(var i = 0; i < meal.components.length; i++) {
                 components.push([meal.components[i].name, meal.components[i].pivot.amount, meal.components[i].db_unit])
@@ -253,6 +282,16 @@ $(function ()
         {
             $('#editMealForm').attr('action', '/meal/'+mealId);
             $('#editNameMeal').val(meal.name);
+            if(meal.main == 1)
+            {
+                document.getElementById("editMainCourse").checked = true;
+                $('#editMainCourse').attr('value', 'true');
+            }
+            if(meal.dessert == 1)
+            {
+                document.getElementById("editDessertCourse").checked = true;
+                $('#editDessertCourse').attr('value', 'true');
+            }
             var allComponentsArray = new Array();
             $.get('component', function (allComponents) 
             {
@@ -297,6 +336,24 @@ $(function ()
             });
         })
     });
+});
+
+//ADD Meal -> Main Course Checkbox
+$("#editMainCourse").on('change', function() {
+    if ($(this).is(':checked')) {
+      $(this).attr('value', 'true');
+    } else {
+      $(this).attr('value', 'false');
+    }
+});
+
+//ADD Meal -> Dessert Course Checkbox
+$("#editDessertCourse").on('change', function() {
+    if ($(this).is(':checked')) {
+      $(this).attr('value', 'true');
+    } else {
+      $(this).attr('value', 'false');
+    }
 });
 
 //Edit Meal -> Dynamic Form

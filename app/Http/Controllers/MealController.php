@@ -56,21 +56,11 @@ class MealController extends Controller
                 $meal = new Meal;
 
                 $meal->name = $request->input('name');
-                if($request->input('mainCourse' == true) && $request->input('dessertCourse' == true))
-                {
-                    $meal->main = $request->input('mainCourse');
-                    $meal->dessert = $request->input('dessertCourse');
-                }
-                elseif($request->input('mainCourse' == true) && $request->input('dessertCourse' == null))
-                {
-                    $meal->main = $request->input('mainCourse');
-                    $meal->dessert = false;
-                }
-                elseif($request->input('mainCourse' == null) && $request->input('dessertCourse' == true))
-                {
-                    $meal->main = false;
-                    $meal->dessert = $request->input('dessertCourse');
-                }
+                if($request->input('mainCourse') == "true")
+                {$meal->main = true;}
+                else{$meal->main = false; }
+                if($request->input('dessertCourse') == "true"){$meal->dessert = true;}
+                else{$meal->dessert = false;}
                 $meal->recipe = $request->input('recipe');
 
                 $meal->save();
@@ -102,7 +92,7 @@ class MealController extends Controller
             );
             return $ex;
         }
-        //return redirect('/tables')->with($notification);
+        return redirect('/tables')->with($notification);
     }
 
     /**
@@ -172,6 +162,10 @@ class MealController extends Controller
                 $meal = Meal::find($id);
 
                 $meal->name = $request->input('name');
+                if($request->input('mainCourse') == "true"){$meal->main = true;}
+                else{$meal->main = false;}
+                if($request->input('dessertCourse') == "true"){$meal->dessert = true;}
+                else{$meal->dessert = false;}
                 $meal->recipe = $request->input('recipe');
 
                 $meal->save();
