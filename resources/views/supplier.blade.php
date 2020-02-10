@@ -64,7 +64,7 @@
         {{------------------------------------- Supplier Map -------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
             
-
+            {!! Mapper::render() !!}
         </div>
         {{------------------------------------ Supplier Stats ------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
