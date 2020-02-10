@@ -12,7 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-mix.js('resources/js/functions.js', 'public/js')
 mix.js('resources/js/search.js', 'public/js')
 mix.js('resources/js/supplierCustomer.js', 'public/js')
 mix.js('resources/js/toastr.js', 'public/js')
@@ -21,6 +20,5 @@ mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/style_auth.scss', 'public/css')
    .sass('resources/sass/style_tables.scss', 'public/css')
    .sass('resources/sass/style_menu.scss', 'public/css')
-mix.copyDirectory('resources/php', 'public/php');
 mix.copyDirectory('resources/img', 'public/img');
-mix.copy('resources/js/menuDnD.js', 'public/js');
+mix.copy('resources/js/menu.js', 'public/js');

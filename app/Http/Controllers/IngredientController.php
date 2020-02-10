@@ -17,7 +17,13 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        //
+        $allIngredients = Ingredient::all();
+        foreach($allIngredients as $ingredient)
+        {
+            $unit = DB::table('ingredients')->where('ingredients.id', $ingredient->id)->join('db_units', 'ingredients.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $ingredient['db_unit'] = $unit[0]->name;
+        }
+        return Response::json($allIngredients);
     }
 
     /**

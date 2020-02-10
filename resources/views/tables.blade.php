@@ -10,7 +10,7 @@
     <div class="container-fluid row m-0 p-0 vh-100">
         {{------------------------------------ Ingredients ------------------------------------}}
         <div class="col-md-4 m-0 py-3 px-2 tableHeight">
-            <h1>Zutaten</h1>
+            <h1>@lang('message.ingredients')</h1>
             <div class="bg-white shadow-sm  h-100 mh-100 d-flex flex-column">
                 <div class="">
                     <div class="px-2 pt-2 m-0">
@@ -44,7 +44,7 @@
 
         {{------------------------------------ Components ------------------------------------}}
         <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
-            <h1>Komponenten</h1>
+            <h1>@lang('message.components')</h1>
             <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
                 <div>
                     <div class="px-2 pt-2 m-0">
@@ -78,7 +78,7 @@
 
         {{--------------------------------------- Meals --------------------------------------}}
         <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
-            <h1>Speisen</h1>
+            <h1>@lang('message.meals')</h1>
             <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
                 <div>
                     <div class="px-2 pt-2 m-0">
@@ -117,7 +117,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-plus"></i> Zutat</h3>
+                        <h3><i class="fas fa-plus"></i> @lang('message.ingredient')</h3>
                         <a class="close" data-dismiss="modal">×</a>
                     </div>
                     <form action="{{ action('IngredientController@store') }}" method="POST">
@@ -125,7 +125,7 @@
                             @csrf
                             <div class="form-group">            
                                 <div class="col">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autofocus required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="{{ old('supplier_name') }}" placeholder="Lieferant" autocomplete="on">
+                                    <input list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="{{ old('supplier_name') }}" placeholder="@lang('message.supplier')" autocomplete="on">
                                     <datalist id="suppliers">
                                         @foreach($suppliers as $supplier)
                                             <option value="{{ $supplier->name}}">
@@ -161,7 +161,7 @@
                             <div class="form-group">
                                 <div class="col">
                                     <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}" required>
-                                        <option disabled selected hidden>Einheit</option>
+                                        <option disabled selected hidden>@lang('message.unit')</option>
                                         @foreach($db_units as $db_unit)
                                             <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
                                         @endforeach
@@ -176,7 +176,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button> 
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button> 
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Speichern') }}
                                 </button>
@@ -192,23 +192,23 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1>Details</h1>
+                        <h3><i class="fas fa-info"></i> @lang('message.show')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="showIngredient">
                         <h3 id="showNameIngredient"></h3>
                         <hr>
-                        <h4>Lieferant</h4>
+                        <h4>@lang('message.supplier')</h4>
                         <span id="showSupplierIngredient"></span><br>
                         <hr>
-                        <h4>Einheit</h4>
+                        <h4>@lang('message.unit')</h4>
                         <span id="showUnitIngredient"></span><br>
                         <hr>
-                        <h4>Allergene</h4>
+                        <h4>@lang('message.allergenes')</h4>
                         <span id="showAllergenesIngredient"></span><br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
                     </div>
                 </div>
             </div>
@@ -219,7 +219,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-pen"></i> Zutat</h3>
+                        <h3><i class="fas fa-pen"></i> @lang('message.ingredient')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/ingredient" method="POST" id="editIngredientForm">
@@ -228,7 +228,7 @@
                         <div class="modal-body" id="editIngredient"></div>
                         <div class="form-group">            
                             <div class="col">
-                                <input id="editNameIngredient" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="Name" autofocus required>
+                                <input id="editNameIngredient" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="@lang('message.name')" autofocus required>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="editSupplierIngredient" list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="" placeholder="Lieferant" autocomplete="on">
+                                <input id="editSupplierIngredient" list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="" placeholder="@lang('message.supplier')" autocomplete="on">
                                 <datalist id="suppliers">
                                     @foreach($suppliers as $supplier)
                                         <option value="{{ $supplier->name}}">
@@ -264,9 +264,9 @@
                         <div class="form-group">
                             <div class="col">
                                 <select id="editUnitIngredient" class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="" required>
-                                    <option disabled selected hidden>Einheit</option>
+                                    <option disabled selected hidden>@lang('message.unit')</option>
                                     @foreach($db_units as $db_unit)
-                                        <option id="editUnit{{ $db_unit->id }}" value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
+                                        <option id="editUnitIngredient{{ $db_unit->id }}" value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
                                     @endforeach
                                 </select>                    
                                 @error('db_unit_id')
@@ -277,7 +277,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
                             <button type="submit" class="btn btn-primary">
                                 {{ __("Speichern") }}
                             </button>
@@ -292,14 +292,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3>Zutat löschen</h3>
+                        <h3><i class="fas fa-trash"></i> @lang('message.ingredient') @lang('message.delete')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/ingredient" method="POST" id="deleteIngredientForm">
                         @csrf
                         @method('DELETE')
                         <div class="modal-body" id="editIngredient">
-                           <span>Wollen Sie wirklich die Zutat löschen ?</span> 
+                           <span>Wollen Sie die Zutat </span><b><span id="deleteNameIngredient"></span></b><span> löschen ?</span> 
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger">Löschen</button>              
@@ -316,7 +316,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-plus"></i> Komponente</h3>
+                        <h3><i class="fas fa-plus"></i> @lang('message.component')</h3>
                         <a class="close" data-dismiss="modal">×</a>
                     </div>
                     <div class="modal-body">
@@ -324,17 +324,17 @@
                         @csrf
                             <div class="container p-0">
                                 <ul id="progressbar">
-                                    <li class="active">Allgemein</li>
-                                    <li>Zutaten</li>
-                                    <li>Rezept</li>
+                                    <li class="active">@lang('message.general')</li>
+                                    <li>@lang('message.ingredients')</li>
+                                    <li>@lang('message.recipe')</li>
                                 </ul>
                                 {{-- Page I --}}
                                 <fieldset>
-                                    <h2>Allgemein</h2>
+                                    <h2>@lang('message.general')</h2>
                                     {{-- name Input --}}
                                     <div class="form-row">
                                         <div class="form-group col-12">            
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -345,7 +345,7 @@
                                     {{-- Amount & Unit --}}
                                     <div class="form-row">            
                                         <div class="input-group col-12">
-                                            <input type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="Menge">
+                                            <input type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="@lang('message.amount')">
                                             @error('amount')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -353,7 +353,7 @@
                                             @enderror
 
                                             <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}">
-                                                <option disabled selected hidden> Einheit</option>
+                                                <option disabled selected hidden> @lang('message.unit')</option>
                                                 @foreach($db_units as $db_unit)
                                                     <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
                                                 @endforeach
@@ -366,13 +366,13 @@
                                         </div>
                                     </div>
                                     {{-- next Page --}}
-                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="Weiter">
+                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
                                 </fieldset>
 
                                 {{-- Page II --}}
                                 <fieldset>
                                     <div class="d-flex">
-                                        <h2>Zutaten</h2> 
+                                        <h2>@lang('message.ingredients')</h2> 
                                     {{-- ADD Ingredient Button --}}
                                     <p class="btn py-0 px-2 btn-primary shadow-none ml-auto add-ingredient"><i class="fas fa-plus"></i></p>
                                     </div>
@@ -385,7 +385,7 @@
                                                 <div class="input-group col-12">
                                                     {{-- Choose Ingredient --}}
                                                     <select id="selectIngredientAdd" name="ingredients[]" class="form-control col-5 selectIngredientAdd" onchange="changeUnitAddIngredient()" required>
-                                                        <option disabled selected hidden> Zutat wählen</option>
+                                                        <option disabled selected hidden> @lang('message.choseIngredient')</option>
                                                         @foreach ($ingredients as $ingredient)
                                                             <option value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
                                                         @endforeach
@@ -393,7 +393,7 @@
                                                     {{-- input Amount --}}
                                                     <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="Menge">
                                                     {{-- Unit for selected Ingredient --}}
-                                                    <span class="form-control unitIngredientAdd col-3" id="unitIngredientAdd">Einheit</span>
+                                                    <span class="form-control unitIngredientAdd col-3" id="unitIngredientAdd">@lang('message.unit')</span>
                                                     {{-- delete Row --}}
                                                     <div class="input-group-append d-flex col-1 px-0">
                                                         <button class="btn btn-outline-danger flex-fill delete-dynamic-ingredient" type="button"> x </button>
@@ -407,15 +407,15 @@
                                         </div>
                                     </div>
 
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                    <input type="button" name="next" class="next btn btn-primary float-right" value="Weiter" />
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
                                     
                                 </fieldset>
                                 {{-- Page III --}}
                                 <fieldset>
-                                    <h2>Rezept</h2>
+                                    <h2>@lang('message.recipe')</h2>
                                     <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addComponentForm"></textarea>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
                                     <button type="submit" class="btn btn-primary float-right">
                                         {{ __('Speichern') }}
                                     </button>
@@ -432,23 +432,23 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1>Details</h1>
+                        <h3><i class="fas fa-info"></i> @lang('message.show')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="showComponent">
                         <h3 id="showNameComponent"></h3>
                         <hr>
-                        <h4>Menge</h4>
+                        <h4>@lang('message.amount')</h4>
                         <span id="showAmountComponent"></span> <span id="showUnitComponent"></span>
                         <hr>
-                        <h4>Zutaten</h4>
+                        <h4>@lang('message.ingredients')</h4>
                         <div id="showIngredientsComponent"></div>
                         <hr>
-                        <h4>Rezept</h4>
+                        <h4>@lang('message.recipe')</h4>
                         <span id="showRecipeComponent"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
                     </div>
                 </div>
             </div>
@@ -459,13 +459,114 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-pen"></i> Komponente</h3>
+                        <h3><i class="fas fa-pen"></i> @lang('message.components')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/component" method="POST" id="editComponentForm">
                         @method('PUT')
                         @csrf
-                        <div class="modal-body" id="editComponent"></div>
+                        <div class="modal-body">
+                            <div class="container p-0">
+                                <ul id="progressbar">
+                                    <li class="active">@lang('message.general')</li>
+                                    <li>@lang('message.ingredients')</li>
+                                    <li>@lang('message.recipe')</li>
+                                </ul>
+                                {{-- Page I --}}
+                                <fieldset class="fieldsetComponent">
+                                    <h2>@lang('message.general')</h2>
+                                    {{-- name Input --}}
+                                    <div class="form-row">
+                                        <div class="form-group col-12">            
+                                            <input id="editNameComponent" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="@lang('message.name')">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- Amount & Unit --}}
+                                    <div class="form-row">            
+                                        <div class="input-group col-12">
+                                            <input id="editAmountComponent" type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="" placeholder="@lang('message.amount')">
+                                            @error('amount')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <select id="editUnitComponent" class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="">
+                                                <option disabled hidden> @lang('message.unit')</option>
+                                                @foreach($db_units as $db_unit)
+                                                    <option id="editUnitComponent{{ $db_unit->id }}" value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
+                                                @endforeach
+                                            </select>                    
+                                            @error('db_unit_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- next Page --}}
+                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
+                                </fieldset>
+
+                                {{-- Page II --}}
+                                <fieldset class="fieldsetComponent">
+                                    <div class="d-flex">
+                                        <h2>@lang('message.ingredients')</h2> 
+                                    {{-- ADD Ingredient Button --}}
+                                    <p class="btn py-0 px-2 btn-primary shadow-none ml-auto edit-ingredient"><i class="fas fa-plus"></i></p>
+                                    </div>
+                                    
+                                    <div class="form-container mb-3">
+                                        <div class="dynamic-ingredient-edit-area" id="dynamic-ingredient-edit-area">
+                                            {{-- START OF HIDDEN ELEMENT --}}
+                                            <div class="form-row mt-2 dynamic-ingredient-edit" style="display:none">
+                                                {{-- Replace these fields --}}
+                                                <div class="input-group col-12">
+                                                    {{-- Choose Ingredient --}}
+                                                    <select id="selectIngredientEdit" name="editIngredients[]" class="form-control col-5 selectIngredientEdit" onchange="changeUnitEditIngredient()" required>
+                                                        <option disabled selected hidden> @lang('message.choseIngredient')</option>
+                                                        @foreach ($ingredients as $ingredient)
+                                                            <option id="editIngredientComponent{{$ingredient->id}}" value="{{$ingredient->id}}" data-cc-unit="{{$ingredient->unit}}">{{$ingredient->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- input Amount --}}
+                                                    <input type="number" min="0" class="form-control col-3" name="editAmounts[]" placeholder="Menge">
+                                                    {{-- Unit for selected Ingredient --}}
+                                                    <span class="form-control unitIngredientEdit col-3" id="unitIngredientEdit">@lang('message.unit')</span>
+                                                    {{-- delete Row --}}
+                                                    <div class="input-group-append d-flex col-1 px-0">
+                                                        <button class="btn btn-outline-danger flex-fill delete-dynamic-ingredient-edit" type="button"> x </button>
+                                                    </div>
+                                                </div>
+                                                {{-- End of fields--}}
+                                            </div>
+                                            {{-- END OF HIDDEN ELEMENT --}}
+                                            <div id='editIngredientDynamicElement'></div>            
+                                            {{-- Dynamic element will be cloned here --}}
+                                            {{-- You can call clone function once if you want it to show it a first element--}}
+                                        </div>
+                                    </div>
+
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
+                                    
+                                </fieldset class="fieldsetComponent">
+                                {{-- Page III --}}
+                                <fieldset>
+                                    <h2>@lang('message.recipe')</h2>
+                                    <textarea id="editRecipeComponent" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editComponentForm"></textarea>
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                    <button type="submit" class="btn btn-primary float-right">
+                                        {{ __('Speichern') }}
+                                    </button>
+                                </fieldset>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -476,14 +577,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3>Komponente löschen</h3>
+                        <h3><i class="fas fa-trash"></i> @lang('message.component') @lang('message.delete')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/component" method="POST" id="deleteComponentForm">
                         @csrf
                         @method('DELETE')
                         <div class="modal-body" id="editComponent">
-                           <span>Wollen Sie die Komponente wirklich löschen ?</span> 
+                            <span>Wollen Sie die Komponente </span><b><span id="deleteNameComponent"></span></b><span> löschen ?</span> 
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger">Löschen</button>              
@@ -500,7 +601,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-plus"></i> Speise</h3>
+                        <h3><i class="fas fa-plus"></i> @lang('message.meal')</h3>
                         <a class="close" data-dismiss="modal">×</a>
                     </div>
                         <div class="modal-body">
@@ -508,32 +609,38 @@
                             @csrf
                                 <div class="container p-0">
                                     <ul id="progressbar">
-                                        <li class="active">Allgemein</li>
-                                        <li>Komponente</li>
-                                        <li>Rezept</li>
+                                        <li class="active">@lang('message.general')</li>
+                                        <li>@lang('message.component')</li>
+                                        <li>@lang('message.recipe')</li>
                                     </ul>
                                     {{-- Page I --}}
                                     <fieldset class="fieldsetAddMeal">
-                                        <h2>Allgemein</h2>
+                                        <h2>@lang('message.general')</h2>
                                         {{-- name Input --}}
                                         <div class="form-row">
                                             <div class="form-group col-12">            
-                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name">
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')">
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group col-12">            
+                                                <input class="form-check-input" id="mainCourse" type="checkbox" name="mainCourse" value="false">
+                                                <label class="form-check-label" for="mainCourse">Hauptgericht</label>
+                                                <input class="form-check-input" id="dessertCourse" type="checkbox" name="dessertCourse" value="false">
+                                                <label class="form-check-label" for="dessertCourse">Dessert</label>
+                                            </div>
                                         </div>
                                         {{-- next Page --}}
-                                        <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="Weiter">
+                                        <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
                                     </fieldset>
 
                                     {{-- Page II --}}
                                     <fieldset class="fieldsetAddMeal">
                                         <div class="d-flex">
-                                            <h2>Komponente</h2> 
+                                            <h2>@lang('message.component')</h2> 
                                         {{-- ADD Component Button --}}
                                         <p class="btn py-0 px-2 btn-primary shadow-none ml-auto add-component"><i class="fas fa-plus"></i></p>
                                         </div>
@@ -546,15 +653,15 @@
                                                     <div class="input-group col-12">
                                                         {{-- Choose Component --}}
                                                         <select id="selectComponentAdd" name="components[]" class="form-control col-5 selectComponentAdd" onchange="changeUnitAddComponent()" required>
-                                                            <option disabled selected hidden> Komponente wählen</option>
+                                                            <option disabled selected hidden> @lang('message.choseComponent')</option>
                                                             @foreach ($components as $component)
                                                                 <option value="{{$component->id}}" data-cc-unit="{{$component->unit}}">{{$component->name}}</option>
                                                             @endforeach
                                                         </select>
                                                         {{-- input Amount --}}
-                                                        <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="Menge">
+                                                        <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="@lang('message.amount')">
                                                         {{-- Unit for selected Ingredient --}}
-                                                        <span class="form-control unitComponentAdd col-3" id="unitComponentAdd">Einheit</span>
+                                                        <span class="form-control unitComponentAdd col-3" id="unitComponentAdd">@lang('message.unit')</span>
                                                         {{-- delete Row --}}
                                                         <div class="input-group-append d-flex col-1 px-0">
                                                             <button class="btn btn-outline-danger flex-fill delete-dynamic-component" type="button"> x </button>
@@ -568,15 +675,15 @@
                                             </div>
                                         </div>
 
-                                        <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
-                                        <input type="button" name="next" class="next btn btn-primary float-right" value="Weiter" />
+                                        <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                        <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
                                         
                                     </fieldset>
                                     {{-- Page III --}}
                                     <fieldset class="fieldsetAddMeal">
-                                        <h2>Rezept</h2>
+                                        <h2>@lang('message.recipe')</h2>
                                         <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addMealForm"></textarea>
-                                        <input type="button" name="previous" class="previous btn btn-secondary" value="Zurück" />
+                                        <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
                                         <button type="submit" class="btn btn-primary float-right">
                                             {{ __('Speichern') }}
                                         </button>
@@ -594,13 +701,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1>Details</h1>
+                        <h3><i class="fas fa-info"></i> @lang('message.show')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" id="showMeal">
+                        <h3 id="showNameMeal"></h3>
+                        <h4 id="showCourseMeal"></h4>
+                        <hr>
+                        <h4>@lang('message.component')</h4>
+                        <div id="showComponentsMeal"></div>
+                        <hr>
+                        <h4>@lang('message.recipe')</h4>
+                        <span id="showRecipeMeal"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
                     </div>
                 </div>
             </div>
@@ -611,13 +726,97 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-pen"></i> Speise</h3>
+                        <h3><i class="fas fa-pen"></i> @lang('message.meal')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/meal" method="POST" id="editMealForm">
                         @method('PUT')
                         @csrf
-                        <div class="modal-body" id="editMeal"></div>
+                        <div class="modal-body" id="editMeal">
+                            <div class="container p-0">
+                                <ul id="progressbar">
+                                    <li class="active">@lang('message.general')</li>
+                                    <li>@lang('message.component')</li>
+                                    <li>@lang('message.recipe')</li>
+                                </ul>
+                                {{-- Page I --}}
+                                <fieldset class="fieldsetEditMeal">
+                                    <h2>@lang('message.general')</h2>
+                                    {{-- name Input --}}
+                                    <div class="form-row">
+                                        <div class="form-group col-12">            
+                                            <input id="editNameMeal" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" placeholder="@lang('message.name')">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-12">            
+                                            <input class="form-check-input" id="editMainCourse" type="checkbox" name="mainCourse" value="false">
+                                            <label class="form-check-label" for="editMainCourse">Hauptgericht</label>
+                                            <input class="form-check-input" id="editDessertCourse" type="checkbox" name="dessertCourse" value="false">
+                                            <label class="form-check-label" for="editDessertCourse">Dessert</label>
+                                        </div>
+                                    </div>
+                                    {{-- next Page --}}
+                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
+                                </fieldset>
+
+                                {{-- Page II --}}
+                                <fieldset class="fieldsetEditMeal">
+                                    <div class="d-flex">
+                                        <h2>@lang('message.component')</h2> 
+                                    {{-- ADD Component Button --}}
+                                    <p class="btn py-0 px-2 btn-primary shadow-none ml-auto edit-component"><i class="fas fa-plus"></i></p>
+                                    </div>
+                                    
+                                    <div class="form-container mb-3">
+                                        <div class="dynamic-component-edit-area" id="dynamic-component-edit-area">
+                                            {{-- START OF HIDDEN ELEMENT --}}
+                                            <div class="form-row mt-2 dynamic-component-edit" style="display:none">
+                                                {{-- Replace these fields --}}
+                                                <div class="input-group col-12">
+                                                    {{-- Choose Component --}}
+                                                    <select id="selectComponentEdit" name="editComponents[]" class="form-control col-5 selectComponentEdit" onchange="changeUnitEditComponent()" required>
+                                                        <option disabled selected hidden> @lang('message.choseComponent')</option>
+                                                        @foreach ($components as $component)
+                                                            <option value="{{$component->id}}" data-cc-unit="{{$component->unit}}">{{$component->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- input Amount --}}
+                                                    <input type="number" min="0" class="form-control col-3" name="amounts[]" placeholder="@lang('message.amount')">
+                                                    {{-- Unit for selected Ingredient --}}
+                                                    <span class="form-control unitComponentEdit col-3" id="unitComponentEdit">@lang('message.unit')</span>
+                                                    {{-- delete Row --}}
+                                                    <div class="input-group-append d-flex col-1 px-0">
+                                                        <button class="btn btn-outline-danger flex-fill delete-dynamic-component-edit" type="button"> x </button>
+                                                    </div>
+                                                </div>
+                                                {{-- End of fields--}}
+                                            </div>
+                                            {{-- END OF HIDDEN ELEMENT --}}
+                                            <div id='editComponentDynamicElement'></div>
+                                            {{-- Dynamic element will be cloned here --}}
+                                            {{-- You can call clone function once if you want it to show it a first element--}}
+                                        </div>
+                                    </div>
+
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
+                                    
+                                </fieldset>
+                                {{-- Page III --}}
+                                <fieldset class="fieldsetAddMeal">
+                                    <h2>@lang('message.recipe')</h2>
+                                    <textarea id="editRecipeMeal" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editMealForm"></textarea>
+                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
+                                    <button type="submit" class="btn btn-primary float-right">
+                                        {{ __('Speichern') }}
+                                    </button>
+                                </fieldset>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -628,14 +827,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3>Speise löschen</h3>
+                        <h3><i class="fas fa-trash"></i> @lang('message.meal') @lang('message.delete')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="/meal" method="POST" id="deleteMealForm">
                         @csrf
                         @method('DELETE')
                         <div class="modal-body" id="editMeal">
-                           <span>Wollen Sie die Speise wirklich löschen ?</span> 
+                            <span>Wollen Sie die Speise </span><b><span id="deleteNameMeal"></span></b><span> löschen ?</span> 
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger">Löschen</button>              

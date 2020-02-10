@@ -17,7 +17,13 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        //
+        $allComponents = Component::all();
+        foreach($allComponents as $component)
+        {
+            $unit = DB::table('components')->where('components.id', $component->id)->join('db_units', 'components.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $component['db_unit'] = $unit[0]->name;
+        }
+        return Response::json($allComponents);
     }
 
     /**
@@ -120,9 +126,19 @@ class ComponentController extends Controller
      * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function edit(Component $component)
+    public function edit($id)
     {
-        //
+        $data = Component::findOrFail($id);
+        $unit = DB::table('components')->where('components.id', $id)->join('db_units', 'components.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+        $data['db_unit'] = $unit[0]->name;
+        $ingredients = Component::find($id)->ingredient;
+        foreach($ingredients as $ingredient)
+        {
+            $unit = DB::table('ingredients')->where('ingredients.id', $ingredient->id)->join('db_units', 'ingredients.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $ingredient['db_unit'] = $unit[0]->name;
+        }
+        $data['ingredients'] = $ingredients;
+        return Response::json($data);
     }
 
     /**
@@ -140,14 +156,15 @@ class ComponentController extends Controller
             'recipe' => '',
             'db_unit_id' => 'required'
         ]);
+
         try
         {
             $ingredients = [];
             $amounts = [];
-            if(isset($_POST["ingredients"]) && isset($_POST["amounts"]))
+            if(isset($_POST["editIngredients"]) && isset($_POST["editAmounts"]))
             {
-                $ingredients = $_POST['ingredients'];
-                $amounts = $_POST['amounts'];
+                $ingredients = $_POST['editIngredients'];
+                $amounts = $_POST['editAmounts'];
             }
             if(!empty($ingredients) && !empty($amounts))
             {
@@ -167,15 +184,8 @@ class ComponentController extends Controller
                 $first = 0;
                 foreach($ingredients as $cnt => $ingredient) 
                 {
-                    if($first == 0)
-                    {
-                        $first++;
-                    }
-                    else
-                    {
-                        $amount = $amounts[$cnt];
-                        $component->ingredient()->attach($ingredient, ['amount' => $amount]);
-                    }
+                    $amount = $amounts[$cnt+1];
+                    $component->ingredient()->attach($ingredient, ['amount' => $amount]);
                 }
 
                 $notification = array(
@@ -199,6 +209,7 @@ class ComponentController extends Controller
             );
         }
         return redirect('/tables')->with($notification);
+
     }
 
     /**

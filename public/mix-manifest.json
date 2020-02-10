@@ -7,6 +7,7 @@
     "/js/functions.js": "/js/functions.js",
     "/js/search.js": "/js/search.js",
     "/js/supplierCustomer.js": "/js/supplierCustomer.js",
+    "/js/tables.js": "/js/tables.js",
     "/js/toastr.js": "/js/toastr.js",
-    "/js/menuDnD.js": "/js/menuDnD.js"
+    "/js/menu.js": "/js/menu.js"
 }
