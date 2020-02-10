@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Supplier;
 use Redirect,Response;
+use Mapper;
 
 class SupplierController extends Controller
 {
@@ -16,7 +18,13 @@ class SupplierController extends Controller
      */
     public function index()
     {
+        Mapper::map(48.345118, 7.873039);
         $suppliers = DB::select('select * from suppliers');
+        foreach ($suppliers as $supplier){
+            $adr = ''.$supplier->postcode . ' +'. $supplier->place . ', ' . $supplier->street . ' +' . $supplier->house_number; 
+            $loc =  Mapper::location($adr);
+        Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+        }
         $totalSuppliers = DB::select('select count(*) AS count from suppliers');
         $countSuppliers = 0;
         foreach ($totalSuppliers as $supplier)

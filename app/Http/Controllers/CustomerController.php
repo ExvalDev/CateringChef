@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Customer;
 use Redirect,Response;
+use Mapper;
 
 class CustomerController extends Controller
 {
@@ -17,6 +18,12 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = DB::select('select * from customers order by name asc');
+        Mapper::map( 48.345118, 7.873039);
+        foreach ($customers as $customer){
+            $adr = ''.$customer->postcode . ' +'. $customer->place . ', ' . $customer->street . ' +' . $customer->house_number; 
+            $loc =  Mapper::location($adr);
+        Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+        }
         $adultsTotal = DB::select('select COUNT(name) AS cntCustomers, SUM(adults) AS sumAdults, SUM(childrens) AS sumChildrens from customers');
         $cntCustomers = 0;
         $sumAdults = 0;
