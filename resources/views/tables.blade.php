@@ -627,15 +627,10 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-12">            
-                                                <input class="form-check-input" id="mainCourse" type="checkbox" name="mainCourse" value="true">
+                                                <input class="form-check-input" id="mainCourse" type="checkbox" name="mainCourse" value="false">
                                                 <label class="form-check-label" for="mainCourse">Hauptgericht</label>
-                                                <input class="form-check-input" id="dessertCourse" type="checkbox" name="dessertCourse" value="true">
+                                                <input class="form-check-input" id="dessertCourse" type="checkbox" name="dessertCourse" value="false">
                                                 <label class="form-check-label" for="dessertCourse">Dessert</label>
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
                                             </div>
                                         </div>
                                         {{-- next Page --}}
@@ -711,6 +706,7 @@
                     </div>
                     <div class="modal-body" id="showMeal">
                         <h3 id="showNameMeal"></h3>
+                        <h4 id="showCourseMeal"></h4>
                         <hr>
                         <h4>@lang('message.component')</h4>
                         <div id="showComponentsMeal"></div>
@@ -755,6 +751,12 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                        <div class="form-group col-12">            
+                                            <input class="form-check-input" id="editMainCourse" type="checkbox" name="mainCourse" value="false">
+                                            <label class="form-check-label" for="editMainCourse">Hauptgericht</label>
+                                            <input class="form-check-input" id="editDessertCourse" type="checkbox" name="dessertCourse" value="false">
+                                            <label class="form-check-label" for="editDessertCourse">Dessert</label>
                                         </div>
                                     </div>
                                     {{-- next Page --}}
