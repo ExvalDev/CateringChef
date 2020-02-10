@@ -50,7 +50,5 @@ function copy(ev) {
       alert('Es sind bereits zwei Speisen in dem Tag vorhanden.')
   }
   
-
-
   /* Insert to Database */
 }

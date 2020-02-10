@@ -9,10 +9,10 @@
     {{------------------------------------ Customers Table ------------------------------------}}
     <div class="col-8 m-0 py-3 px-2 tableHeight">
         <div class="row">
-            <h1 class="col-3"> Kunden</h1>
+            <h1 class="col-3"> @lang('message.customer')</h1>
             <h1 class="col-4"> &nbsp; </h1>
             <div class=" col-5 pr-3">
-                <input class="form-control bg-white border-0 shadow-none" id="SearchCustomer" type="text" placeholder="Suche..">
+                <input class="form-control bg-white border-0 shadow-none" id="SearchCustomer" type="text" placeholder="@lang('message.search')">
             </div>
         </div>
         <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
@@ -21,9 +21,9 @@
                 <table class=" mt-2 w-100">
                     <thead>
                         <tr class="row mx-2">
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Name</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Erwachsene</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Kinder</h3></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.name')</h3></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.adults')</h3></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.childrens')</h3></th>
                             <th scope="col" class="col-3 pl-2 pr-0">
                                 <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addCustomerModal"><i class="fas fa-plus"></i></button>
                             </th>
@@ -73,15 +73,15 @@
             <table class="table table-borderless">
                 <tbody>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Kunden: </h4></td>
+                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.customers'): </h4></td>
                         <td class="col-6"><h4>{{$cntCustomers}}</h4></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Erwachsener: </h4></td>
+                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.adults'): </h4></td>
                         <td class="col-6"><h4>{{$sumAdults}}</h4></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Kinder: </h4></td>
+                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.childrens'): </h4></td>
                         <td class="col-6"><h4>{{$sumChildrens}}</h4></td>
                     </tr>
                 </tbody>
@@ -95,7 +95,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalHeadline"><i class="fas fa-plus"></i> Kunde</h3>
+                <h3 id="modalHeadline"><i class="fas fa-plus"></i> @lang('message.customer')</h3>
                 <a class="close" data-dismiss="modal">×</a>
             </div>
             <form id="customerForm" action="{{ action('CustomerController@store') }}" method="POST">
@@ -104,7 +104,7 @@
                      {{-- Name Input --}}
                     <div class="form-row">
                         <div class="form-group col-12">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" autofocus required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus required>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -115,13 +115,13 @@
                     {{-- Street and Housenumber --}}
                     <div class="form-row">
                         <div class="input-group col-12">
-                            <input  type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" placeholder="Straße" required>
+                            <input  type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" placeholder="@lang('message.street')" required>
                             @error('street')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <input type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" placeholder="Nr." required>
+                            <input type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" placeholder="@lang('message.number')" required>
                             @error('house_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -133,14 +133,14 @@
                     {{-- PLZ and City --}}
                     <div class="form-row mt-3">
                         <div class="input-group col-12">
-                            <input type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" placeholder="PLZ" required>
+                            <input type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" placeholder="@lang('message.postcode')" required>
                             @error('postcode')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                     
-                            <input type="text" class="col-7 form-control rounded-right @error('place') is-invalid @enderror" name="place" value="{{ old('place') }}" placeholder="Ort" required>
+                            <input type="text" class="col-7 form-control rounded-right @error('place') is-invalid @enderror" name="place" value="{{ old('place') }}" placeholder="@lang('message.place')" required>
                             @error('place')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -155,7 +155,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-male"></i></span>
                             </div>
-                            <input type="number" class="form-control @error('adults') is-invalid @enderror" name="adults" value="{{ old('adults') }}" placeholder="Erwachsene" required>
+                            <input type="number" class="form-control @error('adults') is-invalid @enderror" name="adults" value="{{ old('adults') }}" placeholder="@lang('message.adults')" required>
                             @error('adults')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -165,7 +165,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-child"></i></span>
                             </div>
-                            <input type="number" class="form-control  @error('childrens') is-invalid @enderror" name="childrens" value="{{ old('childrens') }}" placeholder="Kinder" required>
+                            <input type="number" class="form-control  @error('childrens') is-invalid @enderror" name="childrens" value="{{ old('childrens') }}" placeholder="@lang('message.childrens')" required>
                             @error('childrens')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button> 
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button> 
                         <button type="submit" class="btn btn-primary">
                             {{ __('Speichern') }}
                         </button>
@@ -192,17 +192,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1>Details</h1>
+                <h1>@lang('message.show')</h1>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <h3 id="showName"></h3>
                 <hr>
-                <h4>Adresse</h4>
+                <h4>@lang('message.address')</h4>
                 <span id="showStreet"></span> <span id="showHouse_number"></span><br>
                 <span id="showPostcode"></span> <span id="showPlace"></span>
                 <hr>
-                <h4>Anzahl Esser</h4>
+                <h4>@lang('message.count') @lang('message.eater')</h4>
                 <div class="input-group col-12 px-0 mt-2">  
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-male"></i></span>
@@ -216,7 +216,7 @@
                 </div> 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
             </div>
         </div>
     </div>
@@ -227,7 +227,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Kunde bearbeiten</h3>
+                <h3>@lang('message.customer') @lang('message.edit')</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="/customer" method="POST" id="editCustomerForm">
@@ -237,7 +237,7 @@
                      {{-- Name Input --}}
                     <div class="form-row">
                         <div class="form-group col-12">
-                            <input id="editName" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="Name" autofocus required>
+                            <input id="editName" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="@lang('message.name')" autofocus required>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -248,13 +248,13 @@
                     {{-- Street and Housenumber --}}
                     <div class="form-row">
                         <div class="input-group col-12">
-                            <input id="editStreet" type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" placeholder="Straße" required>
+                            <input id="editStreet" type="text" class="col-8 form-control @error('street') is-invalid @enderror" name="street" placeholder="@lang('message.street')" required>
                             @error('street')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <input id="editHouse_number" type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number"  placeholder="Nr." required>
+                            <input id="editHouse_number" type="number" class="col-4 form-control rounded-right @error('house_number') is-invalid @enderror" name="house_number"  placeholder="@lang('message.number')" required>
                             @error('house_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -266,14 +266,14 @@
                     {{-- PLZ and City --}}
                     <div class="form-row mt-3">
                         <div class="input-group col-12">
-                            <input id="editPostcode" type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode" placeholder="PLZ" required>
+                            <input id="editPostcode" type="number" class="col-5 form-control @error('postcode') is-invalid @enderror" name="postcode" placeholder="@lang('message.postcode')" required>
                             @error('postcode')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                     
-                            <input id="editPlace" type="text" class="col-7 form-control rounded-right @error('place') is-invalid @enderror" name="place"  placeholder="Ort" required>
+                            <input id="editPlace" type="text" class="col-7 form-control rounded-right @error('place') is-invalid @enderror" name="place"  placeholder="@lang('message.place')" required>
                             @error('place')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -288,7 +288,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-male"></i></span>
                             </div>
-                            <input id="editAdults" type="number" class="form-control @error('adults') is-invalid @enderror" name="adults" placeholder="Erwachsene" required>
+                            <input id="editAdults" type="number" class="form-control @error('adults') is-invalid @enderror" name="adults" placeholder="@lang('message.adults')" required>
                             @error('adults')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -298,7 +298,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-child"></i></span>
                             </div>
-                            <input id="editChildrens" type="number" class="form-control  @error('childrens') is-invalid @enderror" name="childrens" placeholder="Kinder" required>
+                            <input id="editChildrens" type="number" class="form-control  @error('childrens') is-invalid @enderror" name="childrens" placeholder="@lang('message.childrens')" required>
                             @error('childrens')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -309,7 +309,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
                         <button type="submit" class="btn btn-primary">
                             {{ __("Speichern") }}
                         </button>
@@ -325,7 +325,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Kunde löschen</h3>
+                <h3>@lang('message.customer') @lang('message.delete')</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="/customer" method="POST" id="deleteCustomerForm">
@@ -335,12 +335,10 @@
                    <span>Wollen Sie wirklich diesen Kunden löschen ?</span> 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Löschen</button>              
+                    <button type="submit" class="btn btn-danger">@lang('message.delete')</button>              
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
 @endsection

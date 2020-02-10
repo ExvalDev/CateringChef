@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "eot-js": "^1.0.4",
         "toastr": "^2.1.4"
     }
 }
