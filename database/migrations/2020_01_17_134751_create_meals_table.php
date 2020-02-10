@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -17,8 +18,8 @@ class CreateMealsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->longText('recipe')->nullable();
-            $table->boolean('main');
-            $table->boolean('dessert');
+            $table->boolean('main')->nullable();
+            $table->boolean('dessert')->nullable();
             $table->timestamps();
         });
     }

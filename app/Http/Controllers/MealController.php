@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Redirect,Response;
 use App\Meal;
 
 class MealController extends Controller
@@ -40,7 +41,7 @@ class MealController extends Controller
             'name' => 'required',
             'recipe' => '',
         ]);
-        
+
         try
         {
             $components = [];
@@ -50,12 +51,26 @@ class MealController extends Controller
                 $components = $_POST['components'];
                 $amounts = $_POST['amounts'];
             }
-
             if(!empty($components) && !empty($amounts))
             {
                 $meal = new Meal;
 
                 $meal->name = $request->input('name');
+                if($request->input('mainCourse' == true) && $request->input('dessertCourse' == true))
+                {
+                    $meal->main = $request->input('mainCourse');
+                    $meal->dessert = $request->input('dessertCourse');
+                }
+                elseif($request->input('mainCourse' == true) && $request->input('dessertCourse' == null))
+                {
+                    $meal->main = $request->input('mainCourse');
+                    $meal->dessert = false;
+                }
+                elseif($request->input('mainCourse' == null) && $request->input('dessertCourse' == true))
+                {
+                    $meal->main = false;
+                    $meal->dessert = $request->input('dessertCourse');
+                }
                 $meal->recipe = $request->input('recipe');
 
                 $meal->save();
@@ -85,8 +100,9 @@ class MealController extends Controller
                 'message' => 'Speise wurde nicht hinzugefügt!',
                 'alert-type' => 'error'
             );
+            return $ex;
         }
-        return redirect('/tables')->with($notification);
+        //return redirect('/tables')->with($notification);
     }
 
     /**
@@ -97,7 +113,15 @@ class MealController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Meal::findOrFail($id);
+        $components = Meal::find($id)->component;
+        foreach($components as $component)
+        {
+            $unit = DB::table('components')->where('components.id', $component->id)->join('db_units', 'components.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $component['db_unit'] = $unit[0]->name;
+        }
+        $data['components'] = $components;
+        return Response::json($data);
     }
 
     /**
@@ -108,7 +132,15 @@ class MealController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Meal::findOrFail($id);
+        $components = Meal::find($id)->component;
+        foreach($components as $component)
+        {
+            $unit = DB::table('components')->where('components.id', $component->id)->join('db_units', 'components.db_unit_id', '=', 'db_units.id')->select('db_units.name')->get();
+            $component['db_unit'] = $unit[0]->name;
+        }
+        $data['components'] = $components;
+        return Response::json($data);
     }
 
     /**
@@ -129,10 +161,10 @@ class MealController extends Controller
         {
             $components = [];
             $amounts = [];
-            if(isset($_POST["components"]) && isset($_POST["amounts"]))
+            if(isset($_POST["editComponents"]) && isset($_POST["editAmounts"]))
             {
-                $components = $_POST['components'];
-                $amounts = $_POST['amounts'];
+                $components = $_POST['editComponents'];
+                $amounts = $_POST['editAmounts'];
             }
 
             if(!empty($components) && !empty($amounts))
@@ -150,8 +182,8 @@ class MealController extends Controller
                 $first = 0;
                 foreach($components as $cnt => $component) 
                 {
-                        $amount = $amounts[$cnt+1];
-                        $meal->component()->attach($component, ['amount' => $amount]);
+                    $amount = $amounts[$cnt];
+                    $meal->component()->attach($component, ['amount' => $amount]);
                 }
 
                 $notification = array(
