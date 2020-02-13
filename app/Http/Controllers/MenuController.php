@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Menu;
+use App\Customer;
+use PDF;
 use App\Meal;
 use DateTime;
 use Redirect,Response;
@@ -101,6 +103,12 @@ class MenuController extends Controller
             $course->meals = $courseMeals;
             $viewMainCourse[] = $course; 
         }
+        /* Log::info($viewMainCourse); */
+
+        //Shopping List
+        $customers = Customer::all();
+        $allCustomerId = DB::table('customers')->select('id')->get();
+
         
         $dessertCourse = DB::table('menus')
                         ->where('course','=','dessert')
@@ -128,6 +136,7 @@ class MenuController extends Controller
             $viewDessertCourse[] = $course; 
         }
         Log::info($viewDessertCourse);
+
                                
         return view('/menu', [  'mainCourse' => $viewMainCourse,
                                 'dessertCourse' => $viewDessertCourse,
@@ -136,7 +145,9 @@ class MenuController extends Controller
                                 'KW' => $thisWeek,
                                 'startDate' => $startDay,
                                 'endDate' => $endDay,
-                                'year' => $thisYear
+                                'year' => $thisYear,
+                                'customers' => $customers,
+                                'allCustomerId' => $allCustomerId,
                             ]);
     }
 
@@ -242,6 +253,156 @@ class MenuController extends Controller
         $newYear = $request->input('selectedYear');
         session(['year' => $newYear]);
         return redirect('/menu');
+    }
+
+    /**
+     * Create the Shopping List.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createShoppingList(Request $request)
+    {
+        $datum = date("d.m.Y");
+        $pdfAuthor = "Exval.de";
+
+        $EKL_header = '
+        <img src="img/CC-logo.png" style="width:255px;height:auto;">';
+
+        $EKL_footer = "Erstellt von: CateringChef.de";
+
+        $pdfName = "Einkaufsliste_".$datum.".pdf";
+
+
+        //////////////////////////// Inhalt des PDFs als HTML-Code \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+        // Erstellung des HTML-Codes. Dieser HTML-Code definiert das Aussehen eures PDFs.
+        // tcpdf unterstützt recht viele HTML-Befehle. Die Nutzung von CSS ist allerdings
+        // stark eingeschränkt.
+
+        $html = '
+        <table cellpadding="5" style="width: 100%;"; border="0">
+        <tr><td></td><td style="text-align: right">Erstellt: '.$datum.'</td></tr>
+        <tr>
+        <td>'.nl2br(trim($EKL_header)).'</td>
+            <td style="text-align: center"> <br><br><br><br><br><br><br><br><br><font size="22">Einkaufsliste</font></td>
+        </tr>
+
+        </table>
+        <br><br>
+
+        <table cellpadding="5" cellspacing="0" style="width: 100%;" border="0">
+        <tr style=" padding:5px;">
+        <th style="text-align: left;"><font size="16">Lieferant</font></th>
+        <th style="text-align: left;"><font size="16">Zutat</font></th>
+        <th style="text-align: left;"><font size="16">Menge</font></th>
+        <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="checked-checkbox.png" style="width:30px;height:30px;"></td>
+        </tr><hr><br><hr>';
+
+        $suppliers = [];
+        $start_date = $request->startdate;
+        $end_date = $request->enddate;
+        $list = $request->customer;
+        $ids = implode( ",", $list );
+
+        $strsql = DB::select("SELECT SUM(adults) as adults, SUM(childrens) as childrens FROM customers WHERE id in (" . $ids . ")");
+        $adults = $strsql[0]->adults;
+        $childrens = $strsql[0]->childrens;
+        DB::statement('CREATE VIEW view1 AS SELECT component_id, amount FROM components_meals where meal_id IN(SELECT meal_id FROM meals_menus WHERE menu_id IN(SELECT id FROM menus WHERE date >= "' . $start_date . '" AND date <= "' . $end_date . '"));');
+        DB::statement("CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount,ci.ingredient_id FROM components_ingredients CI, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;");
+        DB::statement("CREATE VIEW view3 AS SELECT v2.fixamount, i.name, i.supplier_id,i.db_unit_id FROM view2 v2, ingredients i WHERE v2.ingredient_id = i.id;");
+        $strsql = DB::select("SELECT SUM(v3.fixamount) AS MENGE,v3.name AS ZUTAT,s.name AS LIEFERANT,db_units.name AS EINHEIT FROM view3 v3, suppliers s,db_units WHERE v3.supplier_id = s.id AND v3.db_unit_id = db_units.id GROUP BY v3.name, s.name, db_units.name ORDER BY LIEFERANT;");
+        foreach ($strsql as $supplier) {
+            array_push($suppliers, $supplier->LIEFERANT);
+        }
+        $suppliersunique = array_unique($suppliers);
+        foreach ($suppliersunique as $supplier) {
+            $html .= '<br><tr><td style="text-align: left;">'.$supplier.'</td></tr><hr>';
+            foreach ($strsql as $content) {
+                if ($content->LIEFERANT == $supplier) {
+                    $zutat = $content->ZUTAT;
+                    $menge = $content->MENGE;
+                    $menge = ($menge * $adults) + ($menge * $childrens * 0.5);
+                    $einheit = $content->EINHEIT;
+                    if ($einheit != "Stück") {
+                        if ($menge > 1000) {
+                            $menge = $menge / 1000;
+                            $menge = round($menge, 2);
+                            if ($einheit == "g") {
+                                $einheit = "kg";
+                            }
+                            if ($einheit == "ml") {
+                                $einheit = "Liter";
+                            }
+                        } else {
+                            $menge = round($menge);
+                        }
+                    } else {
+                        $menge = round($menge);
+                    }
+                    $html .= '<tr><td></td>
+                            <td style="text-align: left;">'.$zutat.'</td>
+                            <td style="text-align: left;">'.$menge. ' '.$einheit.'</td>
+                            <td style="text-align: left;"> <input type="checkbox" name="'.$zutat.'" value="1"></td>
+                            </tr>';
+                }
+            }
+        }
+        $html .="</table><br><br><br><br>";
+        $html .= 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
+        DB::statement("DROP VIEW view1,view2,view3;");
+        $html .= nl2br($EKL_footer);
+
+
+
+        //////////////////////////// Erzeugung eines PDF Dokuments \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        // Erstellung des PDF Dokuments
+        //PDF::new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+        // Dokumenteninformationen
+        PDF::SetAuthor($pdfAuthor);
+        PDF::SetTitle('Einkaufsliste '.$datum);
+        PDF::SetSubject('Einkaufsliste '.$datum);
+
+
+        // Header und Footer Informationen
+        PDF::setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        PDF::setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+        // Auswahl des Font
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // Auswahl der MArgins
+        PDF::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // Automatisches Autobreak der Seiten
+        PDF::SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+
+        // Image Scale
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // Schriftart
+        //PDF::SetFont('Kreon', '', 10);
+
+        // Neue Seite
+        PDF::AddPage();
+
+        // Fügt den HTML Code in das PDF Dokument ein
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        //Ausgabe der PDF
+
+        //Variante 1: PDF direkt an den Benutzer senden:
+        PDF::Output($pdfName, 'I');
+
+        //Variante 2: PDF im Verzeichnis abspeichern:
+        // $pdf->Output(dirname(__FILE__).'/'.$pdfName, 'F');
+        // echo 'PDF herunterladen: <a href="'.$pdfName.'">'.$pdfName.'</a>';
     }
 
 }
