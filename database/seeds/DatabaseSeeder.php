@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 
 
         //Create Supplier
-        $suppliers = [['METRO Neu-Ulm', 89231, 'Neu-Ulm','Borsigstraße',8],['Obstbau Köpf GbR',89174,'Altheim','Bismarckstraße',27],['Metzgerei Mack',89518,'Heidenheim an der Brenz','Griegstraße',1]];
+        $suppliers = [['METRO', 79149, 'Gundelfingen','Industriestraße',42],['Mussler Früchtedienst',77977,'Rust','Raiffeisenstraße',17],['Metzgerei Kaiser',79365,'Rheinhausen','Hauptstraße',157]];
         foreach($suppliers as $supplier)
         {
             DB::table('suppliers')->insert([

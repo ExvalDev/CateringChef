@@ -7,8 +7,8 @@ use App\Meal;
 
 class Menu extends Model
 {
-    public function Menu()
+    public function Meal()
     {
-        return $this->belongsToMany(Meal::class, 'meals_menus', 'meal_id', 'menu_id');
+        return $this->belongsToMany(Meal::class, 'meals_menus',  'menu_id', 'meal_id');
     }
 }

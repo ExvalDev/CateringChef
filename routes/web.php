@@ -25,6 +25,8 @@ Route::resource('/ingredient', 'IngredientController')->middleware('verified');
 Route::resource('/component', 'ComponentController')->middleware('verified');
 Route::resource('/meal', 'MealController')->middleware('verified');
 
+Route::post('/menu', 'MenuController@store')->middleware('verified');
 Route::get('/menu', 'MenuController@index')->middleware('verified');
 Route::get('/menu/changeWeek/{week}/{direction}', 'MenuController@index')->middleware('verified');
 Route::get('/menu/changeYear', 'MenuController@changeYear')->middleware('verified');
+Route::delete('menu/{id}', 'MenuController@destroy')->middleware('verified');
