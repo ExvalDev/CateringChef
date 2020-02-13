@@ -157,7 +157,7 @@
       <div class="p-2">
         <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu" ondrop="deleteMenu(event)" ondragover="allowDrop(event)">Löschen  <i class="fas fa-trash text-white"></i></div>
         {{-- <button class="btn btn-light m-0 float-right ml-2"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button> --}}
-        <button class="btn btn-light m-0 float-right "> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
+        <button class="btn btn-light m-0 float-right" data-toggle="modal" data-target="#shoppingListModal"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
         
       </div>
     </div>
@@ -214,6 +214,38 @@
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
           </div>
+      </div>
+  </div>
+</div>
+
+{{-- MODAL ->  Shopping List --}}
+<div id="shoppingListModal" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1>Einkaufsliste erstellen</h1>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h3>Kunden auswählen</h3>
+            <form action="/menu/einkaufsliste" method="POST">
+            @csrf
+              <input class="form-check-input" id="allCustomer" type="checkbox" onclick="selectAllCustomer({{$customers}})">
+              <label class="form-check-label" for="allCustomer">Alle Kunden auswählen</label>
+            @foreach($customers as $customer)
+              <input class="form-check-input" id="{{ $customer->name }}" type="checkbox" name="customer[]" value="{{ $customer->id }}">
+              <label class="form-check-label" for="{{ $customer->name }}">{{ $customer->name }}</label>
+            @endforeach
+            <hr>
+            <label>Start-Datum:</label> 
+            <input class="form-control" type='date' name='startdate' placeholder="Start" required> 
+            <label>End-Datum:</label> 
+            <input class="form-control" type='date' name='enddate' placeholder="Ende" required>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" id="btnSaveIt">Erstellen</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </form>
       </div>
   </div>
 </div>
