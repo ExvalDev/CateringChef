@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Log;
 use App\Menu;
 use App\Customer;
 use PDF;
+use App\Meal;
 use DateTime;
+use Redirect,Response;
+
 class MenuController extends Controller
 {
     
@@ -72,38 +75,71 @@ class MenuController extends Controller
             $meal->allergenes = $mealAllergenes;
             $viewMeals[$mealId] = $meal; 
         }
-        /* Log::info($viewMeals); */
+        /* Log::info('Meals');
+        Log::info($viewMeals); */
 
-        /* Get all Courses and add Meal to Menu */
-        $mainCourse = DB::table('menus')
-                        ->where('course','=','main')
-                        ->whereBetween('date',[$startDay, $endDay])
-                        ->get();
-        $dessertCourse = DB::table('menus')
-                        ->where('course','=','dessert')
-                        ->whereBetween('date',[$startDay, $endDay])
-                        ->get();
         $menuMealRelations = DB::table('meals_menus')->get();
         
+        /* Main Course */
+        $mainCourse = DB::table('menus')
+        ->where('course','=','main')
+        ->whereBetween('date',[$startDay, $endDay])
+        ->get();
+
         $viewMainCourse = array();
         foreach ($mainCourse as $course) {
+            $courseMeals = array();
             foreach($menuMealRelations as $relation){
                 foreach ($viewMeals as $meal) {
                     if ($meal->id == $relation->meal_id && $course->id == $relation->menu_id) {
-                        $course->meal = $meal;
-                        $viewMainCourse[] = $course;
+                        $meal->relationId = $relation->id;
+                        $newMeal = json_encode($meal);
+                        $courseMeals[] = $newMeal;
                     }
-                }   
-            } 
+                }    
+            }
+            /* Log::info('Meals for course'. $course->id);
+            Log::info($courseMeals); */
+            $course->meals = $courseMeals;
+            $viewMainCourse[] = $course; 
         }
         /* Log::info($viewMainCourse); */
 
         //Shopping List
         $customers = Customer::all();
         $allCustomerId = DB::table('customers')->select('id')->get();
+
+        
+        $dessertCourse = DB::table('menus')
+                        ->where('course','=','dessert')
+                        ->whereBetween('date',[$startDay, $endDay])
+                        ->get();
+
+        $viewDessertCourse = array();
+        foreach ($dessertCourse as $course) {
+            $courseMeals = array();
+            foreach ($viewMeals as $meal) {
+                foreach($menuMealRelations as $relation){
+                    if (($course->id == $relation->menu_id) && ($meal->id == $relation->meal_id)) {
+                        /* Log::info($meal->id .' = '. $relation->meal_id .'and'. $course->id .'='. $relation->menu_id); */
+                        $meal->relationId = $relation->id;
+                        $newMeal = json_encode($meal);
+                        $courseMeals[] = $newMeal;
+                        /* Log::info($courseMeals); */
+                    }
+                    
+                }        
+            }
+            /* Log::info('Meals for course Dessert'. $course->id);
+            Log::info($courseMeals); */
+            $course->meals = $courseMeals;
+            $viewDessertCourse[] = $course; 
+        }
+        Log::info($viewDessertCourse);
+
                                
         return view('/menu', [  'mainCourse' => $viewMainCourse,
-                                'dessertCourse' => $dessertCourse,
+                                'dessertCourse' => $viewDessertCourse,
                                 'meals' => $viewMeals,
                                 'allergenes' => $allergenes,
                                 'KW' => $thisWeek,
@@ -133,7 +169,32 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::info($request->all());
+        Log::info('Store');
+
+        $date = $request->date;
+        $course = $request->course;
+        $mealId = $request->mealId;
+
+        $menu = Menu::where('date', $date)->where('course', $course)->first();
+
+        /* Log::info($menu); */
+        /* new Menu */
+        if (empty($menu)) {
+            $newMenu = new Menu;
+            $newMenu->date = $date;
+            $newMenu->course = $course;
+            $newMenu->save();
+            $menu = $newMenu;
+        }
+
+        $meal = Meal::find($mealId);
+        $menu->meal()->attach($meal);
+
+        $mealsMenuId =  DB::table('meals_menus')->where('meal_id',$mealId)->where('menu_id', $menu->id)->first();
+        return Response::json($mealsMenuId);
+        
+        
     }
 
     /**
@@ -178,7 +239,8 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('meals_menus')->where('id',$id)->delete();
+        return redirect('/menu');
     }
 
     /**
