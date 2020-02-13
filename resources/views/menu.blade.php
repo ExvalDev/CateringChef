@@ -49,68 +49,110 @@
           <td class="py-2 courseName"><h4>Hauptgericht</h4></td>
         </tr>
         {{-- Main course --}}
-        <tr id="courseMain" class="px-2 mx-2">
-          @php
-            $startDay = new DateTime($startDate);
-            $endDay = new DateTime($endDate);
-            $endDay->modify('+1 day');
-            $daterange = new DatePeriod($startDay, new DateInterval('P1D'), $endDay);
-            foreach ($daterange as $date) { 
-              $dayCourses = array();
-              foreach ($mainCourse as $course) {
-                if ($course->date == ($date->format('Y-m-d'))) {
-                  $dayCourses[] = $course;
-                }
-              }
-              switch (count($dayCourses)) {
+        @php
+          $startDay = new DateTime($startDate);
+          $endDay = new DateTime($endDate);
+          $endDay->modify('+1 day');
+          $daterange = new DatePeriod($startDay, new DateInterval('P1D'), $endDay);
+
+          echo '<tr id="courseMain" class="px-2 mx-2">';
+          foreach ($daterange as $date) {
+            $noMeal = true; 
+            foreach ($mainCourse as $course) {
+              if ($course->date == ($date->format('Y-m-d'))) {
+                
+                /* echo (count($course->meals)); */
+                $noMeal = false;
+                switch (count($course->meals)) {
                   case 0:
-                    echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
+                    echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0" data-date="'.$date->format('Y-m-d').'" data-course="main"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
                     break;
-                  
+
                   case 1:
-                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="1"><div id="menu_'.$dayCourses[0]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
-                    echo  ($dayCourses[0]->meal->name);
+                    $meal = json_decode($course->meals[0]);
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="1" data-date="'.$date->format('Y-m-d').'" data-course="main"><div id="menuMeal_'.$meal->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal->name);
                     echo '<br>';
-                    echo  ($dayCourses[0]->meal->allergenes);
+                    echo  ($meal->allergenes);
                     echo '</div>'; 
                     echo '<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div></td>';
                     break;
 
                   case 2:
-                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="2"><div id="menu_'.$dayCourses[0]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
-                    echo  ($dayCourses[0]->meal->name);
+                    $meal0 = json_decode($course->meals[0]);
+                    $meal1 = json_decode($course->meals[1]);
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="2" data-date="'.$date->format('Y-m-d').'" data-course="main"><div id="menuMeal_'.$meal0->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal0->name);
                     echo '<br>';
-                    echo  ($dayCourses[0]->meal->allergenes);
+                    echo  ($meal0->allergenes);
                     echo '</div>';
-                    echo '<div id="menu_'.$dayCourses[1]->id.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
-                    echo  ($dayCourses[1]->meal->name);
+                    echo '<div id="menu_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal1->name);
                     echo '<br>';
-                    echo  ($dayCourses[1]->meal->allergenes);
+                    echo  ($meal1->allergenes);
                     echo '</div></td>';
-                    break;
-                }
+                    break; 
+                }  
+              }
             }
-            
-          @endphp
-         {{--  <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-          <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
-         --}}</tr>
+            if ($noMeal == true) {
+              echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0" data-date="'.$date->format('Y-m-d').'" data-course="main"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
+            }
+          }
+          echo'</tr>';
 
-          <tr class="text-center">
-            <td class="py-2 courseName"><h4>Dessert</h4></td>
-          </tr>
-          {{-- Dessert Course --}}
-          <tr id="courseDessert">
-            <td><div class="emptyCourse rounded-lg mb-2 ml-2 mr-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>
-            <td><div class="emptyCourse rounded-lg mb-2 ml-1 mr-2"></div></td>
-          </tr>
-        </tbody>
-      </table>
+          /* Dessert Course */
+          echo '<tr class="text-center">
+                  <td class="py-2 courseName"><h4>Dessert</h4></td>
+                </tr>
+                <tr id="courseDessert">';
+
+          foreach ($daterange as $date) {
+            $noMeal = true; 
+            foreach ($dessertCourse as $course) {
+              if ($course->date == ($date->format('Y-m-d'))) {
+                $noMeal = false;
+                switch (count($course->meals)) {
+                  case 0:
+                  echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0" data-date="'.$date->format('Y-m-d').'" data-course="dessert"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
+                    break;
+
+                  case 1:
+                    $meal = json_decode($course->meals[0]);
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="1" data-date="'.$date->format('Y-m-d').'" data-course="dessert"><div id="menuMeal_'.$meal->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal->name);
+                    echo '<br>';
+                    echo  ($meal->allergenes);
+                    echo '</div>'; 
+                    echo '<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div></td>';
+                    break;
+
+                  case 2:
+                    $meal0 = json_decode($course->meals[0]);
+                    $meal1 = json_decode($course->meals[1]);
+                    echo '<td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="2" data-date="'.$date->format('Y-m-d').'" data-course="dessert"><div id="menuMeal_'.$meal0->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal0->name);
+                    echo '<br>';
+                    echo  ($meal0->allergenes);
+                    echo '</div>';
+                    echo '<div id="menu_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo  ($meal1->name);
+                    echo '<br>';
+                    echo  ($meal1->allergenes);
+                    echo '</div></td>';
+                    break; 
+                }  
+              }
+            }
+            if ($noMeal == true) {
+              echo ' <td ondrop="copy(event)" ondragover="allowDrop(event)" data-courseCount="0" data-date="'.$date->format('Y-m-d').'" data-course="dessert"><div class="emptyCourse rounded-lg mb-2 mx-1"></div></td>';
+            }
+          }
+          echo '</tr>';
+
+        @endphp
+      </tbody>
+    </table>
       {{-- Actions  --}}
       <div class="p-2">
         <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu" ondrop="deleteMenu(event)" ondragover="allowDrop(event)">Löschen  <i class="fas fa-trash text-white"></i></div>
@@ -144,7 +186,7 @@
             <ul class="list-group" id="ListMeal">
               {{-- Meals --}}
                 @foreach ($meals as $meal)
-                    <li class="mealItem list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex" id="meal:{{$meal->id}}" data-name="{{ $meal->name }}" data-allergenes="{{$meal->allergenes}}" draggable='true' ondragstart='drag(event)'>
+            <li class="mealItem list-group-item bg-light rounded my-1 px-2 py-3 border-0 d-flex" id="meal:{{$meal->id}}" data-id="{{$meal->id}}" data-name="{{ $meal->name }}" data-allergenes="{{$meal->allergenes}}" data-main-course="{{$meal->main}}" data-dessert-course="{{$meal->dessert}}" draggable='true' ondragstart='drag(event)'>
                         <span class="h-100 mh-100 align-self-center text-dark font-weight-bold" > {{ $meal->name }}</span>   
                         <div class="btn-group ml-auto align-self-center ">
                             {{-- Button SHOW Meal Modal --}}
