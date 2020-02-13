@@ -1,0 +1,55 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+// Variables
+@import 'variables';
+
+//Checkbox
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    height: 30px;
+}
+  
+input[type="checkbox"]+label {
+    background: #eee;
+    padding: 7px 15px;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    transition: all .3s ease;
+    margin: 4px;
+}
+
+input[type="checkbox"]:checked+label {
+    background: $green;
+    color: black; 
+}
+  
+input[type="checkbox"]+label::before {
+    display: inline-block;
+    border: 1px solid #888;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: all .3s ease;
+}
+
+input[type="checkbox"]:checked+label::before{
+    border-color: #fff;
+    color: #fff;
+}
+
+input[type="checkbox"]:not(:checked):hover+label {
+    border: 1px solid $orange;
+}
+input[type="checkbox"]:not(:checked):hover+label::before {
+    background: #0055cc;
+    color: #fff;
+    border-color: #0055cc;
+}
+
+input[type="checkbox"]:checked:hover+label::before {
+    color: #0055cc;
+    background: #fff;
+}

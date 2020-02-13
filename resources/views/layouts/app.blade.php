@@ -27,6 +27,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style_checkbox.css') }}" rel="stylesheet">
     @stack('styles')
 
     <!-- Toastr CSS -->
@@ -190,6 +191,16 @@
     {
         var unit = $("#selectComponentEdit"+element+" option:selected").attr('data-cc-unit');
         $('#unitComponentEdit'+element).text(unit);
+    }
+
+    function selectAllCustomer(customers)
+    {
+        if(document.getElementById('allCustomer').checked = true)
+        {
+            customers.forEach(customer =>{
+                document.getElementById(customer.name).checked = true;
+            });
+        }
     }
 </script>
 </html>

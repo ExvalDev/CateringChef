@@ -186,10 +186,24 @@
           </div>
           <div class="modal-body">
             <h3>Kunden auswählen</h3>
-            <form action="einkaufsliste.php" method="POST">
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-          </div>
+            <form action="/menu/einkaufsliste" method="POST">
+            @csrf
+              <input class="form-check-input" id="allCustomer" type="checkbox" onclick="selectAllCustomer({{$customers}})">
+              <label class="form-check-label" for="allCustomer">Alle Kunden auswählen</label>
+            @foreach($customers as $customer)
+              <input class="form-check-input" id="{{ $customer->name }}" type="checkbox" name="customer[]" value="{{ $customer->id }}">
+              <label class="form-check-label" for="{{ $customer->name }}">{{ $customer->name }}</label>
+            @endforeach
+            <hr>
+            <label>Start-Datum:</label> 
+            <input class="form-control" type='date' name='startdate' placeholder="Start" required> 
+            <label>End-Datum:</label> 
+            <input class="form-control" type='date' name='enddate' placeholder="Ende" required>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" id="btnSaveIt">Erstellen</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </form>
       </div>
   </div>
 </div>

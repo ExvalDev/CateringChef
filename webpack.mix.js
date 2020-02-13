@@ -20,5 +20,6 @@ mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/style_auth.scss', 'public/css')
    .sass('resources/sass/style_tables.scss', 'public/css')
    .sass('resources/sass/style_menu.scss', 'public/css')
+   .sass('resources/sass/style_checkbox.scss', 'public/css')
 mix.copyDirectory('resources/img', 'public/img');
 mix.copy('resources/js/menu.js', 'public/js');
