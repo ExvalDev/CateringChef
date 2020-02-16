@@ -199,25 +199,8 @@
         </div>
       </div>
   </div>
-
 </div>
 
-{{-- MODAL -> SHOW Meal --}}
-<div id="showMealModal" class="modal fade">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1>Details</h1>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body" id="showMeal">
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-          </div>
-      </div>
-  </div>
-</div>
 {{-- MODAL -> SHOW Meal --}}
 <div id="showMealModal" class="modal fade">
   <div class="modal-dialog">
