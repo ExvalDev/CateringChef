@@ -1,5 +1,3 @@
-
-
 function htmlToElement(html) {
   var template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
@@ -97,5 +95,50 @@ function deleteMenu(ev) {
       //play with data
     } */
   menuDiv.parentNode.removeChild(menuDiv);
-  
-}
+};
+
+//Show Meal
+$(function () {
+  $('.showMealButton').click(function(){
+      let mealId = $(this).attr("id");
+      $.get('meal/'+ mealId, function (meal) {
+          $('#showNameMeal').text(meal.name);
+          let course = "";
+          if(meal.main == 1)
+          {
+              course += "Hauptgericht, ";
+          }
+          if(meal.dessert == 1)
+          {
+              course += "Dessert, ";
+          }
+          $('#showCourseMeal').text("("+course.substr(0, course.length-2)+")"); 
+          let components = []; 
+          for(var i = 0; i < meal.components.length; i++) {
+              components.push([meal.components[i].name, meal.components[i].pivot.amount, meal.components[i].db_unit])
+          }
+          let componentsHTML ="<table class='table table-striped table-sm mt-2'>";
+          components.forEach(component =>{
+              componentsHTML += `<tr><td> ${component[1]} ${component[2]}</td><td> ${component[0]}</td></tr>`
+          });
+          componentsHTML += "</table>";
+          $('#showComponentsMeal').html(componentsHTML);
+          $('#showRecipeMeal').text(meal.recipe);
+          $('#showMealModal').modal('show');
+      })
+  });
+});
+
+//Set Customer 0
+function setCustomer(id){
+  $('#adults'+id).val(0);
+  $('#childrens'+id).val(0);
+};
+
+//Set Customer back to Standard
+function setStandardCustomer(id){
+  $('#adults'+id).val($('#adults'+id).attr('data-standard'));
+  $('#childrens'+id).val($('#childrens'+id).attr('data-standard'));
+};
+
+
