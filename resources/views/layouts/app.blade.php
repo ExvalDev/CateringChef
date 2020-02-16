@@ -38,7 +38,7 @@
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 <body>  
-    {{---------------------------------------SCRIPTS-----------------------------------------}}
+    {{--------------------------------------- SCRIPTS (START) -----------------------------------------}}
     {{-- Notification --}}
     <script src="{{ asset('js/toastr.js') }}"></script>
     <script>
@@ -64,11 +64,13 @@
         @endif
     </script>
 
-    {{-- search scripts --}}
+    {{-- Search scripts --}}
     <script src="{{ asset('js/search.js') }}"></script>
 
     @stack('topScripts')
 
+    {{--------------------------------------- SCRIPTS (END) -----------------------------------------}}
+    
     <div id="app">    
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
@@ -158,6 +160,7 @@
             </main>
         </div>
     </div>
+    @stack('bottomScripts')
 </body>
 <script>
     $(function () {
@@ -194,7 +197,7 @@
     }
 
     function selectAllCustomer(customers)
-    {
+    {       
         if(document.getElementById('allCustomer').checked = true)
         {
             customers.forEach(customer =>{
