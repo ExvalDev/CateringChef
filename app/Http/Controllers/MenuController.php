@@ -264,15 +264,17 @@ class MenuController extends Controller
      */
     public function createShoppingList(Request $request)
     {
+        $suppliers = [];
+        $start_date = $request->startdate;
+        $end_date = $request->enddate;
+        $adults = array_sum($request->adults);
+        $childrens =  array_sum($request->childrens);
         $datum = date("d.m.Y");
+
         $pdfAuthor = "Exval.de";
-
-        $EKL_header = '
-        <img src="img/CC-logo.png" style="width:255px;height:auto;">';
-
-        $EKL_footer = "Erstellt von: CateringChef.de";
-
+        $pdfImage = '<img src="img/CC-logo.png" style="width:255px; height:auto;">';
         $pdfName = "Einkaufsliste_".$datum.".pdf";
+        $EKL_footer = "Erstellt von: CateringChef.de";
 
 
         //////////////////////////// Inhalt des PDFs als HTML-Code \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -280,36 +282,50 @@ class MenuController extends Controller
 
         // Erstellung des HTML-Codes. Dieser HTML-Code definiert das Aussehen eures PDFs.
         // tcpdf unterstützt recht viele HTML-Befehle. Die Nutzung von CSS ist allerdings
-        // stark eingeschränkt.
+        // stark eingeschränkt
 
-        $html = '
+        $header = '
         <table cellpadding="5" style="width: 100%;"; border="0">
-        <tr><td></td><td style="text-align: right">Erstellt: '.$datum.'</td></tr>
-        <tr>
-        <td>'.nl2br(trim($EKL_header)).'</td>
-            <td style="text-align: center"> <br><br><br><br><br><br><br><br><br><font size="22">Einkaufsliste</font></td>
-        </tr>
-
+            <tr>
+                <td></td>
+                <td style="text-align: right">Erstellt: '.$datum.'</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;" cellpadding="5">
+                    <div>
+                        <font size="22">Einkaufsliste</font>
+                    </div>
+                    <div style="border: 1px solid black;">
+                        <div>
+                            <font size="16">Erwachsene: '.$adults.'</font>
+                        </div>
+                        <div>
+                            <font size="16">Kinder: '.$childrens.'</font>
+                        </div>
+                    </div>
+                </td>
+                <td style="text-align: right;">'.$pdfImage.'</td>
+            </tr>
         </table>
-        <br><br>
+        <br><br>';
+
+        $body = '
 
         <table cellpadding="5" cellspacing="0" style="width: 100%;" border="0">
-        <tr style=" padding:5px;">
-        <th style="text-align: left;"><font size="16">Lieferant</font></th>
-        <th style="text-align: left;"><font size="16">Zutat</font></th>
-        <th style="text-align: left;"><font size="16">Menge</font></th>
+        <tr style="text-align: left;">
+            <th>
+                <font size="16">Lieferant</font>
+            </th>
+            <th>
+                <font size="16">Zutat</font>
+            </th>
+            <th>
+                <font size="16">Menge</font>
+            </th>
         <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="checked-checkbox.png" style="width:30px;height:30px;"></td>
-        </tr><hr><br><hr>';
-
-        $suppliers = [];
-        $start_date = $request->startdate;
-        $end_date = $request->enddate;
-        $list = $request->customer;
-        $ids = implode( ",", $list );
-
-        $strsql = DB::select("SELECT SUM(adults) as adults, SUM(childrens) as childrens FROM customers WHERE id in (" . $ids . ")");
-        $adults = $strsql[0]->adults;
-        $childrens = $strsql[0]->childrens;
+        </tr>
+        <hr>';
+        
         DB::statement('CREATE VIEW view1 AS SELECT component_id, amount FROM components_meals where meal_id IN(SELECT meal_id FROM meals_menus WHERE menu_id IN(SELECT id FROM menus WHERE date >= "' . $start_date . '" AND date <= "' . $end_date . '"));');
         DB::statement("CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount,ci.ingredient_id FROM components_ingredients CI, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;");
         DB::statement("CREATE VIEW view3 AS SELECT v2.fixamount, i.name, i.supplier_id,i.db_unit_id FROM view2 v2, ingredients i WHERE v2.ingredient_id = i.id;");
@@ -319,7 +335,7 @@ class MenuController extends Controller
         }
         $suppliersunique = array_unique($suppliers);
         foreach ($suppliersunique as $supplier) {
-            $html .= '<br><tr><td style="text-align: left;">'.$supplier.'</td></tr><hr>';
+            $body .= '<br><hr><tr><td style="text-align: left;">'.$supplier.'</td></tr><hr>';
             foreach ($strsql as $content) {
                 if ($content->LIEFERANT == $supplier) {
                     $zutat = $content->ZUTAT;
@@ -342,7 +358,7 @@ class MenuController extends Controller
                     } else {
                         $menge = round($menge);
                     }
-                    $html .= '<tr><td></td>
+                    $body .= '<tr><td></td>
                             <td style="text-align: left;">'.$zutat.'</td>
                             <td style="text-align: left;">'.$menge. ' '.$einheit.'</td>
                             <td style="text-align: left;"> <input type="checkbox" name="'.$zutat.'" value="1"></td>
@@ -350,10 +366,10 @@ class MenuController extends Controller
                 }
             }
         }
-        $html .="</table><br><br><br><br>";
-        $html .= 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
+        $body .="</table><br><br><br><br>";
+        $footer = 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
         DB::statement("DROP VIEW view1,view2,view3;");
-        $html .= nl2br($EKL_footer);
+        $footer .= nl2br($EKL_footer);
 
 
 
@@ -393,8 +409,11 @@ class MenuController extends Controller
         PDF::AddPage();
 
         // Fügt den HTML Code in das PDF Dokument ein
-        PDF::writeHTML($html, true, false, true, false, '');
-
+        PDF::writeHTML($header, true, false, true, false, '');
+        PDF::writeHTML($body, true, false, true, false, '');
+        // Automatisches Autobreak der Seiten
+        PDF::SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        PDF::writeHTML($footer, true, false, true, false, '');
         //Ausgabe der PDF
 
         //Variante 1: PDF direkt an den Benutzer senden:

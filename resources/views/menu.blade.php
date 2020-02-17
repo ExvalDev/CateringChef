@@ -2,6 +2,7 @@
 
 @push('styles')
     <link href="{{ asset('css/style_menu.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
 @endpush
 
 @push('topScripts')
@@ -198,7 +199,6 @@
         </div>
       </div>
   </div>
-
 </div>
 
 {{-- MODAL -> SHOW Meal --}}
@@ -206,13 +206,21 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h1>Details</h1>
+              <h3><i class="fas fa-info"></i> @lang('message.show')</h3>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body" id="showMeal">
+              <h3 id="showNameMeal"></h3>
+              <h4 id="showCourseMeal"></h4>
+              <hr>
+              <h4>@lang('message.component')</h4>
+              <div id="showComponentsMeal"></div>
+              <hr>
+              <h4>@lang('message.recipe')</h4>
+              <span id="showRecipeMeal"></span>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
           </div>
       </div>
   </div>
@@ -221,32 +229,56 @@
 {{-- MODAL ->  Shopping List --}}
 <div id="shoppingListModal" class="modal fade">
   <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1>Einkaufsliste erstellen</h1>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <h3>Kunden auswählen</h3>
-            <form action="/menu/einkaufsliste" method="POST">
-            @csrf
-              <input class="form-check-input" id="allCustomer" type="checkbox" onclick="selectAllCustomer({{$customers}})">
-              <label class="form-check-label" for="allCustomer">Alle Kunden auswählen</label>
-            @foreach($customers as $customer)
-              <input class="form-check-input" id="{{ $customer->name }}" type="checkbox" name="customer[]" value="{{ $customer->id }}">
-              <label class="form-check-label" for="{{ $customer->name }}">{{ $customer->name }}</label>
-            @endforeach
-            <hr>
-            <label>Start-Datum:</label> 
-            <input class="form-control" type='date' name='startdate' placeholder="Start" required> 
-            <label>End-Datum:</label> 
-            <input class="form-control" type='date' name='enddate' placeholder="Ende" required>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success" id="btnSaveIt">Erstellen</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-          </form>
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1>Einkaufsliste erstellen</h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+      <form action="/menu/einkaufsliste" method="POST">
+      @csrf
+        <div class="modal-body">
+          <h3>Kunden auswählen</h3>
+          @foreach ($customers aS $customer)
+            <div class="border py-2 mb-1 rounded-lg">
+              <label class="col-12"><h4>{{$customer->name}}</h4></label>
+              <div class="input-group col-12">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-male"></i></span>
+                </div>
+                <input id="adults{{$customer->id}}" type="number" class="form-control col-6" placeholder="Erwachsene" name="adults[]" value="{{$customer->adults}}" data-standard="{{$customer->adults}}">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-child"></i></span>
+                </div>
+                <input id="childrens{{$customer->id}}" type="number" class="form-control col-6" placeholder="Kinder" name="childrens[]" value="{{$customer->childrens}}" data-standard="{{$customer->childrens}}">
+                <div class="input-group-append d-flex col-1 px-0">
+                  <button class="btn btn-outline-danger flex-fill" onclick="setCustomer({{$customer->id}})" type="button"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="input-group-append d-flex col-1 px-0">
+                  <button class="btn btn-outline-warning flex-fill" onclick="setStandardCustomer({{$customer->id}})" type="button"> <i class="fas fa-sync-alt"></i> </button>
+                </div>
+              </div>
+            </div>
+          @endforeach
+          <hr>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Start</span>
+            </div>
+            <input class="form-control" type='date' name='startdate' placeholder="Start" required>
+            <div class="input-group-prepend">
+              <span class="input-group-text">Ende</span>
+            </div>
+            <input class="form-control" type='date' name='enddate' placeholder="Ende" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
+            <button type="submit" class="btn btn-primary">Erstellen</button>
+          </div> 
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 @endsection
