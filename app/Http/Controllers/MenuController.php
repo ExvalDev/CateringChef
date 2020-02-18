@@ -310,7 +310,6 @@ class MenuController extends Controller
                 </tr>
             </table>
             <br><br>';
-            /*
             $body = '
 
             <table cellpadding="5" cellspacing="0" style="width: 100%;" border="0">
@@ -369,7 +368,6 @@ class MenuController extends Controller
                 }
             }
             $body .="</table><br><br><br><br>";
-            */
             $footer = 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
             //DB::statement("DROP VIEW view1,view2,view3;");
             $footer .= nl2br($EKL_footer);
