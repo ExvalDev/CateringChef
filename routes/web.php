@@ -30,5 +30,5 @@ Route::get('/menu', 'MenuController@index')->middleware('verified');
 Route::get('/menu/changeWeek/{week}/{direction}', 'MenuController@index')->middleware('verified');
 Route::get('/menu/changeYear', 'MenuController@changeYear')->middleware('verified');
 Route::delete('menu/{id}', 'MenuController@destroy')->middleware('verified');
-Route::post('/menu/einkaufsliste', 'MenuController@createShoppingList')->middleware('verified');
+Route::post('/menu/einkaufsliste', 'PDFController@createShoppingList')->middleware('verified');
 
