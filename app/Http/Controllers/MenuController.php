@@ -264,6 +264,7 @@ class MenuController extends Controller
      */
     public function createShoppingList(Request $request)
     {
+        /*
         try
         {
             $suppliers = [];
@@ -424,11 +425,11 @@ class MenuController extends Controller
             //Ausgabe der PDF
 
             //Variante 1: PDF direkt an den Benutzer senden:
-            PDF::Output($pdfName, 'I');
+            //PDF::Output($pdfName, 'I');
 
             //Variante 2: PDF im Verzeichnis abspeichern:
-            // $pdf->Output(dirname(__FILE__).'/'.$pdfName, 'F');
-            // echo 'PDF herunterladen: <a href="'.$pdfName.'">'.$pdfName.'</a>';
+            PDF::Output(dirname(__FILE__).'/'.$pdfName, 'F');
+            //echo 'PDF herunterladen: <a href="'.$pdfName.'">'.$pdfName.'</a>';
         }
         catch(\Illuminate\Database\QueryException $ex)
         {
@@ -438,7 +439,10 @@ class MenuController extends Controller
             );
             return redirect('/menu')->with($notification);
         } 
-        
+        */
+        PDF::SetTitle('Hello World');
+        PDF::AddPage();
+        PDF::Write(0, 'Hello World');
+        PDF::Output('hello_world.pdf');
     }
-
 }
