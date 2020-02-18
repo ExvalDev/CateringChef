@@ -398,7 +398,7 @@ class MenuController extends Controller
             PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
 
             // Schriftart
-            PDF::SetFont('Kreon', '', 10);
+            //PDF::SetFont('Kreon', '', 10);
 
             // Neue Seite
             PDF::AddPage();
