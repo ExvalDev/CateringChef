@@ -21,7 +21,7 @@ class PDFController extends Controller
 
     public function createView2()
     {
-        DB::statement('CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount,ci.ingredient_id FROM components_ingredients CI, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;');
+        DB::statement('CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount, ci.ingredient_id FROM components_ingredients ci, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;');
     }
 
     public function createView3()
