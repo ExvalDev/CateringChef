@@ -367,7 +367,9 @@ class MenuController extends Controller
             }
         }
         $body .="</table><br><br><br><br>";
-        $footer = 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
+
+ 
+        $footer = 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
         DB::statement("DROP VIEW view1,view2,view3;");
         $footer .= nl2br($EKL_footer);
 
@@ -403,7 +405,7 @@ class MenuController extends Controller
         PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         // Schriftart
-        //PDF::SetFont('Kreon', '', 10);
+        PDF::SetFont('Kreon', '', 10);
 
         // Neue Seite
         PDF::AddPage();
@@ -413,6 +415,9 @@ class MenuController extends Controller
         PDF::writeHTML($body, true, false, true, false, '');
         // Automatisches Autobreak der Seiten
         PDF::SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        PDF::AddPage();
+        PDF::setPage(PDF::getPage()); 
+        PDF::TextField('address', 180, 84, array('multiline' => true), array(),15,40);
         PDF::writeHTML($footer, true, false, true, false, '');
         //Ausgabe der PDF
 
