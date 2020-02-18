@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<div class="mx-auto p-3 login-box">
+<div class="mx-auto p-3 login-box"  >
     <div class="row justify-content-center">
             <img src="../img/CC-logo.png" height="240" width="240" alt="Catering Chef" >
         <form method="POST" action="{{ route('login') }}">
@@ -62,7 +62,11 @@
                     </a>
                 @endif
             </div>
+            
         </form>
     </div>
+</div>
+<div id='foo'>
+    Photo by Lukas Blazek on Unsplash
 </div>
 @endsection
