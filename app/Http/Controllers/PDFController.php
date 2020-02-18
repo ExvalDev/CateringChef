@@ -37,8 +37,6 @@ class PDFController extends Controller
      */
     public function createShoppingList(Request $request)
     {
-        try
-        {
             $suppliers = [];
             $start_date = $request->startdate;
             $end_date = $request->enddate;
@@ -189,14 +187,6 @@ class PDFController extends Controller
             //Variante 2: PDF im Verzeichnis abspeichern:
             //PDF::Output(dirname(__FILE__).'/'.$pdfName, 'F');
             //echo 'PDF herunterladen: <a href="'.$pdfName.'">'.$pdfName.'</a>';
-        }
-        catch(\Illuminate\Database\QueryException $ex)
-        {
-            $notification = array(
-                'message' => 'Einkaufsliste konnte nicht generiert werden!',
-                'alert-type' => 'error'
-            );
-            return redirect('/menu')->with($notification);
-        } 
+         
     }
 }
