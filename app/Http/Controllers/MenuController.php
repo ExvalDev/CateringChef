@@ -310,7 +310,7 @@ class MenuController extends Controller
                 </tr>
             </table>
             <br><br>';
-
+            /*
             $body = '
 
             <table cellpadding="5" cellspacing="0" style="width: 100%;" border="0">
@@ -369,10 +369,9 @@ class MenuController extends Controller
                 }
             }
             $body .="</table><br><br><br><br>";
-
-    
+            */
             $footer = 'Notizen: <br><div style="width:100%"; border = "1"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div><br><br><br>';
-            DB::statement("DROP VIEW view1,view2,view3;");
+            //DB::statement("DROP VIEW view1,view2,view3;");
             $footer .= nl2br($EKL_footer);
 
 
@@ -386,14 +385,6 @@ class MenuController extends Controller
             PDF::SetAuthor($pdfAuthor);
             PDF::SetTitle('Einkaufsliste '.$datum);
             PDF::SetSubject('Einkaufsliste '.$datum);
-
-
-            // Header und Footer Informationen
-            PDF::setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-            PDF::setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-            // Auswahl des Font
-            PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
             // Auswahl der MArgins
             PDF::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
@@ -414,7 +405,7 @@ class MenuController extends Controller
 
             // Fügt den HTML Code in das PDF Dokument ein
             PDF::writeHTML($header, true, false, true, false, '');
-            PDF::writeHTML($body, true, false, true, false, '');
+            //PDF::writeHTML($body, true, false, true, false, '');
             // Automatisches Autobreak der Seiten
             PDF::SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
             PDF::AddPage();
@@ -424,10 +415,10 @@ class MenuController extends Controller
             //Ausgabe der PDF
 
             //Variante 1: PDF direkt an den Benutzer senden:
-            //PDF::Output($pdfName, 'I');
+            PDF::Output($pdfName, 'I');
 
             //Variante 2: PDF im Verzeichnis abspeichern:
-            PDF::Output(dirname(__FILE__).'/'.$pdfName, 'F');
+            //PDF::Output(dirname(__FILE__).'/'.$pdfName, 'F');
             //echo 'PDF herunterladen: <a href="'.$pdfName.'">'.$pdfName.'</a>';
         }
         catch(\Illuminate\Database\QueryException $ex)
