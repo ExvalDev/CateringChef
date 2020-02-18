@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         }
 
          //Create Customer
-         $customers = [['Katholischer Kindergarten Rust - St. Michael', 77977, 'Rust','Hindenburgstraße',34,35,280],['Kommunaler Kindergarten Rust',77977,'Rust','Walter-Schießle-Straße',14,17,125],['Kita Rheinpiraten Rust',77977,'Rust','Walter-Schießle-Straße',16,125,470],['Grund- und Gemeinschaftsschule Rust', 77977, 'Rust','Kirchstraße',9,120,800],['Gymnasium Ettenheim', 77955, 'Ettenheim','Johann-Baptist-von-Weiß-Straße',7,85,577]];
+         $customers = [['Katholischer Kindergarten Rust - St. Michael', 77977, 'Rust','Hindenburgstraße',34,35,70],['Kommunaler Kindergarten Rust',77977,'Rust','Walter-Schießle-Straße',14,17,125],['Kita Rheinpiraten Rust',77977,'Rust','Walter-Schießle-Straße',16,125,50],['Grund- und Gemeinschaftsschule Rust', 77977, 'Rust','Kirchstraße',9,120,200],['Gymnasium Ettenheim', 77955, 'Ettenheim','Johann-Baptist-von-Weiß-Straße',7,85,150]];
          foreach($customers as $customer)
          {
              DB::table('customers')->insert([
