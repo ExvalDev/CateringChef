@@ -14,6 +14,20 @@ use Redirect,Response;
 
 class PDFController extends Controller
 {
+    public function createView1($start_date, $end_date)
+    {
+        DB::statement('CREATE VIEW view1 AS SELECT component_id, amount FROM components_meals where meal_id IN(SELECT meal_id FROM meals_menus WHERE menu_id IN(SELECT id FROM menus WHERE date >= "' . $start_date . '" AND date <= "' . $end_date . '"));');
+    }
+
+    public function createView2()
+    {
+        DB::statement('CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount,ci.ingredient_id FROM components_ingredients CI, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;');
+    }
+
+    public function createView3()
+    {
+        DB::statement('CREATE VIEW view3 AS SELECT v2.fixamount, i.name, i.supplier_id,i.db_unit_id FROM view2 v2, ingredients i WHERE v2.ingredient_id = i.id;');
+    }
     /**
      * Create the Shopping List.
      *
@@ -32,9 +46,10 @@ class PDFController extends Controller
             $childrens =  array_sum($request->childrens);
             $datum = date("d.m.Y");
 
-            DB::statement('CREATE VIEW view1 AS SELECT component_id, amount FROM components_meals where meal_id IN(SELECT meal_id FROM meals_menus WHERE menu_id IN(SELECT id FROM menus WHERE date >= "' . $start_date . '" AND date <= "' . $end_date . '"));');
-            DB::statement('CREATE VIEW view2 AS SELECT ((v1.amount/co.amount) * ci.amount) AS fixamount,ci.ingredient_id FROM components_ingredients CI, components co, view1 v1 WHERE ci.component_id = v1.component_id AND co.id = v1.component_id;');
-            DB::statement('CREATE VIEW view3 AS SELECT v2.fixamount, i.name, i.supplier_id,i.db_unit_id FROM view2 v2, ingredients i WHERE v2.ingredient_id = i.id;');
+            $this->createView1($start_date, $end_date);
+            $this->createView2();
+            $this->createView3();  
+
             $strsql = DB::select('SELECT SUM(v3.fixamount) AS MENGE,v3.name AS ZUTAT,s.name AS LIEFERANT,db_units.name AS EINHEIT FROM view3 v3, suppliers s,db_units WHERE v3.supplier_id = s.id AND v3.db_unit_id = db_units.id GROUP BY v3.name, s.name, db_units.name ORDER BY LIEFERANT;');
 
             $pdfAuthor = "cateringchef.de";
