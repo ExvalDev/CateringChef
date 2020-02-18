@@ -264,7 +264,6 @@ class MenuController extends Controller
      */
     public function createShoppingList(Request $request)
     {
-        /*
         try
         {
             $suppliers = [];
@@ -439,10 +438,5 @@ class MenuController extends Controller
             );
             return redirect('/menu')->with($notification);
         } 
-        */
-        PDF::SetTitle('Hello World');
-        PDF::AddPage();
-        PDF::Write(0, 'Hello World');
-        PDF::Output('hello_world.pdf');
     }
 }
