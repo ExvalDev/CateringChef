@@ -27,7 +27,7 @@ Route::resource('/meal', 'MealController')->middleware('verified');
 Route::view('/impressum', 'impressum');
 Route::view('/datenschutz', 'datenschutz');
 Route::get('/loaderio-510f8faa33cc540a0aeb112d16db35d3', function () {
-    return File::get(public_path() . '\test\loaderio-510f8faa33cc540a0aeb112d16db35d3.html');
+    return File::get(public_path() . '/test/loaderio-510f8faa33cc540a0aeb112d16db35d3.html');
     
 });
 
