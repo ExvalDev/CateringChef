@@ -22,6 +22,7 @@
 body {
     background-image: url('../img/Bild3.jpeg');
     background-size: 100% auto;
+    background-attachment: fixed;
 }
 
 .login-box {
@@ -35,7 +36,13 @@ body {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+a {
+    color: black;
+}
 
+a:hover{
+    color: black;
+}
 form {
     width: 100%;
 }

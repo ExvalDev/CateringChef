@@ -1,9 +1,5 @@
 @extends('layouts.auth')
 
-@push('styles_auth')
-    <link href="{{ asset('css/style_auth.css') }}" rel="stylesheet">
-@endpush
-
 @section('content')
 <div class="mx-auto p-3 login-box"  >
     <div class="row justify-content-center">
