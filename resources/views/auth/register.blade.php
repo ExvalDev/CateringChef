@@ -1,8 +1,5 @@
 @extends('layouts.auth')
 
-@push('styles_auth')
-    <link href="{{ asset('css/style_auth.css') }}" rel="stylesheet">
-@endpush
 
 @section('content')
 <div class="mx-auto p-3 login-box">
@@ -68,18 +65,13 @@
                 </div>
             </div>
 
-            <div class="form-group mb-0">
-                <div class="col offset-md-4">
-                    <button type="submit" class="btn">
+            <div class="form-group mb-0 d-flex">
+                  <button type="submit" class="btn mx-auto">
                         {{ __('Registrieren') }}
                     </button>
-                </div>
             </div>
         </form>
         <div class="mt-2">
-            <p> Haben Sie Fragen? <a href=""> Kontaktieren Sie uns!</a></p>
-        </div>
-        <div>
                 <p> Bereits ein Konto? <a href="/login"> Melden Sie sich an!</a></p>
         </div>
     </div>
