@@ -176,5 +176,7 @@ return [
         'available'             => 'verfügbar',
         'size'                  => 'Größe',
         'unit'                  =>'Einheit',
+        'db_unit_id'            =>'Einheit',
+        'amount'                =>"Menge"
     ],
 ];
