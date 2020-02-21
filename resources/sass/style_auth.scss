@@ -20,18 +20,29 @@
 
 /* Customize */
 body {
-    background-color: $orange;
+    background-image: url('../img/Bild3.jpeg');
+    background-size: 100% auto;
+    background-attachment: fixed;
 }
 
 .login-box {
-    margin-top: 2vh;
-    width: 30vw;
     box-shadow: 0 0 15px 0 rgba(47, 74, 113, 0.2);
     background-color: white;
     border-radius: 20px;
     padding: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+a {
+    color: black;
 }
 
+a:hover{
+    color: black;
+}
 form {
     width: 100%;
 }
@@ -54,4 +65,10 @@ form {
     border: none;
     border-radius: 0.4rem;
     padding: 0.4rem;
+}
+#foo
+{
+    position: absolute;
+    top: 96%;
+    right: 1%;
 }

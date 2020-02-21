@@ -24,7 +24,8 @@ Route::resource('/supplier', 'SupplierController')->middleware('verified');
 Route::resource('/ingredient', 'IngredientController')->middleware('verified');
 Route::resource('/component', 'ComponentController')->middleware('verified');
 Route::resource('/meal', 'MealController')->middleware('verified');
-
+Route::view('/impressum', 'impressum');
+Route::view('/datenschutz', 'datenschutz');
 Route::post('/menu', 'MenuController@store')->middleware('verified');
 Route::get('/menu', 'MenuController@index')->middleware('verified');
 Route::get('/menu/changeWeek/{week}/{direction}', 'MenuController@index')->middleware('verified');
