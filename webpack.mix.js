@@ -22,5 +22,4 @@ mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/style_menu.scss', 'public/css')
    .sass('resources/sass/style_checkbox.scss', 'public/css')
 mix.copyDirectory('resources/img', 'public/img');
-mix.copyDirectory('resources/test', 'public/test');
 mix.copy('resources/js/menu.js', 'public/js');
