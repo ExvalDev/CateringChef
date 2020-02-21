@@ -62,18 +62,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        //Create Show Unit
-        $show_units = [['g', 'g' ,1], ['Kg', 'g', 1000], ['ml', 'ml', 1], ['L', 'ml', 1000], ['Stück', 'Stück', 1]];
-
-        foreach($show_units as $show_unit)
-        {
-            DB::table('show_units')->insert([
-                'name' => $show_unit[0],
-                'db_unit_id' => DB::table('db_units')->where('name', $show_unit[1])->value('id'),
-                'factor' => $show_unit[2],
-            ]);
-        }
-
 
         //Create Ingredient
         $ingredients= [['Couscous',1,1], ['Zitronensaft',1,2], ['Wasser(Leitung)',null,2],['Knoblauch',2,1],['Paprika',2,1],['Gurke',2,1],['Tomate',2,1],['Zwiebel',2,1],['Salz',1,1],['Pfeffer',1,1],['Schafskäse',1,1],['Knollensellerie',2,1],['Karotte',2,1],['Olivenöl',1,2],['Tomatenmark',1,1],['Schmand',1,1],['Milch',1,2],['Ei',1,3],['Margarine',1,1],['Suppenknochen vom Rind',1,1],['Suppengrün',1,1],['Petersilie',1,1],['Öl',1,2],['Hackfleisch',3,1],['Passierte Tomaten',1,1],['Oregano',1,1],['Spaghetti',1,1],['Mehl',1,1],['Sahne',1,2],['Emmentaler gerieben',1,1],['Risottoreis',1,1],['Gemüsefond',1,2],['Weißwein',1,2],['Butter',1,1],['Zucker',1,1],['Backpulver',1,1],['Apfel',2,1],['Zimt',1,1],['Puddingpulver Vanille',1,1],['Schlagsahne',1,2],['Erdbeere',2,1],['Sahnesteif',1,1],['Backkakao',1,1],['Schokolade',1,1],['Marshmallows',1,1],['Parmesan',1,1]];

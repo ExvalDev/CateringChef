@@ -125,7 +125,7 @@
                             @csrf
                             <div class="form-group">            
                                 <div class="col">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -145,12 +145,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="col">
-                                    <input list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="{{ old('supplier_name') }}" placeholder="@lang('message.supplier')" autocomplete="on">
-                                    <datalist id="suppliers">
+                                    <select class="form-control @error('supplier_name') is-invalid @enderror" value="{{ old('supplier_name') }}" id="suppliers" name="supplier">
+                                        <option disabled selected hidden>@lang('message.supplier')</option>
                                         @foreach($suppliers as $supplier)
-                                            <option value="{{ $supplier->name}}">
+                                            <option value="{{ $supplier->id}}">{{ $supplier->name}}</option>
                                         @endforeach
-                                    </datalist>
+                                    </select>
                                     @error('supplier_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -248,12 +248,11 @@
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="editSupplierIngredient" list="suppliers" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" value="" placeholder="@lang('message.supplier')" autocomplete="on">
-                                <datalist id="suppliers">
+                                <select id="editSupplierIngredient" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier" value="">
                                     @foreach($suppliers as $supplier)
-                                        <option value="{{ $supplier->name}}">
+                                        <option id="editSupplierIngredient{{ $supplier->id }}" value="{{ $supplier->id}}">{{ $supplier->name}}</option>
                                     @endforeach
-                                </datalist>
+                                </select>
                                 @error('supplier_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -843,6 +842,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     {{------------------------------------ END ------------------------------------}}
 @endsection

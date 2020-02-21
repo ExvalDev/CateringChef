@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Redirect,Response;
 use App\Ingredient;
 use App\Allergene;
@@ -44,25 +45,31 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'supplier_name' => '',
             'db_unit_id' => 'required'
         ]);
 
+        if ($validator->fails()) {
+
+            $notification = array(
+                'message' => 'Zutat wurde nicht hinzugefügt!',
+                'alert-type' => 'error',
+                'modal' => '#addIngredient',
+            );
+
+            return redirect('/tables')
+            ->withErrors($validator)
+            ->withInput()->with($notification);
+        }
+
         try
         {
             $ingredient = new Ingredient;
-
             $ingredient->name = $request->input('name');
-            $supplier_name = $request->input('supplier_name');
-            if (!empty($supplier_name))
-            {   
-                $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-                $ingredient->supplier_id = $supplier_id[0]->id;
-            } 
+            $ingredient->supplier_id = $request->input('supplier');
             $ingredient->db_unit_id = $request->input('db_unit_id');
-
             $ingredient->save();
 
             $allergenes = $request->allergene;
@@ -83,7 +90,7 @@ class IngredientController extends Controller
         {
             $notification = array(
                 'message' => 'Zutat wurde nicht hinzugefügt!',
-                'alert-type' => 'error'
+                'alert-type' => 'error',
             );
         } 
         return redirect('/tables')->with($notification); 
@@ -146,16 +153,7 @@ class IngredientController extends Controller
             $ingredient = Ingredient::find($id);
 
             $ingredient->name = $request->input('name');
-            $supplier_name = $request->input('supplier_name');
-            if (!empty($supplier_name))
-            {   
-                $supplier_id =  DB::table('suppliers')->select('id')->where('name', $supplier_name)->get();
-                $ingredient->supplier_id = $supplier_id[0]->id;
-            }  
-            else
-            {
-                $ingredient->supplier_id = NULL;
-            } 
+            $ingredient->supplier_id = $request->input('supplier');
             $ingredient->db_unit_id = $request->input('db_unit_id');
 
             $ingredient->save();
@@ -208,8 +206,8 @@ class IngredientController extends Controller
         catch(\Illuminate\Database\QueryException $ex)
         {
             $notification = array(
-                'message' => 'Zutat kann nicht gelöscht werden!',
-                'alert-type' => 'error'
+                'message' => 'Zutat kann nicht gelöscht werden! In Komponenten enthalten.',
+                'alert-type' => 'error',
             );
         }
         return redirect('/tables')->with($notification);;
