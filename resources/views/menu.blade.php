@@ -87,7 +87,7 @@
                     echo '<br>';
                     echo  ($meal0->allergenes);
                     echo '</div>';
-                    echo '<div id="menu_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo '<div id="menuMeal_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
                     echo  ($meal1->name);
                     echo '<br>';
                     echo  ($meal1->allergenes);
@@ -136,7 +136,7 @@
                     echo '<br>';
                     echo  ($meal0->allergenes);
                     echo '</div>';
-                    echo '<div id="menu_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
+                    echo '<div id="menuMeal_'.$meal1->relationId.'" class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" draggable="true" ondragstart="drag(event)">';
                     echo  ($meal1->name);
                     echo '<br>';
                     echo  ($meal1->allergenes);

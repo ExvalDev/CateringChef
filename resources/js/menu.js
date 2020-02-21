@@ -76,25 +76,29 @@ function deleteMenu(ev) {
   ev.preventDefault();
   var id = ev.dataTransfer.getData("text");
   var menuDiv = document.getElementById(id);
-  if (menuDiv.parentNode.getAttribute('data-courseCount') == '1'){
-    menuDiv.parentNode.setAttribute('data-courseCount','0');
-    menuDiv.parentNode.innerHTML= '<div class="emptyCourse rounded-lg mb-2 mx-1"></div>';
-  }else if (menuDiv.parentNode.getAttribute('data-courseCount') == '2'){
-    menuDiv.parentNode.setAttribute('data-courseCount','1');
-    menuDiv.parentNode.append(htmlToElement('<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div>'));
+  console.log(menuDiv);
+  if (menuDiv.getAttribute('data-name') == undefined) {
+    if (menuDiv.parentNode.getAttribute('data-courseCount') == '1'){
+      menuDiv.parentNode.setAttribute('data-courseCount','0');
+      menuDiv.parentNode.innerHTML= '<div class="emptyCourse rounded-lg mb-2 mx-1"></div>';
+    }else if (menuDiv.parentNode.getAttribute('data-courseCount') == '2'){
+      menuDiv.parentNode.setAttribute('data-courseCount','1');
+      menuDiv.parentNode.append(htmlToElement('<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div>'));
+    }
+   
+    var menuMealId = id.slice(9);
+    console.log(menuMealId);
+    $.ajax({
+      url: '/menu/'+ menuMealId,
+      type: 'DELETE'
+    });
+    /* ,
+      success: function(data) {
+        //play with data
+      } */
+    menuDiv.parentNode.removeChild(menuDiv);
   }
- 
-  var menuMealId = id.slice(9);
-  console.log(menuMealId);
-  $.ajax({
-    url: '/menu/'+ menuMealId,
-    type: 'DELETE'
-  });
-  /* ,
-    success: function(data) {
-      //play with data
-    } */
-  menuDiv.parentNode.removeChild(menuDiv);
+  
 };
 
 //Show Meal

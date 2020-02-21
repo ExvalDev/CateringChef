@@ -139,10 +139,9 @@
                         <nav class="navbar">
                             <a href="{{ url('/menu') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon"></i></a>
                             <a href="{{ url('/tables') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon"></i></a>
-                            <a href="{{ url('/recipes') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>
-                            <a href="{{ url('/customer') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
+                            {{--<a href="{{ url('/recipes') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon"></i></a>--}}                            <a href="{{ url('/customer') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Kunden"><i class="far fa-address-card navIcon"></i></a>
                             <a href="{{ url('/supplier') }}" class="navResonsiveBtn nav-link " data-toggle="tooltip" data-placement="right" title="Lieferanten"><i class="fas fa-truck navIcon"></i></a>
-                            <a href="{{ url('/settings') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a>
+                            {{-- <a href="{{ url('/settings') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Einstellungen"><i class="fas fa-cog navIcon"></i></a> --}}
                             <a href="{{ route('logout') }}" class="navResonsiveBtn nav-link" data-toggle="tooltip" data-placement="right" title="Ausloggen"
                                 onclick="
                                     event.preventDefault();
