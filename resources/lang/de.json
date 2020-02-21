@@ -5,7 +5,7 @@
     "Reset Password Notification": "Passwort zurücksetzen",
     "You are receiving this email because we received a password reset request for your account.": "Wir haben eine Anfrage zur Zurücksetzung Ihres Passworts erhalten. Bitte bestätigen Sie die Anfrage, um ein neues Passwort zu erstellen.",
     "Reset Password": "Passwort zurücksetzen",
-    "This password reset link will expire in :count minutes.": "Dieser Link wird in :count Minuten deaktiviert.",
+    "This password reset link will expire in :count minutes.": "Dieser Link wird in :count Minuten deaktiviert!",
     "If you did not request a password reset, no further action is required.": "Falls Sie keine Anfrage gestellt haben können Sie diese Meldung ignorieren."
 
 }
