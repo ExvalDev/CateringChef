@@ -24,3 +24,8 @@ mix.js('resources/js/tables.js', 'public/js')
 mix.copyDirectory('resources/img', 'public/img');
 mix.copyDirectory('resources/test', 'public/test');
 mix.copy('resources/js/menu.js', 'public/js');
+mix.copy('resources/fonts/Kreon.z', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/Kreon.zip', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/Kreon.afm', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/Kreon.php', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/Kreon-VariableFont_wght.ttf', 'vendor/tecnickcom/tcpdf/fonts');
