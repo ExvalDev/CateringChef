@@ -11,7 +11,7 @@
         {{------------------------------------ Ingredients ------------------------------------}}
         <div class="col-md-4 m-0 py-3 px-2 tableHeight">
             <h1>@lang('message.ingredients')</h1>
-            <div class="bg-white shadow-sm  h-100 mh-100 d-flex flex-column">
+            <div class="bg-white shadow-sm mt-3 h-100 mh-100 d-flex flex-column">
                 <div class="">
                     <div class="px-2 pt-2 m-0">
                         <input class="form-control bg-light border-0 shadow-none" id="SearchIngredient" type="text" placeholder="Suche..">
@@ -45,7 +45,7 @@
         {{------------------------------------ Components ------------------------------------}}
         <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
             <h1>@lang('message.components')</h1>
-            <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
+            <div class="bg-white shadow-sm mt-3 h-100 mh-100 d-flex flex-column">
                 <div>
                     <div class="px-2 pt-2 m-0">
                         <input class="form-control bg-light border-0 shadow-none" id="SearchComponent" type="text" placeholder="Suche..">
@@ -79,7 +79,7 @@
         {{--------------------------------------- Meals --------------------------------------}}
         <div class="col-md-4 m-md-0 m-0 mt-4 py-3 px-2 tableHeight">
             <h1>@lang('message.meals')</h1>
-            <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
+            <div class="bg-white shadow-sm mt-3 h-100 mh-100 d-flex flex-column">
                 <div>
                     <div class="px-2 pt-2 m-0">
                         <input class="form-control bg-light border-0 shadow-none" id="SearchMeal" type="text" placeholder="Suche..">

@@ -15,7 +15,7 @@
                 <input class="form-control bg-white border-0 shadow-none" id="SearchSupplier" type="text" placeholder="Suche..">
             </div>
         </div>
-        <div class="bg-white shadow-sm h-100 mh-100 d-flex flex-column">
+        <div class="bg-white shadow-sm  h-100 mh-100 d-flex flex-column">
             {{-- Header --}}
             <div class="d-flex flex-column"> 
                 <table class=" mt-2 w-100">
