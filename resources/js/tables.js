@@ -44,7 +44,7 @@ $(function () {
             });
             if(ingredient.supplier != null)
             {
-                $('#editSupplierIngredient').val(ingredient.supplier.name);
+                document.getElementById("editSupplierIngredient"+ingredient.supplier_id).selected = true;
             }
             document.getElementById("editUnitIngredient"+ingredient.db_unit_id).selected = true;
             $('#editIngredientModal').modal('show');
