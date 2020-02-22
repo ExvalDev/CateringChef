@@ -171,9 +171,9 @@
         
       </div>
     </div>
-    <div class="bg-white mt-2 shadow-sm d-flex flex-column">
+    <div class="bg-white mt-2 p-2 shadow-sm">
       @foreach ($allergenes as $allergene)
-        {{$allergene->id}} -> {{$allergene->name}} 
+      <span class="badge  badge-light badge-pill navText">{{$allergene->id}}. {{$allergene->name}} </span>
       @endforeach
     </div>
   </div>
