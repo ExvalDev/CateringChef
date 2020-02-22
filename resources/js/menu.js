@@ -1,6 +1,3 @@
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})
 
 function htmlToElement(html) {
   var template = document.createElement('template');

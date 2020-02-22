@@ -1,4 +1,8 @@
 
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
 /**
  *Search in a List by input
  * @param {String} inputField - id of the Field where search input ('#id')
