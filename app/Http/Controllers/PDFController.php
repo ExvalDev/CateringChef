@@ -167,7 +167,7 @@ class PDFController extends Controller
             PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
 
             // Schriftart
-            PDF::SetFont('kreon', '', 10);
+            // PDF::SetFont('kreon', '', 10);
 
             // Neue Seite
             PDF::AddPage();
