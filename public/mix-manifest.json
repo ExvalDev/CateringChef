@@ -11,8 +11,5 @@
     "/js/toastr.js": "/js/toastr.js",
     "/js/menu.js": "/js/menu.js",
     "/vendor/tecnickcom/tcpdf/fonts/Kreon.z": "/vendor/tecnickcom/tcpdf/fonts/Kreon.z",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon.zip": "/vendor/tecnickcom/tcpdf/fonts/Kreon.zip",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon.afm": "/vendor/tecnickcom/tcpdf/fonts/Kreon.afm",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon.php": "/vendor/tecnickcom/tcpdf/fonts/Kreon.php",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon-VariableFont_wght.ttf": "/vendor/tecnickcom/tcpdf/fonts/Kreon-VariableFont_wght.ttf"
+    "/vendor/tecnickcom/tcpdf/fonts/Kreon.php": "/vendor/tecnickcom/tcpdf/fonts/Kreon.php"
 }
