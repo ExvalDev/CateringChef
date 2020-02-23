@@ -1,3 +1,4 @@
+
 function htmlToElement(html) {
   var template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
@@ -35,21 +36,21 @@ function copy(ev) {
       switch (courseCount) {
         case '0':
           $.post('/menu', {course: courseRow, date: courseDate, mealId: meal.data('id')}, function(menuMeal){
-            let outputMenu = htmlToElement(`<div class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" id="menuMeal_${menuMeal.id}" draggable='true' ondragstart='drag(event)'> ${meal.data('name')} <br>`+
+            let outputMenu = htmlToElement(`<div class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-2" id="menuMeal_${menuMeal.id}" draggable='true' ondragstart='drag(event)'> ${meal.data('name')} <br>`+
               allergenes
             +`</div>`);
             currentTarget.prepend(outputMenu);
             currentTarget.setAttribute('data-courseCount','1');
             target.removeAttribute('class');
-            target.setAttribute('class','oneMoreCourse rounded-lg mb-2 mx-1');
+            target.setAttribute('class','oneMoreCourse rounded-lg mb-2 mx-2');
           });
           
           break;
       
         case '1':
-          if (ev.target.getAttribute('class') == 'oneMoreCourse rounded-lg mb-2 mx-1') {
+          if (ev.target.getAttribute('class') == 'oneMoreCourse rounded-lg mb-2 mx-2') {
             $.post('/menu', {course: courseRow, date: courseDate, mealId: meal.data('id')}, function(menuMeal){
-              let outputMenu = htmlToElement(`<div class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-1" id="menuMeal_${menuMeal.id}" draggable='true' ondragstart='drag(event)'> ${meal.data('name')} <br>`+
+              let outputMenu = htmlToElement(`<div class="course text-align-center bg-light p-2 rounded-lg mb-2 mx-2" id="menuMeal_${menuMeal.id}" draggable='true' ondragstart='drag(event)'> ${meal.data('name')} <br>`+
                 allergenes
               +`</div>`);
               currentTarget.append(outputMenu);
@@ -76,32 +77,36 @@ function deleteMenu(ev) {
   ev.preventDefault();
   var id = ev.dataTransfer.getData("text");
   var menuDiv = document.getElementById(id);
-  if (menuDiv.parentNode.getAttribute('data-courseCount') == '1'){
-    menuDiv.parentNode.setAttribute('data-courseCount','0');
-    menuDiv.parentNode.innerHTML= '<div class="emptyCourse rounded-lg mb-2 mx-1"></div>';
-  }else if (menuDiv.parentNode.getAttribute('data-courseCount') == '2'){
-    menuDiv.parentNode.setAttribute('data-courseCount','1');
-    menuDiv.parentNode.append(htmlToElement('<div class="oneMoreCourse rounded-lg mb-2 mx-1"></div>'));
+  console.log(menuDiv);
+  if (menuDiv.getAttribute('data-name') == undefined) {
+    if (menuDiv.parentNode.getAttribute('data-courseCount') == '1'){
+      menuDiv.parentNode.setAttribute('data-courseCount','0');
+      menuDiv.parentNode.innerHTML= '<div class="emptyCourse rounded-lg mb-2 mx-2"></div>';
+    }else if (menuDiv.parentNode.getAttribute('data-courseCount') == '2'){
+      menuDiv.parentNode.setAttribute('data-courseCount','1');
+      menuDiv.parentNode.append(htmlToElement('<div class="oneMoreCourse rounded-lg mb-2 mx-2"></div>'));
+    }
+   
+    var menuMealId = id.slice(9);
+    console.log(menuMealId);
+    $.ajax({
+      url: '/menu/'+ menuMealId,
+      type: 'DELETE'
+    });
+    /* ,
+      success: function(data) {
+        //play with data
+      } */
+    menuDiv.parentNode.removeChild(menuDiv);
   }
- 
-  var menuMealId = id.slice(9);
-  console.log(menuMealId);
-  $.ajax({
-    url: '/menu/'+ menuMealId,
-    type: 'DELETE'
-  });
-  /* ,
-    success: function(data) {
-      //play with data
-    } */
-  menuDiv.parentNode.removeChild(menuDiv);
+  
 };
 
 //Show Meal
 $(function () {
   $('.showMealButton').click(function(){
       let mealId = $(this).attr("id");
-      $.get('meal/'+ mealId, function (meal) {
+      $.get('/meal/'+ mealId, function (meal) {
           $('#showNameMeal').text(meal.name);
           let course = "";
           if(meal.main == 1)

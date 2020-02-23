@@ -49360,7 +49360,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
@@ -49451,12 +49451,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/style_auth.scss */"./resources/sass/style_auth.scss");
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/style_tables.scss */"./resources/sass/style_tables.scss");
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/style_menu.scss */"./resources/sass/style_menu.scss");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/cateringchef/resources/sass/style_checkbox.scss */"./resources/sass/style_checkbox.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_auth.scss */"./resources/sass/style_auth.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_tables.scss */"./resources/sass/style_tables.scss");
+__webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_menu.scss */"./resources/sass/style_menu.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\CateringChef\resources\sass\style_checkbox.scss */"./resources/sass/style_checkbox.scss");
 
 
 /***/ })
