@@ -10,6 +10,6 @@
     "/js/tables.js": "/js/tables.js",
     "/js/toastr.js": "/js/toastr.js",
     "/js/menu.js": "/js/menu.js",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon.z": "/vendor/tecnickcom/tcpdf/fonts/Kreon.z",
-    "/vendor/tecnickcom/tcpdf/fonts/Kreon.php": "/vendor/tecnickcom/tcpdf/fonts/Kreon.php"
+    "/vendor/tecnickcom/tcpdf/fonts/kreon.z": "/vendor/tecnickcom/tcpdf/fonts/kreon.z",
+    "/vendor/tecnickcom/tcpdf/fonts/kreon.php": "/vendor/tecnickcom/tcpdf/fonts/kreon.php"
 }

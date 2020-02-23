@@ -23,8 +23,8 @@ mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/style_checkbox.scss', 'public/css')
 mix.copyDirectory('resources/img', 'public/img');
 mix.copy('resources/js/menu.js', 'public/js');
-mix.copy('resources/fonts/Kreon.z', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/kreon.z', 'vendor/tecnickcom/tcpdf/fonts');
 /* mix.copy('resources/fonts/Kreon.zip', 'vendor/tecnickcom/tcpdf/fonts');
 mix.copy('resources/fonts/Kreon.afm', 'vendor/tecnickcom/tcpdf/fonts'); */
-mix.copy('resources/fonts/Kreon.php', 'vendor/tecnickcom/tcpdf/fonts');
+mix.copy('resources/fonts/kreon.php', 'vendor/tecnickcom/tcpdf/fonts');
 /* mix.copy('resources/fonts/Kreon-VariableFont_wght.ttf', 'vendor/tecnickcom/tcpdf/fonts'); */
