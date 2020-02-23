@@ -8,11 +8,19 @@
 <div class="container-fluid row m-0 p-0 vh-100">
     {{------------------------------------ Supplier Table ------------------------------------}}
     <div class="col-8 m-0 py-3 px-2 tableHeight">
-        <div class="row">
-            <h1 class="col-3"> Lieferant</h1>
-            <h1 class="col-4"> &nbsp; </h1>
-            <div class=" col-5 pr-3">
-                <input class="form-control bg-white border-0 shadow-none" id="SearchSupplier" type="text" placeholder="Suche..">
+        <div class="d-flex">
+            
+            <h1>@lang('message.suppliers')</h1>
+            <button type="button" 
+            class="btn  mr-auto" 
+            data-toggle="popover" 
+            title="Info Lieferanten" 
+            data-content="Die Komponeten sind die verschiedenen Bestandteile der Speisen. Sie bestehen aus den Zutaten und verfügen über eigene Rezepte."
+            ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
+            
+            
+            <div class=" col-4 pr-0 ml-auto">
+                <input class="form-control bg-white border-0 shadow-none" id="SearchSupplier" type="text" placeholder="@lang('message.search')">
             </div>
         </div>
         <div class="bg-white shadow-sm  h-100 mh-100 d-flex flex-column">

@@ -186,10 +186,10 @@
                 <input class="form-control bg-light border-0 shadow-none" id="SearchMeal" type="text" placeholder="Suche..">
             </div>   
             {{-- <hr class="p-0 my-2"/> --}}
-            <div class="d-flex m-2 p-0">
+            {{-- <div class="d-flex m-2 p-0">
                 <button type="button" class="btn py-1 px-2 btn-light shadow-none">Sortieren <i class="fas fa-sort"></i></button>
                 <button type="button" class="btn py-1 px-2 ml-2 btn-light shadow-none">Filter <i class="fas fa-filter"></i></button>
-            </div>
+            </div> --}}
             {{-- <hr class="p-0 mt-2 mb-0"/> --}}
         </div>
         <div  data-simplebar class="h-100 mh-100 p-2 overflow-auto">
