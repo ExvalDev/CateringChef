@@ -15,9 +15,8 @@
                 <button type="button" 
                 class="btn  mr-auto" 
                 data-toggle="popover" 
-                title="Info Zutaten" 
-                data-content="Die Zutaten bestehen sind die kleinsten Bausteine im System. Sie bestehen aus Allergenen und können einem Liefrant zugewiesen werden.
-                                Aus ihnen kann man später Komponenten erstellen."
+                title="@lang('message.titleIngredients')" 
+                data-content="@lang('message.infoIngredients')"
                 ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
             </div>  
             <div class="bg-white shadow-sm mt-2 h-100 mh-100 d-flex flex-column">
@@ -58,8 +57,8 @@
                 <button type="button" 
                 class="btn  mr-auto" 
                 data-toggle="popover" 
-                title="Info Komponenten" 
-                data-content="Die Komponeten sind die verschiedenen Bestandteile der Speisen. Sie bestehen aus den Zutaten und verfügen über eigene Rezepte."
+                title="@lang('message.titleComponents')" 
+                data-content="@lang('message.infoComponents')"
                 ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
             </div>
             
@@ -101,8 +100,8 @@
                 <button type="button" 
                 class="btn  mr-auto" 
                 data-toggle="popover" 
-                title="Info Speisen" 
-                data-content="Die Speisen sind die wichtigsten Bestandteile des Systems. Zusammengesetzt aus verschiedenen Komponenten, kann man sie im Speiseplan zur Planung benutzen."
+                title="@lang('message.titleMeal')" 
+                data-content="@lang('message.infoMeal')"
                 ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
             </div>
             
