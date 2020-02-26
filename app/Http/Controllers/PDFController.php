@@ -42,6 +42,10 @@ class PDFController extends Controller
             $suppliers = [];
             $start_date = $request->startdate;
             $end_date = $request->enddate;
+            list ($year, $month, $day) = explode('-',$start_date);
+            $start_date_show = $day . "." . $month. "." . $year;
+            list ($year, $month, $day) = explode('-',$end_date);
+            $end_date_show = $day . "." . $month. "." . $year;
             $adults = array_sum($request->adults);
             $childrens =  array_sum($request->childrens);
             $datum = date("d.m.Y");
@@ -52,7 +56,7 @@ class PDFController extends Controller
 
             $strsql = DB::select('SELECT SUM(v3.fixamount) AS MENGE,v3.name AS ZUTAT,s.name AS LIEFERANT,db_units.name AS EINHEIT FROM view3 v3, suppliers s,db_units WHERE v3.supplier_id = s.id AND v3.db_unit_id = db_units.id GROUP BY v3.name, s.name, db_units.name ORDER BY LIEFERANT;');
 
-            $pdfAuthor = "cateringchef.de";
+            $pdfAuthor = "CateringChef.de";
             $pdfImage = '<img src="img/CC-logo.png" style="width:255px; height:auto;">';
             $pdfName = "Einkaufsliste_".$datum.".pdf";
             $EKL_footer = "Erstellt von: CateringChef.de";
@@ -74,11 +78,14 @@ class PDFController extends Controller
                         </div>
                         <div style="border: 1px solid black;">
                             <div>
-                                <font size="16">Erwachsene: '.$adults.'</font>
+                                <font size="18">Erwachsene: '.$adults.'</font>
                             </div>
                             <div>
-                                <font size="16">Kinder: '.$childrens.'</font>
+                                <font size="18">Kinder: '.$childrens.'</font>
                             </div>
+                            <div>
+                            <font size="14">Zeitraum: '.$start_date_show.' bis '.$end_date_show.'</font>
+                            </div> 
                         </div>
                     </td>
                     <td style="text-align: right;">'.$pdfImage.'</td>

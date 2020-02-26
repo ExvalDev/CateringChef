@@ -14,8 +14,8 @@
             <button type="button" 
             class="btn  mr-auto" 
             data-toggle="popover" 
-            title="Info Lieferanten" 
-            data-content="Die Komponeten sind die verschiedenen Bestandteile der Speisen. Sie bestehen aus den Zutaten und verfügen über eigene Rezepte."
+            title="@lang('message.titleCustomer')" 
+            data-content= "@lang('message.infoCustomer')"
             ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
             
             
