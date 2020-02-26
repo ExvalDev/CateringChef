@@ -229,6 +229,6 @@ class MealController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect('/tables')->with($notification);;
+        return redirect('/tables')->with($notification);
     }
 }
