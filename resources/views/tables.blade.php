@@ -348,19 +348,19 @@
                     <div class="modal-body">
                         <form action="{{ action('ComponentController@store') }}" method="POST" id="addComponentForm" class="mt-2">
                         @csrf
-                            <div class="container p-0">
+                            <div class="container p-0 pb-2">
                                 <ul id="progressbar">
                                     <li class="active">@lang('message.general')</li>
                                     <li>@lang('message.ingredients')</li>
                                     <li>@lang('message.recipe')</li>
                                 </ul>
                                 {{-- Page I --}}
-                                <fieldset>
+                                <div class="tabAddComponent">
                                     <h2>@lang('message.general')</h2>
                                     {{-- name Input --}}
                                     <div class="form-row">
                                         <div class="form-group col-12">            
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" oninput="this.className ='form-control'">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -371,15 +371,15 @@
                                     {{-- Amount & Unit --}}
                                     <div class="form-row">            
                                         <div class="input-group col-12">
-                                            <input type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="@lang('message.amount')">
+                                            <input type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" placeholder="@lang('message.amount')" oninput="this.className ='form-control'">
                                             @error('amount')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
 
-                                            <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}">
-                                                <option disabled selected hidden> @lang('message.unit')</option>
+                                            <select class="form-control @error('db_unit_id') is-invalid @enderror" name="db_unit_id" value="{{ old('db_unit_id') }}" onchange="this.className ='form-control'">
+                                                <option value="" disabled selected hidden> @lang('message.unit')</option>
                                                 @foreach($db_units as $db_unit)
                                                     <option value='{{ $db_unit->id }}'>{{ $db_unit->name }}</option>
                                                 @endforeach
@@ -391,12 +391,10 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- next Page --}}
-                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
-                                </fieldset>
+                                </div>
 
                                 {{-- Page II --}}
-                                <fieldset>
+                                <div class="tabAddComponent">
                                     <div class="d-flex">
                                         <h2>@lang('message.ingredients')</h2> 
                                     {{-- ADD Ingredient Button --}}
@@ -431,22 +429,16 @@
                                             {{-- Dynamic element will be cloned here --}}
                                             {{-- You can call clone function once if you want it to show it a first element--}}
                                         </div>
-                                    </div>
-
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
-                                    
-                                </fieldset>
+                                    </div>                                    
+                                </div>
                                 {{-- Page III --}}
-                                <fieldset>
+                                <div class="tabAddComponent">
                                     <h2>@lang('message.recipe')</h2>
                                     <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addComponentForm"></textarea>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <button type="submit" class="btn btn-primary float-right">
-                                        {{ __('Speichern') }}
-                                    </button>
-                                </fieldset>
+                                </div>
                             </div>
+                            <button type="button" id="prevBtnAddComponent" class="btn btn-secondary" onclick="nextPrevAddComponent(-1)">@lang('pagination.previous')</button>
+                            <button type="button" id="nextBtnAddComponent" class="btn btn-primary float-right" onclick="nextPrevAddComponent(1)">@lang('pagination.next')</button>
                         </form>
                     </div>
                 </div>
@@ -587,7 +579,7 @@
                                     <h2>@lang('message.recipe')</h2>
                                     <textarea id="editRecipeComponent" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editComponentForm"></textarea>
                                     <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <button type="submit" class="btn btn-primary float-right">
+                                    <button type="submit" onclick="submitEditComponent()" class="btn btn-primary float-right">
                                         {{ __('Speichern') }}
                                     </button>
                                 </fieldset>
@@ -634,37 +626,36 @@
                             <form action="{{ action('MealController@store') }}" method="POST" id="addMealForm" class="mt-2">
                             @csrf
                                 <div class="container p-0">
-                                    <ul id="progressbar">
+                                    <ul id="progressbar" class="progressbarAddMeal">
                                         <li class="active">@lang('message.general')</li>
                                         <li>@lang('message.component')</li>
                                         <li>@lang('message.recipe')</li>
                                     </ul>
                                     {{-- Page I --}}
-                                    <fieldset class="fieldsetAddMeal">
+                                    <div class="tabAddMeal">
                                         <h2>@lang('message.general')</h2>
                                         {{-- name Input --}}
                                         <div class="form-row">
                                             <div class="form-group col-12">            
-                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')">
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" oninput="className='form-control'">
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group col-12">            
+                                            <div id="courseAddMeal" class="form-group col-12">            
                                                 <input class="form-check-input" id="mainCourse" type="checkbox" name="mainCourse" value="false">
                                                 <label class="form-check-label" for="mainCourse">Hauptgericht</label>
                                                 <input class="form-check-input" id="dessertCourse" type="checkbox" name="dessertCourse" value="false">
                                                 <label class="form-check-label" for="dessertCourse">Dessert</label>
+                                                <span id="courseNotValid" class="text-danger ml-2" style="display: none;">Kategorie wählen!</span>
                                             </div>
                                         </div>
-                                        {{-- next Page --}}
-                                        <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
-                                    </fieldset>
+                                    </div>
 
                                     {{-- Page II --}}
-                                    <fieldset class="fieldsetAddMeal">
+                                    <div class="tabAddMeal">
                                         <div class="d-flex">
                                             <h2>@lang('message.component')</h2> 
                                         {{-- ADD Component Button --}}
@@ -700,21 +691,15 @@
                                                 {{-- You can call clone function once if you want it to show it a first element--}}
                                             </div>
                                         </div>
-
-                                        <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                        <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
-                                        
-                                    </fieldset>
+                                    </div>
                                     {{-- Page III --}}
-                                    <fieldset class="fieldsetAddMeal">
+                                    <div class="tabAddMeal">
                                         <h2>@lang('message.recipe')</h2>
                                         <textarea name="recipe" cols="50" rows="5" class="mb-2 form-control" form="addMealForm"></textarea>
-                                        <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                        <button type="submit" class="btn btn-primary float-right">
-                                            {{ __('Speichern') }}
-                                        </button>
-                                    </fieldset>
+                                    </div>
                                 </div>
+                                <button type="button" id="prevBtnAddMeal" class="btn btn-secondary" onclick="nextPrevAddMeal(-1)">@lang('pagination.previous')</button>
+                                <button type="button" id="nextBtnAddMeal" class="btn btn-primary float-right" onclick="nextPrevAddMeal(1)">@lang('pagination.next')</button>
                             </form>
                         </div>
                     </div>
@@ -837,7 +822,7 @@
                                     <h2>@lang('message.recipe')</h2>
                                     <textarea id="editRecipeMeal" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editMealForm"></textarea>
                                     <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <button type="submit" class="btn btn-primary float-right">
+                                    <button type="submit" onclick="submitEditMeal()" class="btn btn-primary float-right">
                                         {{ __('Speichern') }}
                                     </button>
                                 </fieldset>
