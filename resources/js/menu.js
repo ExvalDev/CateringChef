@@ -44,6 +44,7 @@ function copy(ev) {
             target.removeAttribute('class');
             target.setAttribute('class','oneMoreCourse rounded-lg mb-2 mx-2');
           });
+          toastr.success("Speise wurde dem Speiseplan hinzugefügt!");
           
           break;
       
@@ -57,14 +58,17 @@ function copy(ev) {
               currentTarget.setAttribute('data-courseCount','2');
               target.removeAttribute('class');
               target.setAttribute('class','noMoreCourse');
-            });          
+            }); 
+            toastr.success("Speise wurde dem Speiseplan hinzugefügt!");         
           }
           
           break;
         case '2':
-          alert('Es sind bereits zwei Speisen in dem Tag vorhanden.')
+          toastr.error("Es sind bereits 2 Speisen vorhanden!");
       } 
-    } 
+    } else {
+      toastr.error("Die gewählte Speise passt nicht zum Menügang!");
+    }
   } 
 }
 
@@ -93,11 +97,13 @@ function deleteMenu(ev) {
       url: '/menu/'+ menuMealId,
       type: 'DELETE'
     });
-    /* ,
-      success: function(data) {
-        //play with data
-      } */
-    menuDiv.parentNode.removeChild(menuDiv);
+    toastr.success("Speise wurde aus Speiseplan entfernt!");
+    if (menuDiv.parentNode != null) {
+      menuDiv.parentNode.removeChild(menuDiv);
+    }
+   
+  } else {
+    toastr.error("Speise aus Liste kann nicht entfernt werden!");
   }
   
 };

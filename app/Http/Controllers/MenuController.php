@@ -192,6 +192,7 @@ class MenuController extends Controller
         $menu->meal()->attach($meal);
 
         $mealsMenuId =  DB::table('meals_menus')->where('meal_id',$mealId)->where('menu_id', $menu->id)->first();
+
         return Response::json($mealsMenuId);
         
         
