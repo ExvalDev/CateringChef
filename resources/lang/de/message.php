@@ -51,6 +51,20 @@ return [
 
     'close' => 'Schließen',
     'save' => 'Speichern',
-    'delete' => 'löschen'
+    'delete' => 'löschen',
 
+    'titleIngredients' => 'Bedienungshilfe Zutaten',
+    'infoIngredients' => 'Die Zutaten sind die kleinsten Bausteine im System. Sie werden Allergenen und Lieferanten zugeordnet. Aus ihnen kann man später Komponenten erstellen.',
+    'titleComponents' => 'Bedienungshilfe Komponenten',
+    'infoComponents' => 'Die Komponeten sind die verschiedenen Bestandteile der Speisen. Sie bestehen aus den Zutaten und verfügen über eigene Rezepte.',
+    'titleMeal' => 'Bedienungshilfe Speisen',
+    'infoMeal' => 'Die Speisen sind die wichtigsten Bestandteile des Systems. Zusammengesetzt aus verschiedenen Komponenten kann man sie im Speiseplan zur Planung verwenden.',
+    'titleSupplier' => 'Bedienungshilfe Lieferanten',
+    'infoSupplier' => 'Hier werden die einzelnen Lieferanten erfasst. Angeben wird die Adresse, welche dann später in der Karte eingesehen werden kann.',
+    'titleCustomer' => "Bedienungshilfe Kunden",
+    'infoCustomer' => 'Hier werden die einzelnen Kunden erfasst. Angegeben werden die Anzahl der Erwachsenen und Kinder und die Standorte der Kunden, welche dann in der Karte eingesehen werden können.',
+    'titleMenu' => 'Bedienungshilfe Speiseplan',
+    'infoMenu' => 'Sie können alle Speisen per Drag & Drop aus der Speiseliste in den gewünschten Tag im Speiseplan ziehen. Durch das Ziehen einer Speise über den Löschen-Bereich kann man eine bereits im Plan angelegte Speise wieder entfernen.',
+    'titleShoppingList' => 'Bedienungshilfe Einkaufsliste',
+    'infoShoppingList' => 'Hiermit wird die Einkaufsliste erstellt. Ausgewählt werden je erfasster Kunde die Anzahl an Erwachsenen und Kindern und ein Zeitraum, für den die Einkaufsliste - geordnet nach Lieferanten - erstellt wird.'
 ];

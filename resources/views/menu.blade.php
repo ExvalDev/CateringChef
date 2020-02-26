@@ -18,9 +18,8 @@
       <button type="button" 
               class="btn  mr-auto" 
               data-toggle="popover" 
-              title="Bedienungshilfe" 
-              data-content="Sie können alle Speisen, per Drag & Drop, aus der Speiseliste in den Speiseplan ziehen.
-                            Durch das Ziehen einer Speise über den Löschen-bereich, kann man eine Bereits im Plan angelegte Speise wieder entfernenn."
+              title="@lang('message.titleMenu')" 
+              data-content="@lang('message.infoMenu')"
       ><h3><i class="fas fa-info-circle mb-2"></i></h3></button>
       {{-- choose Week --}}
       <div id="weekControl">
@@ -167,8 +166,15 @@
       <div class="p-2">
         <div class="btn btn-dark m-0 add-one" id="deleteMealInMenu" ondrop="deleteMenu(event)" ondragover="allowDrop(event)">Löschen  <i class="fas fa-trash text-white"></i></div>
         {{-- <button class="btn btn-light m-0 float-right ml-2"> Als PDF exportieren  <i class="far fa-file-pdf"></i></button> --}}
-        <button class="btn btn-light m-0 float-right" data-toggle="modal" data-target="#shoppingListModal"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
+
         
+        <button type="button"  
+        class="btn mr-auto float-right" 
+        data-toggle="popover" 
+        title="@lang('message.titleShoppingList')" 
+        data-content="@lang('message.infoShoppingList')"
+        ><h3><i class="fas fa-info-circle"></i></h3></button>
+        <button class="btn btn-light m-0 float-right" data-toggle="modal" data-target="#shoppingListModal"> Einkaufliste exportieren  <i class="fas fa-shopping-cart"></i></button>
       </div>
     </div>
     <div class="bg-white mt-2 p-2 shadow-sm">
