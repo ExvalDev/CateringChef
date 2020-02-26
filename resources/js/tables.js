@@ -91,75 +91,75 @@ var currentTabAddComponent = 0; // Current tab is set to be the first tab (0)
 showTabAddComponent(currentTabAddComponent); // Display the current tab
 
 function showTabAddComponent(n) {
-  // This function will display the specified tab of the form...
-  var x = document.getElementsByClassName("tabAddComponent");
-  x[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtnAddComponent").style.display = "none";
-  } else {
-    document.getElementById("prevBtnAddComponent").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtnAddComponent").innerHTML = "Submit";
-  } else {
-    document.getElementById("nextBtnAddComponent").innerHTML = "Weiter &raquo;";
-  }
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tabAddComponent");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtnAddComponent").style.display = "none";
+    } else {
+        document.getElementById("prevBtnAddComponent").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtnAddComponent").innerHTML = "Speichern";
+    } else {
+        document.getElementById("nextBtnAddComponent").innerHTML = "Weiter &raquo;";
+    }
 }
 
 window.nextPrevAddComponent = function (n) {
-  // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tabAddComponent");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateFormAddComponent()) return false;
-  // Hide the current tab:
-  x[currentTabAddComponent].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTabAddComponent = currentTabAddComponent + n;
-  // if you have reached the end of the form...
-  if (currentTabAddComponent >= x.length) {
-    // ... the form gets submitted:
-    document.getElementById("addComponentForm").submit();
-    return false;
-  }
-  //
-  if(n == 1){
-    $("#progressbar li").eq(currentTabAddComponent).addClass("active");
-  }
-  if(n == -1){
-    $("#progressbar li").eq(currentTabAddComponent+1).removeClass("active");
-  }
-  // Otherwise, display the correct tab:
-  showTabAddComponent(currentTabAddComponent);
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tabAddComponent");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateFormAddComponent()) return false;
+    // Hide the current tab:
+    x[currentTabAddComponent].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTabAddComponent = currentTabAddComponent + n;
+    // if you have reached the end of the form...
+    if (currentTabAddComponent >= x.length) {
+        // ... the form gets submitted:
+        document.getElementById("addComponentForm").submit();
+        return false;
+    }
+    //activate/deactivate next step on progressbar using the index of currentTabAddComponent
+    if(n == 1){
+        $(".progressbarAddComponent li").eq(currentTabAddComponent).addClass("active");
+    }
+    if(n == -1){
+        $(".progressbarAddComponent li").eq(currentTabAddComponent+1).removeClass("active");
+    }
+    // Otherwise, display the correct tab:
+    showTabAddComponent(currentTabAddComponent);
 }
 
 function validateFormAddComponent() {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tabAddComponent");
-  if(currentTabAddComponent == 0){
-    y = x[currentTabAddComponent].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-      // If a field is empty...
-      if (y[i].value == "") {
-        // add an "invalid" class to the field:
-        y[i].className += " is-invalid";
-        // and set the current valid status to false
-        valid = false;
-      }   
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tabAddComponent");
+    if(currentTabAddComponent == 0)
+    {
+        y = x[currentTabAddComponent].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+            // add an "invalid" class to the field:
+            y[i].className += " is-invalid";
+            // and set the current valid status to false
+            valid = false;
+            }
+        }
+        var select = x[currentTabAddComponent].getElementsByTagName("select");
+        option = select[0].options[select[0].selectedIndex].value;
+        if(option == ''){
+            select[0].className += " is-invalid";
+            valid = false;
+        }
+    } else {
+        valid = true;
     }
-    var select = x[currentTabAddComponent].getElementsByTagName("select");
-    option = select[0].options[select[0].selectedIndex].value;
-    if(option == ''){
-        select[0].className += " is-invalid";
-        valid = false;
-    }
-  }
-  else {
-      valid = true;
-  }
-  return valid;
+    return valid;
 };
 
 //Show Component
@@ -204,7 +204,6 @@ $(function ()
                 allIngredients.forEach(allIngredient =>{
                     allIngredientsArray.push(allIngredient);
                 });
-                console.log(allIngredientsArray);
                 let count = 1;
                 var editIngredientsHTML = "";
                 component.ingredients.forEach(ingredient =>
@@ -245,11 +244,81 @@ $(function ()
     });
 });
 
-//Firefox Submit
-window.submitEditComponent = function(){
-    document.getElementById("editComponentForm").submit();
+//Progress Bar -> Edit Component
+var currentTabEditComponent = 0; // Current tab is set to be the first tab (0)
+showTabEditComponent(currentTabEditComponent); // Display the current tab
+
+function showTabEditComponent(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tabEditComponent");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtnEditComponent").style.display = "none";
+    } else {
+        document.getElementById("prevBtnEditComponent").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtnEditComponent").innerHTML = "Submit";
+    } else {
+        document.getElementById("nextBtnEditComponent").innerHTML = "Weiter &raquo;";
+    }
 }
 
+window.nextPrevEditComponent = function (n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tabEditComponent");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateFormEditComponent()) return false;
+    // Hide the current tab:
+    x[currentTabEditComponent].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTabEditComponent = currentTabEditComponent + n;
+    // if you have reached the end of the form...
+    if (currentTabEditComponent >= x.length) {
+        // ... the form gets submitted:
+        document.getElementById("editComponentForm").submit();
+        return false;
+    }
+    //activate/deactivate next step on progressbar using the index of currentTabEditComponent
+    if(n == 1){
+        $(".progressbarEditComponent li").eq(currentTabEditComponent).addClass("active");
+    }
+    if(n == -1){
+        $(".progressbarEditComponent li").eq(currentTabEditComponent+1).removeClass("active");
+    }
+    // Otherwise, display the correct tab:
+    showTabEditComponent(currentTabEditComponent);
+}
+
+function validateFormEditComponent() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tabEditComponent");
+    if(currentTabEditComponent == 0)
+    {
+        y = x[currentTabEditComponent].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+            // add an "invalid" class to the field:
+            y[i].className += " is-invalid";
+            // and set the current valid status to false
+            valid = false;
+            }
+        }
+        var select = x[currentTabEditComponent].getElementsByTagName("select");
+        option = select[0].options[select[0].selectedIndex].value;
+        if(option == ''){
+            select[0].className += " is-invalid";
+            valid = false;
+        }
+    } else {
+        valid = true;
+    }
+    return valid;
+};
 
 //Add Ingredient -> Edit Component Dynamic Form
 $('.edit-ingredient').click(function(){
@@ -326,79 +395,78 @@ var currentTabAddMeal = 0; // Current tab is set to be the first tab (0)
 showTabAddMeal(currentTabAddMeal); // Display the current tab
 
 function showTabAddMeal(n) {
-  // This function will display the specified tab of the form...
-  var x = document.getElementsByClassName("tabAddMeal");
-  x[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtnAddMeal").style.display = "none";
-  } else {
-    document.getElementById("prevBtnAddMeal").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtnAddMeal").innerHTML = "Speichern";
-  } else {
-    document.getElementById("nextBtnAddMeal").innerHTML = "Weiter &raquo;";
-  }
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tabAddMeal");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtnAddMeal").style.display = "none";
+    } else {
+        document.getElementById("prevBtnAddMeal").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtnAddMeal").innerHTML = "Speichern";
+    } else {
+        document.getElementById("nextBtnAddMeal").innerHTML = "Weiter &raquo;";
+    }
 }
 
 window.nextPrevAddMeal = function (n) {
-  // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tabAddMeal");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateFormAddMeal()) return false;
-  // Hide the current tab:
-  x[currentTabAddMeal].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTabAddMeal = currentTabAddMeal + n;
-  // if you have reached the end of the form...
-  if (currentTabAddMeal >= x.length) {
-    // ... the form gets submitted:
-    document.getElementById("addMealForm").submit();
-    return false;
-  }
-  //
-  if(n == 1){
-    $(".progressbarAddMeal li").eq(currentTabAddMeal).addClass("active");
-  }
-  if(n == -1){
-    $(".progressbarAddMeal li").eq(currentTabAddMeal+1).removeClass("active");
-  }
-  // Otherwise, display the correct tab:
-  showTabAddMeal(currentTabAddMeal);
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tabAddMeal");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateFormAddMeal()) return false;
+    // Hide the current tab:
+    x[currentTabAddMeal].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTabAddMeal = currentTabAddMeal + n;
+    // if you have reached the end of the form...
+    if (currentTabAddMeal >= x.length) {
+        // ... the form gets submitted:
+        document.getElementById("addMealForm").submit();
+        return false;
+    }
+    //activate/deactivate next step on progressbar using the index of currentTabAddMeal
+    if(n == 1){
+        $(".progressbarAddMeal li").eq(currentTabAddMeal).addClass("active");
+    }
+    if(n == -1){
+        $(".progressbarAddMeal li").eq(currentTabAddMeal+1).removeClass("active");
+    }
+    // Otherwise, display the correct tab:
+    showTabAddMeal(currentTabAddMeal);
 }
 
 function validateFormAddMeal() {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true, validCheckbox = false;
-  x = document.getElementsByClassName("tabAddMeal");
-  if(currentTabAddMeal == 0){
-    y = x[currentTabAddMeal].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-      // If a field is empty...
-      if (y[i].value == "") {
-        // add an "invalid" class to the field:
-        y[i].className += " is-invalid";
-        // and set the current valid status to false
-        valid = false;
-      }   
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true, validCheckbox = false;
+    x = document.getElementsByClassName("tabAddMeal");
+    if(currentTabAddMeal == 0){
+        y = x[currentTabAddMeal].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " is-invalid";
+                // and set the current valid status to false
+                valid = false;
+             }   
+        }
+        if((document.getElementById('mainCourse').checked) || (document.getElementById('dessertCourse').checked)){
+            validCheckbox = true;
+        }
+        else{
+            document.getElementById('AddCourseNotValid').style.display = 'block';
+            valid = false;
+        }
+        if(valid && validCheckbox){
+            return valid;
+        }
+    } else {
+        valid = true;
     }
-    if((document.getElementById('mainCourse').checked) || (document.getElementById('dessertCourse').checked)){
-        validCheckbox = true;
-    }
-    else{
-        document.getElementById('courseNotValid').style.display = 'block';
-        valid = false;
-    }
-    if(valid && validCheckbox){
-        return valid;
-      }
-  }
-  else {
-      valid = true;
-  }
-  return valid;
+    return valid;
 };
 
 //Show Meal
@@ -499,10 +567,84 @@ $(function ()
     });
 });
 
-//Firefox Submit
-window.submitEditMeal = function(){
-    document.getElementById("editMealForm").submit();
+//Progress Bar -> Edit Meal
+var currentTabEditMeal = 0; // Current tab is set to be the first tab (0)
+showTabEditMeal(currentTabEditMeal); // Display the current tab
+
+function showTabEditMeal(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tabEditMeal");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtnEditMeal").style.display = "none";
+    } else {
+        document.getElementById("prevBtnEditMeal").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtnEditMeal").innerHTML = "Speichern";
+    } else {
+        document.getElementById("nextBtnEditMeal").innerHTML = "Weiter &raquo;";
+    }
 }
+
+window.nextPrevEditMeal = function (n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tabEditMeal");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateFormEditMeal()) return false;
+    // Hide the current tab:
+    x[currentTabEditMeal].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTabEditMeal = currentTabEditMeal + n;
+    // if you have reached the end of the form...
+    if (currentTabEditMeal >= x.length) {
+        // ... the form gets submitted:
+        document.getElementById("editMealForm").submit();
+        return false;
+    }
+    //activate/deactivate next step on progressbar using the index of currentTabEditMeal
+    if(n == 1){
+        $(".progressbarEditMeal li").eq(currentTabEditMeal).addClass("active");
+    }
+    if(n == -1){
+        $(".progressbarEditMeal li").eq(currentTabEditMeal+1).removeClass("active");
+    }
+    // Otherwise, display the correct tab:
+    showTabEditMeal(currentTabEditMeal);
+}
+
+function validateFormEditMeal() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true, validCheckbox = false;
+    x = document.getElementsByClassName("tabEditMeal");
+    if(currentTabEditMeal == 0){
+        y = x[currentTabEditMeal].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " is-invalid";
+                // and set the current valid status to false
+                valid = false;
+             }   
+        }
+        if((document.getElementById('editMainCourse').checked) || (document.getElementById('editDessertCourse').checked)){
+            validCheckbox = true;
+        }
+        else{
+            document.getElementById('EditCourseNotValid').style.display = 'block';
+            valid = false;
+        }
+        if(valid && validCheckbox){
+            return valid;
+        }
+    } else {
+        valid = true;
+    }
+    return valid;
+};
 
 //ADD Meal -> Main Course Checkbox
 $("#editMainCourse").on('change', function() {
@@ -566,6 +708,7 @@ $(document).ready(function(){
     var current = 1,current_step,next_step,steps;
 	steps = $("fieldset").length;
 	$(".next").click(function(){
+        console.log('weiter');
 		current_step = $(this).parent();
 		next_step = $(this).parent().next();
 		next_step.show();
