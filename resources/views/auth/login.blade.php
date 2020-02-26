@@ -44,7 +44,7 @@
                 <button type="submit" class="btn m-1">
                     {{ __('Anmelden') }}
                 </button>
-                <button type="submit" class="btn m-1">
+                <button type="text" class="btn m-1">
                     <a href="{{ route('register') }}">
                         {{ __('Registrieren') }}
                     </a>
