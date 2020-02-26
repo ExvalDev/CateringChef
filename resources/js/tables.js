@@ -86,6 +86,82 @@ function attach_delete_add_ingredient(){
     });
 }//Attach functionality to delete buttons
 
+//Progress Bar -> Add Component
+var currentTabAddComponent = 0; // Current tab is set to be the first tab (0)
+showTabAddComponent(currentTabAddComponent); // Display the current tab
+
+function showTabAddComponent(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tabAddComponent");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtnAddComponent").style.display = "none";
+  } else {
+    document.getElementById("prevBtnAddComponent").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtnAddComponent").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtnAddComponent").innerHTML = "Weiter &raquo;";
+  }
+}
+
+window.nextPrevAddComponent = function (n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tabAddComponent");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateFormAddComponent()) return false;
+  // Hide the current tab:
+  x[currentTabAddComponent].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTabAddComponent = currentTabAddComponent + n;
+  // if you have reached the end of the form...
+  if (currentTabAddComponent >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("addComponentForm").submit();
+    return false;
+  }
+  //
+  if(n == 1){
+    $("#progressbar li").eq(currentTabAddComponent).addClass("active");
+  }
+  if(n == -1){
+    $("#progressbar li").eq(currentTabAddComponent+1).removeClass("active");
+  }
+  // Otherwise, display the correct tab:
+  showTabAddComponent(currentTabAddComponent);
+}
+
+function validateFormAddComponent() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tabAddComponent");
+  if(currentTabAddComponent == 0){
+    y = x[currentTabAddComponent].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+      // If a field is empty...
+      if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " is-invalid";
+        // and set the current valid status to false
+        valid = false;
+      }   
+    }
+    var select = x[currentTabAddComponent].getElementsByTagName("select");
+    option = select[0].options[select[0].selectedIndex].value;
+    if(option == ''){
+        select[0].className += " is-invalid";
+        valid = false;
+    }
+  }
+  else {
+      valid = true;
+  }
+  return valid;
+};
+
 //Show Component
 $(function () {
     $('.showComponentButton').click(function(){
@@ -169,6 +245,12 @@ $(function ()
     });
 });
 
+//Firefox Submit
+window.submitEditComponent = function(){
+    document.getElementById("editComponentForm").submit();
+}
+
+
 //Add Ingredient -> Edit Component Dynamic Form
 $('.edit-ingredient').click(function(){
     var row = $('.dynamic-ingredient-edit').first().clone();
@@ -214,6 +296,13 @@ $('.add-component').click(function(){
     $('.unitComponentAdd').last().attr('id', 'unitComponentAdd'+count);
 });//Clone the hidden element and shows it
 
+function attach_delete_add_component(){
+    $('.delete-dynamic-component').off();
+    $('.delete-dynamic-component').click(function(){
+        $(this).closest('.dynamic-component').remove();
+    });
+}//Attach functionality to delete buttons
+
 //ADD Meal -> Main Course Checkbox
 $("#mainCourse").on('change', function() {
     if ($(this).is(':checked')) {
@@ -232,13 +321,85 @@ $("#dessertCourse").on('change', function() {
     }
 });
 
-  
-function attach_delete_add_component(){
-    $('.delete-dynamic-component').off();
-    $('.delete-dynamic-component').click(function(){
-        $(this).closest('.dynamic-component').remove();
-    });
-}//Attach functionality to delete buttons
+//Progress Bar -> Add Meal
+var currentTabAddMeal = 0; // Current tab is set to be the first tab (0)
+showTabAddMeal(currentTabAddMeal); // Display the current tab
+
+function showTabAddMeal(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tabAddMeal");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtnAddMeal").style.display = "none";
+  } else {
+    document.getElementById("prevBtnAddMeal").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtnAddMeal").innerHTML = "Speichern";
+  } else {
+    document.getElementById("nextBtnAddMeal").innerHTML = "Weiter &raquo;";
+  }
+}
+
+window.nextPrevAddMeal = function (n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tabAddMeal");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateFormAddMeal()) return false;
+  // Hide the current tab:
+  x[currentTabAddMeal].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTabAddMeal = currentTabAddMeal + n;
+  // if you have reached the end of the form...
+  if (currentTabAddMeal >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("addMealForm").submit();
+    return false;
+  }
+  //
+  if(n == 1){
+    $(".progressbarAddMeal li").eq(currentTabAddMeal).addClass("active");
+  }
+  if(n == -1){
+    $(".progressbarAddMeal li").eq(currentTabAddMeal+1).removeClass("active");
+  }
+  // Otherwise, display the correct tab:
+  showTabAddMeal(currentTabAddMeal);
+}
+
+function validateFormAddMeal() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true, validCheckbox = false;
+  x = document.getElementsByClassName("tabAddMeal");
+  if(currentTabAddMeal == 0){
+    y = x[currentTabAddMeal].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+      // If a field is empty...
+      if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " is-invalid";
+        // and set the current valid status to false
+        valid = false;
+      }   
+    }
+    if((document.getElementById('mainCourse').checked) || (document.getElementById('dessertCourse').checked)){
+        validCheckbox = true;
+    }
+    else{
+        document.getElementById('courseNotValid').style.display = 'block';
+        valid = false;
+    }
+    if(valid && validCheckbox){
+        return valid;
+      }
+  }
+  else {
+      valid = true;
+  }
+  return valid;
+};
 
 //Show Meal
 $(function () {
@@ -338,6 +499,11 @@ $(function ()
     });
 });
 
+//Firefox Submit
+window.submitEditMeal = function(){
+    document.getElementById("editMealForm").submit();
+}
+
 //ADD Meal -> Main Course Checkbox
 $("#editMainCourse").on('change', function() {
     if ($(this).is(':checked')) {
@@ -388,15 +554,12 @@ $(document).ready(function(){
 
 //------------------------------- Progress Bar -------------------------------
 
-//Progress Bar
+//Progress Bar -> Edit Component & Meal
 $(document).ready(function(){
     //Hide the Elements
     var firstComponentEdit = $(".fieldsetComponent");
     firstComponentEdit.next().hide();
     firstComponentEdit.next().next().hide();
-    var firstMealAdd = $(".fieldsetAddMeal");
-    firstMealAdd.next().hide();
-    firstMealAdd.next().next().hide();
     var firstMealEdit = $(".fieldsetEditMeal");
     firstMealEdit.next().hide();
     firstMealEdit.next().next().hide();
