@@ -72,3 +72,21 @@ form {
     top: 96%;
     right: 1%;
 }
+
+@media screen and ( max-width: 32rem ){
+    .login-box {
+        
+        border-radius: 0px;
+        padding: 5px;
+        /* position: none; */
+        /* top: 0;
+        left: 0;
+        transform: translate(-50%, -50%); */
+        width: 100%;
+        
+        
+    }
+    #foo{
+        display: none;
+    }
+}

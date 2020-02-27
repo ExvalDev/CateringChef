@@ -212,16 +212,18 @@
 </script>
 
 @elsedesktop
-<div class="text-center"><h1>Hello :) The current version is not mobile compatible. We are working on a Solution, to improve your work with CateringChef.</h1></div>
-<a href="{{ route('logout') }}" class="navResonsiveBtn nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Ausloggen"
-                                onclick="
-                                    event.preventDefault();
-                                    document.getElementById('logout-form').submit();
-                                ">
-                                {{ __('') }} Logout<i class="fas fa-sign-out-alt navIcon"></i>
-                            </a>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
+<div class="text-center mx-4">
+    <h2>Hello :) The current version is not mobile compatible. We are working on a Solution, to improve your work with CateringChef.</h2>
+    <a href="{{ route('logout') }}" class=" btn btn-primary mx-auto" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                                    onclick="
+                                        event.preventDefault();
+                                        document.getElementById('logout-form').submit();
+                                    ">
+                                    {{ __('') }} Logout <i class="fas fa-sign-out-alt navIcon"></i>
+                                </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+</div>
 @enddesktop
 </html>
