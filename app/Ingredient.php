@@ -12,7 +12,7 @@ class Ingredient extends Model
 {
     public function Allergene()
     {
-        return $this->belongsToMany(Allergene::class, 'allergenes_ingredients', 'ingredient_id', 'allergene_id');
+        return $this->belongsToMany(Allergene::class, 'allergenes_ingredients', 'ingredient_id', 'allergene_id')->withTimestamps();
     }
 
     public function Supplier()
