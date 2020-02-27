@@ -4,7 +4,7 @@
 @section('content')
 <div class="mx-auto p-3 login-box">
     <div class="row justify-content-center">
-        <img src="../img/LogoOpen.png" height="237" width="215" alt="Catering Chef" >
+        <img src="../img/LogoOpen.png" height="237" width="215" alt="Catering Chef" class="authLogo">
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div class="form-group">
