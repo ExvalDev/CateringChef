@@ -29,9 +29,9 @@
                 <table class=" mt-2 w-100">
                     <thead>
                         <tr class="row mx-2">
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.name')</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.adults')</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>@lang('message.childrens')</h3></th>
+                            <th scope="col" class="col-5 pl-2 my-auto"><h3>@lang('message.name')</h3></th>
+                            <th scope="col" class="col-2 pl-2 my-auto"><h3>@lang('message.adults')</h3></th>
+                            <th scope="col" class="col-2 pl-2 my-auto"><h3>@lang('message.childrens')</h3></th>
                             <th scope="col" class="col-3 pl-2 pr-0">
                                 <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addCustomerModal"><i class="fas fa-plus"></i></button>
                             </th>
@@ -46,9 +46,9 @@
                     <tbody id="TableCustomer">
                         @foreach ($customers as $customer)
                             <tr class="row mx-0 mb-2 bg-light rounded">
-                                <td class="col-3 searchItem"><h4>{{ $customer->name }}</h4></td>
-                                <td class="col-3"><h4>{{ $customer->adults }}</h4></td>
-                                <td class="col-3"><h4>{{ $customer->childrens }}</h4></td>
+                                <td class="col-5 searchItem"><span class="text-dark font-weight-bold">{{ $customer->name }}</span></td>
+                                <td class="col-2"><span class="text-dark font-weight-bold">{{ $customer->adults }}</span></td>
+                                <td class="col-2"><span class="text-dark font-weight-bold">{{ $customer->childrens }}</span></td>
                                 <td class="col-3">
                                     <div class="btn-group float-right">
                                         {{-- Button SHOW Customer Modal --}} 
@@ -81,16 +81,16 @@
             <table class="table table-borderless">
                 <tbody>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.customers'): </h4></td>
-                        <td class="col-6"><h4>{{$cntCustomers}}</h4></td>
+                        <td class="col-6 text-right"><span class="text-dark font-weight-bold">@lang('message.count') @lang('message.customers'): </span></td>
+                        <td class="col-6"><span class="text-dark font-weight-bold">{{$cntCustomers}}</span></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.adults'): </h4></td>
-                        <td class="col-6"><h4>{{$sumAdults}}</h4></td>
+                        <td class="col-6 text-right"><span class="text-dark font-weight-bold">@lang('message.count') @lang('message.adults'): </span></td>
+                        <td class="col-6"><span class="text-dark font-weight-bold">{{$sumAdults}}</span></td>
                     </tr>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>@lang('message.count') @lang('message.childrens'): </h4></td>
-                        <td class="col-6"><h4>{{$sumChildrens}}</h4></td>
+                        <td class="col-6 text-right"><span class="text-dark font-weight-bold">@lang('message.count') @lang('message.childrens'): </span></td>
+                        <td class="col-6"><span class="text-dark font-weight-bold">{{$sumChildrens}}</span></td>
                     </tr>
                 </tbody>
             </table>
