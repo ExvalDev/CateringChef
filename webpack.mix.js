@@ -22,6 +22,7 @@ mix.js('resources/js/tables.js', 'public/js')
    .sass('resources/sass/style_menu.scss', 'public/css')
    .sass('resources/sass/style_checkbox.scss', 'public/css')
 mix.copyDirectory('resources/img', 'public/img');
+mix.copyDirectory('resources/favicon', 'public/favicon');
 mix.copy('resources/js/menu.js', 'public/js');
 mix.copy('resources/fonts/kreon.z', 'vendor/tecnickcom/tcpdf/fonts');
 /* mix.copy('resources/fonts/Kreon.zip', 'vendor/tecnickcom/tcpdf/fonts');
