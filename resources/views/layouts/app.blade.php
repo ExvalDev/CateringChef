@@ -39,6 +39,7 @@
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 <body>  
+    @desktop
     {{--------------------------------------- SCRIPTS (START) -----------------------------------------}}
     {{-- Notification --}}
     <script src="{{ asset('js/toastr.js') }}"></script>
@@ -209,4 +210,8 @@
         }
     }
 </script>
+
+@elsedesktop
+<div><h1>Open in Desktop Browser</h1></div>
+@enddesktop
 </html>
