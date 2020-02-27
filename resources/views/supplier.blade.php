@@ -31,9 +31,9 @@
                 <table class=" mt-2 w-100">
                     <thead>
                         <tr class="row mx-2">
-                            <th scope="col" class="col-3 pl-2 my-auto"><h3>Name</h3></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"></th>
-                            <th scope="col" class="col-3 pl-2 my-auto"></th>
+                            <th scope="col" class="col-9 pl-2 my-auto"><h3>Name</h3></th>
+                            {{-- <th scope="col" class="col-3 pl-2 my-auto"></th>
+                            <th scope="col" class="col-3 pl-2 my-auto"></th> --}}
                             <th scope="col" class="col-3 pl-2 pr-0">
                                 <button type="button" class="btn py-0 px-2 btn-primary shadow-none float-right" data-toggle="modal" data-target="#addsupplier"><i class="fas fa-plus"></i></button>
                             </th>
@@ -48,9 +48,9 @@
                     <tbody id="TableSupplier">
                         @foreach ($suppliers as $supplier)
                             <tr class="row mx-0 mb-2 bg-light rounded">
-                                <td class="col-3 searchItem"><h4>{{ $supplier->name }}</h4></td>
-                                <td class="col-3"></td>
-                                <td class="col-3"></td>
+                                <td class="col-9 searchItem"><span class="text-dark font-weight-bold">{{ $supplier->name }}</span></td>
+                                {{-- <td class="col-3"></td>
+                                <td class="col-3"></td> --}}
                                 <td class="col-3">
                                     <div class="btn-group float-right">
                                         {{-- Button SHOW Supplier Modal --}}
@@ -83,8 +83,8 @@
             <table class="table table-borderless">
                 <tbody>
                     <tr class="row mx-0">
-                        <td class="col-6 text-right"><h4>Anzahl Lieferanten: </h4></td>
-                        <td class="col-6"><h4>{{$countSuppliers}}</h4></td>
+                        <td class="col-6 text-right"><span class="text-dark font-weight-bold">Anzahl Lieferanten: </span></td>
+                        <td class="col-6"><span class="text-dark font-weight-bold">{{$countSuppliers}}</span></td>
                     </tr>
                     <tr class="row mx-0">
                         <td class="col-6 text-right"></td>

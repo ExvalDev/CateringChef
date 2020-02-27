@@ -9,6 +9,6 @@ class Menu extends Model
 {
     public function Meal()
     {
-        return $this->belongsToMany(Meal::class, 'meals_menus',  'menu_id', 'meal_id');
+        return $this->belongsToMany(Meal::class, 'meals_menus',  'menu_id', 'meal_id')->withTimestamps();
     }
 }

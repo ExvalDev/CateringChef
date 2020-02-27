@@ -8,14 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "cornford/googlmapper": "2.*",
         "php": "^7.2",
         "caouecs/laravel-lang": "^4.0",
+        "cornford/googlmapper": "2.*",
+        "elibyy/tcpdf-laravel": "^6.0.4",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-cookie-consent": "^2.11",
-        "elibyy/tcpdf-laravel": "^6.0.4"
+        "riverskies/laravel-mobile-detect": "^1.3",
+        "spatie/laravel-cookie-consent": "^2.11"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

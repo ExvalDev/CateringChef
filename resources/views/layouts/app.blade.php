@@ -39,6 +39,7 @@
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 <body>  
+    @desktop
     {{--------------------------------------- SCRIPTS (START) -----------------------------------------}}
     {{-- Notification --}}
     <script src="{{ asset('js/toastr.js') }}"></script>
@@ -78,7 +79,7 @@
     <div id="app">    
         <div class="vertical-nav bg-white">       
             <nav class="nav flex-column h-100">
-                    <a class="navbar-brand mx-auto" href="#"><img src="{{ asset('img/CC-logo.png') }}" class="mx-auto d-block" alt="CC" width="80%"></a>
+                    <a class="navbar-brand mx-auto px-2" href="{{ url('/menu') }}"><img src="{{ asset('img/LogoClose.png') }}" class="mx-auto d-block" alt="CC" width="80%"></a>
                     <a href="{{ url('/menu') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Speiseplan"><i class="far fa-calendar-alt navIcon" id="{{Request::path() === 'menu' ? 'acIcon' : ''}}"></i></a>
                     <a href="{{ url('/tables') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Tabellen"> <i class="fas fa-utensils navIcon" id="{{Request::path() === 'tables' ? 'acIcon' : ''}}"></i></a>
                     {{-- <a href="{{ url('/recipes') }}" class="navBtn nav-link mx-auto mt-2" data-toggle="tooltip" data-placement="right" title="Rezepte"> <i class="fas fa-book navIcon" id="{{Request::path() === 'recipes' ? 'acIcon' : ''}}"></i></a> --}}
@@ -209,4 +210,20 @@
         }
     }
 </script>
+
+@elsedesktop
+<div class="text-center mx-4">
+    <h2>Hello :) The current version is not mobile compatible. We are working on a Solution, to improve your work with CateringChef.</h2>
+    <a href="{{ route('logout') }}" class=" btn btn-primary mx-auto" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                                    onclick="
+                                        event.preventDefault();
+                                        document.getElementById('logout-form').submit();
+                                    ">
+                                    {{ __('') }} Logout <i class="fas fa-sign-out-alt navIcon"></i>
+                                </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+</div>
+@enddesktop
 </html>

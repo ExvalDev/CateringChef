@@ -57,7 +57,7 @@ class PDFController extends Controller
             $strsql = DB::select('SELECT SUM(v3.fixamount) AS MENGE,v3.name AS ZUTAT,s.name AS LIEFERANT,db_units.name AS EINHEIT FROM view3 v3, suppliers s,db_units WHERE v3.supplier_id = s.id AND v3.db_unit_id = db_units.id GROUP BY v3.name, s.name, db_units.name ORDER BY LIEFERANT;');
 
             $pdfAuthor = "CateringChef.de";
-            $pdfImage = '<img src="img/CC-logo.png" style="width:255px; height:auto;">';
+            $pdfImage = '<img src="img/LogoOpen.png" style="width:255px; height:auto;">';
             $pdfName = "Einkaufsliste_".$datum.".pdf";
             $EKL_footer = "Erstellt von: CateringChef.de";
 
