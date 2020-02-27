@@ -3,7 +3,8 @@
 @section('content')
 <div class="mx-auto p-3 login-box"  >
     <div class="row justify-content-center">
-            <img src="../img/LogoAnimation.gif" height="240" width="240" alt="Catering Chef" class="authLogo">
+            {{-- <img src="../img/LogoAnimation.gif" height="240" width="240" alt="Catering Chef" class="authLogo"> --}}
+            <video src="{{ asset('videos/LogoVideo.mp4')}}" alt="CateringChef" height="240" width="240" preload="auto" autoplay loop muted></video>
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
