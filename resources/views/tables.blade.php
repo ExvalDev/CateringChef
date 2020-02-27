@@ -151,7 +151,7 @@
                             @csrf
                             <div class="form-group">            
                                 <div class="col">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="@lang('message.name')" autofocus required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -348,7 +348,7 @@
                         <form action="{{ action('ComponentController@store') }}" method="POST" id="addComponentForm" class="mt-2">
                         @csrf
                             <div class="container p-0 pb-2">
-                                <ul id="progressbar">
+                                <ul id="progressbar" class="progressbarAddComponent">
                                     <li class="active">@lang('message.general')</li>
                                     <li>@lang('message.ingredients')</li>
                                     <li>@lang('message.recipe')</li>
@@ -479,18 +479,18 @@
                         <h3><i class="fas fa-pen"></i> @lang('message.components')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="/component" method="POST" id="editComponentForm">
+                    <div class="modal-body">
+                        <form action="/component" method="POST" id="editComponentForm">
                         @method('PUT')
                         @csrf
-                        <div class="modal-body">
-                            <div class="container p-0">
-                                <ul id="progressbar">
+                            <div class="container p-0 pb-2">
+                                <ul id="progressbar" class="progressbarEditComponent">
                                     <li class="active">@lang('message.general')</li>
                                     <li>@lang('message.ingredients')</li>
                                     <li>@lang('message.recipe')</li>
                                 </ul>
                                 {{-- Page I --}}
-                                <fieldset class="fieldsetComponent">
+                                <div class="tabEditComponent">
                                     <h2>@lang('message.general')</h2>
                                     {{-- name Input --}}
                                     <div class="form-row">
@@ -526,12 +526,10 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- next Page --}}
-                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
-                                </fieldset>
+                                </div>
 
                                 {{-- Page II --}}
-                                <fieldset class="fieldsetComponent">
+                                <div class="tabEditComponent">
                                     <div class="d-flex">
                                         <h2>@lang('message.ingredients')</h2> 
                                     {{-- ADD Ingredient Button --}}
@@ -568,23 +566,17 @@
                                             {{-- You can call clone function once if you want it to show it a first element--}}
                                         </div>
                                     </div>
-
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
-                                    
-                                </fieldset class="fieldsetComponent">
+                                </div>
                                 {{-- Page III --}}
-                                <fieldset>
+                                <div class="tabEditComponent">
                                     <h2>@lang('message.recipe')</h2>
                                     <textarea id="editRecipeComponent" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editComponentForm"></textarea>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <button type="submit" onclick="submitEditComponent()" class="btn btn-primary float-right">
-                                        {{ __('Speichern') }}
-                                    </button>
-                                </fieldset>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <button type="button" id="prevBtnEditComponent" class="btn btn-secondary" onclick="nextPrevEditComponent(-1)">@lang('pagination.previous')</button>
+                            <button type="button" id="nextBtnEditComponent" class="btn btn-primary float-right" onclick="nextPrevEditComponent(1)">@lang('pagination.next')</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -648,7 +640,7 @@
                                                 <label class="form-check-label" for="mainCourse">Hauptgericht</label>
                                                 <input class="form-check-input" id="dessertCourse" type="checkbox" name="dessertCourse" value="false">
                                                 <label class="form-check-label" for="dessertCourse">Dessert</label>
-                                                <span id="courseNotValid" class="text-danger ml-2" style="display: none;">Kategorie wählen!</span>
+                                                <span id="AddCourseNotValid" class="text-danger ml-2" style="display: none;">Kategorie wählen!</span>
                                             </div>
                                         </div>
                                     </div>
@@ -739,18 +731,18 @@
                         <h3><i class="fas fa-pen"></i> @lang('message.meal')</h3>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="/meal" method="POST" id="editMealForm">
+                    <div class="modal-body" id="editMeal">
+                        <form action="/meal" method="POST" id="editMealForm">
                         @method('PUT')
                         @csrf
-                        <div class="modal-body" id="editMeal">
-                            <div class="container p-0">
-                                <ul id="progressbar">
+                            <div class="container p-0 pb-2">
+                                <ul id="progressbar" class="progressbarEditMeal">
                                     <li class="active">@lang('message.general')</li>
                                     <li>@lang('message.component')</li>
                                     <li>@lang('message.recipe')</li>
                                 </ul>
                                 {{-- Page I --}}
-                                <fieldset class="fieldsetEditMeal">
+                                <div class="tabEditMeal">
                                     <h2>@lang('message.general')</h2>
                                     {{-- name Input --}}
                                     <div class="form-row">
@@ -767,18 +759,17 @@
                                             <label class="form-check-label" for="editMainCourse">Hauptgericht</label>
                                             <input class="form-check-input" id="editDessertCourse" type="checkbox" name="dessertCourse" value="false">
                                             <label class="form-check-label" for="editDessertCourse">Dessert</label>
+                                            <span id="EditCourseNotValid" class="text-danger ml-2" style="display: none;">Kategorie wählen!</span>
                                         </div>
                                     </div>
-                                    {{-- next Page --}}
-                                    <input type="button" name="next" class="next btn btn-primary float-right mt-3" value="@lang('pagination.next')">
-                                </fieldset>
+                                </div>
 
                                 {{-- Page II --}}
-                                <fieldset class="fieldsetEditMeal">
+                                <div class="tabEditMeal">
                                     <div class="d-flex">
                                         <h2>@lang('message.component')</h2> 
-                                    {{-- ADD Component Button --}}
-                                    <p class="btn py-0 px-2 btn-primary shadow-none ml-auto edit-component"><i class="fas fa-plus"></i></p>
+                                        {{-- ADD Component Button --}}
+                                        <p class="btn py-0 px-2 btn-primary shadow-none ml-auto edit-component"><i class="fas fa-plus"></i></p>
                                     </div>
                                     
                                     <div class="form-container mb-3">
@@ -811,23 +802,17 @@
                                             {{-- You can call clone function once if you want it to show it a first element--}}
                                         </div>
                                     </div>
-
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <input type="button" name="next" class="next btn btn-primary float-right" value="@lang('pagination.next')" />
-                                    
-                                </fieldset>
+                                </div>
                                 {{-- Page III --}}
-                                <fieldset class="fieldsetAddMeal">
+                                <div class="tabEditMeal">
                                     <h2>@lang('message.recipe')</h2>
                                     <textarea id="editRecipeMeal" name="recipe" cols="50" rows="5" class="mb-2 form-control" form="editMealForm"></textarea>
-                                    <input type="button" name="previous" class="previous btn btn-secondary" value="@lang('pagination.previous')" />
-                                    <button type="submit" onclick="submitEditMeal()" class="btn btn-primary float-right">
-                                        {{ __('Speichern') }}
-                                    </button>
-                                </fieldset>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <button type="button" id="prevBtnEditMeal" class="btn btn-secondary" onclick="nextPrevEditMeal(-1)">@lang('pagination.previous')</button>
+                            <button type="button" id="nextBtnEditMeal" class="btn btn-primary float-right" onclick="nextPrevEditMeal(1)">@lang('pagination.next')</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
