@@ -74,10 +74,14 @@ form {
 }
 
 @media screen and ( max-width: 32rem ){
+    body{
+        background-image: none;
+    }
     .login-box {
         
         border-radius: 0px;
         padding: 5px;
+        padding-top: 20px;
         /* position: none; */
         /* top: 0;
         left: 0;
