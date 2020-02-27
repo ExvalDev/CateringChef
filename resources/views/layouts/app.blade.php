@@ -212,6 +212,16 @@
 </script>
 
 @elsedesktop
-<div><h1>Open in Desktop Browser</h1></div>
+<div class="text-center"><h1>Hello :) The current version is not mobile compatible. We are working on a Solution, to improve your work with CateringChef.</h1></div>
+<a href="{{ route('logout') }}" class="navResonsiveBtn nav-link mx-auto" data-toggle="tooltip" data-placement="right" title="Ausloggen"
+                                onclick="
+                                    event.preventDefault();
+                                    document.getElementById('logout-form').submit();
+                                ">
+                                {{ __('') }} Logout<i class="fas fa-sign-out-alt navIcon"></i>
+                            </a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
 @enddesktop
 </html>
