@@ -4,7 +4,10 @@
 <div class="mx-auto p-3 login-box"  >
     <div class="row justify-content-center">
             {{-- <img src="../img/LogoAnimation.gif" height="240" width="240" alt="Catering Chef" class="authLogo"> --}}
-            <video src="{{ asset('videos/LogoVideo.mp4')}}" alt="CateringChef" height="240" width="240" preload="auto" autoplay loop muted></video>
+            <video  height="240" width="240"  autoplay muted>
+                <source src="{{ asset('videos/LogoVideo.mp4')}}" type="video/mp4">
+                <img src="{{ asset('img/LogoOpen.png')}}" alt="CateringChef">
+            </video>
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
