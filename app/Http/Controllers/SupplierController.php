@@ -42,11 +42,10 @@ class SupplierController extends Controller
         {
             $countSuppliers += $supplier->count;
         }
-        Log::info($notification);
         return view('/supplier', [
             'suppliers' => $suppliers,
             'countSuppliers' => $countSuppliers,
-            ])->with($notification);
+            ]);
     }
 
     /**
