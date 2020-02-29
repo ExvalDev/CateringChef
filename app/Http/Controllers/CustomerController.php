@@ -20,10 +20,20 @@ class CustomerController extends Controller
         $customers = DB::select('select * from customers order by name asc');
         Mapper::map( 48.345118, 7.873039);
         foreach ($customers as $customer){
+            $loc = null;
+            try{
             $adr = ''.$customer->postcode . ' +'. $customer->place . ', ' . $customer->street . ' +' . $customer->house_number; 
             $loc =  Mapper::location($adr);
-        Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+        }catch (\Exception $e) {
+            $notification = array(
+                'message' => 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.',
+                'alert-type' => 'error'
+            );
         }
+        if ($loc != null) {
+            Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+        }
+    }
         $adultsTotal = DB::select('select COUNT(name) AS cntCustomers, SUM(adults) AS sumAdults, SUM(childrens) AS sumChildrens from customers');
         $cntCustomers = 0;
         $sumAdults = 0;

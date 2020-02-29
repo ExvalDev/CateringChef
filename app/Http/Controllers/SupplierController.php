@@ -21,21 +21,32 @@ class SupplierController extends Controller
         Mapper::map(48.345118, 7.873039);
         $suppliers = DB::select('select * from suppliers');
         foreach ($suppliers as $supplier){
+            $loc = null;
+            try{
             $adr = ''.$supplier->postcode . ' +'. $supplier->place . ', ' . $supplier->street . ' +' . $supplier->house_number; 
             $loc =  Mapper::location($adr);
-        Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+            }catch (\Exception $e) {
+                $notification = array(
+                    'message' => 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.',
+                    'alert-type' => 'error'
+                );
+            }
+            if ($loc != null) {
+                Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+            }
         }
+        
         $totalSuppliers = DB::select('select count(*) AS count from suppliers');
         $countSuppliers = 0;
         foreach ($totalSuppliers as $supplier)
         {
             $countSuppliers += $supplier->count;
         }
-
+        Log::info($notification);
         return view('/supplier', [
             'suppliers' => $suppliers,
             'countSuppliers' => $countSuppliers,
-            ]);
+            ])->with($notification);
     }
 
     /**
