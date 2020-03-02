@@ -25,10 +25,8 @@ class CustomerController extends Controller
             $adr = ''.$customer->postcode . ' +'. $customer->place . ', ' . $customer->street . ' +' . $customer->house_number; 
             $loc =  Mapper::location($adr);
         }catch (\Exception $e) {
-            $notification = array(
-                'message' => 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.',
-                'alert-type' => 'error'
-            );
+            $request->session()->flash('alert-type' ,'error');
+            $request->session()->flash('message' , 'Es konnten nicht alle Kunden angezeigt werden! Bitte Adressen überprüfen.');
         }
         if ($loc != null) {
             Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
