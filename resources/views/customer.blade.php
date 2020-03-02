@@ -68,7 +68,16 @@
     </div>
     {{------------------------------------- Customers Right Area -------------------------------------}}
     <div class="col-4 m-0 pb-4 pt-3 px-2 tableHeight">
-        <h1> &nbsp; </h1>
+        <div class="d-flex">
+            <h1>Karte</h1>
+            {{-- <button type="button"  
+                        class="btn mr-auto" 
+                        data-toggle="popover" 
+                        title="@lang('message.titleMap')" 
+                        data-content="@lang('message.infoMap')"
+                        ><h3><i class="fas fa-info-circle"></i></h3>
+            </button> --}}
+        </div>
         {{------------------------------------- Customers Map -------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
             

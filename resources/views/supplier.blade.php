@@ -70,7 +70,17 @@
     </div>
     {{------------------------------------- Supplier Right Area -------------------------------------}}
     <div class="col-4 m-0 pb-4 pt-3 px-2 tableHeight">
-        <h1> &nbsp; </h1>
+        <div class="d-flex">
+            <h1>Karte</h1>
+            {{-- <button type="button"  
+                        class="btn mr-auto" 
+                        data-toggle="popover" 
+                        title="@lang('message.titleMap')" 
+                        data-content="@lang('message.infoMap')"
+                        ><h3><i class="fas fa-info-circle"></i></h3>
+            </button> --}}
+        </div>
+        
         {{------------------------------------- Supplier Map -------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50  mb-2 d-flex flex-column" id="mapContainer">
             
@@ -78,21 +88,8 @@
         </div>
         {{------------------------------------ Supplier Stats ------------------------------------}}
         <div class="bg-white shadow-sm h-50 mh-50 d-flex flex-column">
-            <table>
-                <tr>
-                    <td>
-                        <h2 class="pt-2 px-2 float-right">Auswertung</h2>
-                    </td>
-                    <td>
-                        <button type="button"  
-                        class="btn mr-auto" 
-                        data-toggle="popover" 
-                        title="@lang('message.titleMap')" 
-                        data-content="@lang('message.infoMap')"
-                        ><h3><i class="fas fa-info-circle"></i></h3></button>       
-                    </td>
-                </tr>
-            </table> 
+            
+            <h2 class="pt-2 px-2 float-right">Auswertung</h2>   
             <hr class="w-100 my-2"/>
             <table class="table table-borderless">
                 <tbody>

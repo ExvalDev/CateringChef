@@ -3,11 +3,11 @@
 @section('content')
 <div class="mx-auto p-3 login-box"  >
     <div class="row justify-content-center">
-            {{-- <img src="../img/LogoAnimation.gif" height="240" width="240" alt="Catering Chef" class="authLogo"> --}}
-            <video  height="240" width="240"  autoplay muted>
+            <img src="../img/LogoOpen.png" height="237" width="215" alt="Catering Chef" class="authLogo">
+            {{-- <video  height="240" width="240"  autoplay muted>
                 <source src="{{ asset('videos/LogoVideo.mp4')}}" type="video/mp4">
-                <img src="{{ asset('img/LogoOpen.png')}}" alt="CateringChef">
-            </video>
+                <source src="{{ asset('videos/LogoVideo.ogv')}}" type="video/ogv"> 
+            </video> --}}
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
