@@ -16,7 +16,7 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         Mapper::map(48.345118, 7.873039);
         $suppliers = DB::select('select * from suppliers');
@@ -26,10 +26,9 @@ class SupplierController extends Controller
             $adr = ''.$supplier->postcode . ' +'. $supplier->place . ', ' . $supplier->street . ' +' . $supplier->house_number; 
             $loc =  Mapper::location($adr);
             }catch (\Exception $e) {
-                $notification = array(
-                    'message' => 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.',
-                    'alert-type' => 'error'
-                );
+                
+                $request->session()->flash('alert-type' ,'error');
+                $request->session()->flash('message' , 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.');
             }
             if ($loc != null) {
                 Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
