@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Customer;
 use Redirect,Response;
 use Mapper;
@@ -15,7 +16,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $customers = DB::select('select * from customers order by name asc');
         Mapper::map( 48.345118, 7.873039);
