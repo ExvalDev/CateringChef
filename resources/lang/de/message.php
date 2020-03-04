@@ -60,7 +60,7 @@ return [
     'titleMeal' => 'Bedienungshilfe Speisen',
     'infoMeal' => 'Die Speisen sind die wichtigsten Bestandteile des Systems. Zusammengesetzt aus verschiedenen Komponenten kann man sie im Speiseplan zur Planung verwenden.',
     'titleSupplier' => 'Bedienungshilfe Lieferanten',
-    'infoSupplier' => 'Hier werden die einzelnen Lieferanten erfasst. Angeben wird die Adresse, welche dann später in der Karte eingesehen werden kann. <br> Das ist ein Test',
+    'infoSupplier' => 'Hier werden die einzelnen Lieferanten erfasst. Angeben wird die Adresse, welche dann später in der Karte eingesehen werden kann.',
     'titleCustomer' => "Bedienungshilfe Kunden",
     'infoCustomer' => 'Hier werden die einzelnen Kunden erfasst. Angegeben werden die Anzahl der Erwachsenen und Kinder und die Standorte der Kunden, welche dann in der Karte eingesehen werden können.',
     'titleMenu' => 'Bedienungshilfe Speiseplan',
