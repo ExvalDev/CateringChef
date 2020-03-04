@@ -18,9 +18,10 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        Mapper::map(48.345118, 7.873039);
+        Mapper::map(48.345118, 7.873039, ['title'=>'Home Cateringfirma', 'icon' => '/img/home50.png']);
         $suppliers = DB::select('select * from suppliers');
         foreach ($suppliers as $supplier){
+           
             $loc = null;
             try{
             $adr = ''.$supplier->postcode . ' +'. $supplier->place . ', ' . $supplier->street . ' +' . $supplier->house_number; 
@@ -31,7 +32,8 @@ class SupplierController extends Controller
                 $request->session()->flash('message' , 'Es konnten nicht alle Lieferanten angezeigt werden! Bitte Adressen überprüfen.');
             }
             if ($loc != null) {
-                Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+                //Mapper::marker( $loc->getLatitude(), $loc->getLongitude(),['title'=>$supplier->name]);
+                Mapper::informationWindow($loc->getLatitude(), $loc->getLongitude(), $supplier->name . '<br>'. $supplier->street .' '. $supplier->house_number . '<br>' . $supplier->postcode . ' '. $supplier->place, ['open' => false, 'title'=>$supplier->name]);
             }
         }
         

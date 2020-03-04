@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customers = DB::select('select * from customers order by name asc');
-        Mapper::map( 48.345118, 7.873039);
+        Mapper::map( 48.345118, 7.873039,['title'=>'Home Cateringfirma', 'icon' => '/img/home50.png']);
         foreach ($customers as $customer){
             $loc = null;
             try{
@@ -30,7 +30,7 @@ class CustomerController extends Controller
             $request->session()->flash('message' , 'Es konnten nicht alle Kunden angezeigt werden! Bitte Adressen überprüfen.');
         }
         if ($loc != null) {
-            Mapper::marker( $loc->getLatitude(), $loc->getLongitude());
+            Mapper::informationWindow($loc->getLatitude(), $loc->getLongitude(), $customer->name . '<br>'. $customer->street .' '. $customer->house_number . '<br>' . $customer->postcode . ' '. $customer->place, ['open' => false, 'title'=>$customer->name]);
         }
     }
         $adultsTotal = DB::select('select COUNT(name) AS cntCustomers, SUM(adults) AS sumAdults, SUM(childrens) AS sumChildrens from customers');
