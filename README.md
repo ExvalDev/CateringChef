@@ -4,7 +4,7 @@
 <p>
     Version: 1.0 <br>
     Author: CateringChef Team <br>
-    <a href="hhtps://cateringchef.de">CateringChef.de</a><br>
+    <a href="https://cateringchef.de">CateringChef.de</a><br>
     <a href="mailto:info@cateringchef.de">info@cateringchef.de</a><br>
 </p>
 
