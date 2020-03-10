@@ -279,13 +279,14 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Start</span>
             </div>
-            <input class="form-control" type='date' name='startdate' placeholder="Start" required>
+            <input class="form-control" type='date' name='startdate' id='startDateInput' placeholder="Start" onchange="document.getElementById('endDateInput').min=this.value;" required>
             <div class="input-group-prepend">
               <span class="input-group-text">Ende</span>
             </div>
-            <input class="form-control" type='date' name='enddate' placeholder="Ende" required>
+            <input class="form-control" type='date' name='enddate' id='endDateInput' placeholder="Ende" min="document.getElementById('startDateInput').value" required>
           </div>
         </div>
+                 
         <div class="modal-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('message.close')</button>
