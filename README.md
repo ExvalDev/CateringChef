@@ -1,7 +1,16 @@
 <p align="center"><img src="https://cateringchef.de/img/LogoOpen.png" width="200"></p>
 
-##Requirements
-<h1>Installation</h1>
+<h1>CateringChef</h1>
+<p>
+    Version: 1.0 <br>
+    Author: Lämmle, Jall, Koch <br>
+    <a href="cateringchef.de">CateringChef.de</a><br>
+    <a href="mailto:info@cateringchef.de">info@cateringchef.de</a><br>
+    &copy; CateringChef<br>
+</p>
+
+
+<h2>1. Requirements</h3>
 <p>&raquo; LARAVEL based Application</p>
 <p>&raquo; Composer</p>
 <p>&raquo; NPM</p>
@@ -9,8 +18,7 @@
 <p>&raquo; MySQL</p>
 <p>&raquo; PHP</p>
 
+<h2>2. Use</h2>
+
 <p>The aim of the system is to reduce the enormous management effort and to make the planning of a meal plan as simple as possible. The modularity should not be lost, and the dishes can be put together according to the modular principle. Food consists of components, which in turn consist of individual ingredients. Customers can be clearly displayed and adapted at any time. The recipe quantities as well as the ingredient and shopping lists adapt automatically. The shopping list, which is sorted by supplier, can simply be generated.</p>
-
-
-
 
