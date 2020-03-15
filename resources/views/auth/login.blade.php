@@ -60,13 +60,25 @@
                     <a href="{{ route('password.request') }}">
                         {{ __('Passwort vergessen?') }}
                     </a>
+
                 @endif
+            </div>
+            <div id='foo_links'>
+                <div id='foo_link'>
+                <a href="{{ url('/impressum') }}"  title="Impressum">Impressum</a>
+                </div>
+                <div id='foo_link'>
+                <a href="{{ url('/datenschutz') }}" title="Datenschutz">Datenschutz</a>
+                </div>
             </div>
             
         </form>
     </div>
 </div>
 <div id='foo'>
+
+    <div id='foo_photo'>
     Photo by Lukas Blazek on Unsplash
+    </div>
 </div>
 @endsection

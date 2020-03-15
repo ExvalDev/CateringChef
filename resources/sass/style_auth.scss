@@ -71,7 +71,22 @@ form {
 {
     position: absolute;
     top: 96%;
-    right: 1%;
+    width: 100%;
+}
+#foo_photo
+{
+    float: right;
+}
+
+#foo_links a
+{
+    width: 50%;
+    float: left;
+}
+#foo_link
+{
+    text-align: center;
+    border: blue;
 }
 
 @media screen and ( max-width: 32rem ){
